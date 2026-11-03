@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaedehara Kazuha · SQL Sanctuary</title>
+    <!-- Google Fonts: Cinzel & Plus Jakarta Sans for Japanese poetic / clean modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/kazuha.css">
+</head>
+<body>
+    <!-- Canvas for floating maple leaves animation -->
+    <canvas id="maple-canvas"></canvas>
+
+    <div class="app-container">
+        <!-- Top Navigation & Banner Header -->
+        <header class="kazuha-header">
+            <div class="header-left">
+                <div class="kazuha-crest">
+                    <svg viewBox="0 0 100 100" class="crest-svg">
+                        <!-- Stylized Autumn Maple Leaf & Anemo Swirl -->
+                        <path d="M50 10 C52 30 70 25 85 35 C70 45 75 65 65 75 C60 65 52 85 50 90 C48 85 40 65 35 75 C25 65 30 45 15 35 C30 25 48 30 50 10 Z" fill="#d33e38" opacity="0.9" />
+                        <circle cx="50" cy="50" r="18" fill="none" stroke="#e5a953" stroke-width="2.5" stroke-dasharray="4,3" />
+                        <circle cx="50" cy="50" r="8" fill="#2dd4bf" />
+                    </svg>
+                </div>
+                <div class="title-group">
+                    <div class="brand-row">
+                        <h1>楓原万葉 · SQL SANCTUARY</h1>
+                        <span class="badge anemo-pill">Anemo · Teyvat Archives</span>
+                    </div>
+                    <p class="poetic-subtitle">"As one with the wind and clouds, let ancient queries take flight."</p>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="db-stats-group">
+                    <div class="stat-pill"><span class="stat-num" id="stat-chars">114</span> <span class="stat-label">Characters</span></div>
+                    <div class="stat-pill"><span class="stat-num" id="stat-weapons">103</span> <span class="stat-label">Weapons</span></div>
+                    <div class="stat-pill"><span class="stat-num" id="stat-artifacts">64</span> <span class="stat-label">Artifact Sets</span></div>
+                    <div class="stat-pill"><span class="stat-num" id="stat-builds">107</span> <span class="stat-label">Builds</span></div>
+                </div>
+                <button id="toggle-leaves-btn" class="icon-btn" title="Toggle Falling Maple Leaves">🍁</button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="tab-query">
+                <span class="tab-icon">⚡</span> Query Console
+            </button>
+            <button class="tab-btn" data-tab="tab-er">
+                <span class="tab-icon">🕸️</span> Visual ER Model
+            </button>
+            <button class="tab-btn" data-tab="tab-schema">
+                <span class="tab-icon">📖</span> Schema Explorer
+            </button>
+            <button class="tab-btn" data-tab="tab-showcase">
+                <span class="tab-icon">📜</span> Kazuha's Showcase
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- TAB 1: Query Console -->
+            <section id="tab-query" class="tab-pane active">
+                <div class="console-grid">
+                    <!-- Left: SQL Editor Card -->
+                    <div class="card editor-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="leaf-dot">🍁</span> SQL Command Editor
+                            </div>
+                            <div class="editor-actions">
+                                <span class="shortcut-tip">Run: <kbd>Ctrl+Enter</kbd> | Auto: <kbd>Ctrl+Space</kbd></span>
+                                <button id="format-btn" class="secondary-btn" title="Format query">Clean</button>
+                                <button id="clear-btn" class="secondary-btn" title="Clear query">Clear</button>
+                                <button id="run-btn" class="run-btn">
+                                    <span class="btn-icon">▶</span> Execute Query
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Editor Wrapper with VS Code-like Autocomplete -->
+                        <div class="editor-wrapper" id="editor-wrapper">
+                            <textarea id="sql-input" spellcheck="false" placeholder="-- Type your SELECT query here...
+-- IntelliSense autocomplete triggers automatically as you type!
+SELECT name, vision, region, base_atk
+FROM characters
+WHERE rarity = 5
+ORDER BY base_atk DESC
+LIMIT 8;"></textarea>
+
+                            <!-- Custom VS Code-style Autocomplete Dropdown (NO AI) -->
+                            <div id="autocomplete-box" class="autocomplete-box" style="display: none;">
+                                <div class="autocomplete-header">
+                                    <span id="ac-hint-text">SQL IntelliSense</span>
+                                    <span class="ac-key-tips">↑↓ Navigate · Tab Insert</span>
+                                </div>
+                                <ul id="autocomplete-list" class="autocomplete-list"></ul>
+                            </div>
+                        </div>
+
+                        <!-- Quick Keyword Ribbon -->
+                        <div class="quick-ribbon">
+                            <span class="ribbon-label">Quick Snippets:</span>
+                            <button class="snippet-tag" data-insert="SELECT * FROM characters LIMIT 10;">Characters</button>
+                            <button class="snippet-tag" data-insert="SELECT * FROM weapons WHERE rarity = 5;">5★ Weapons</button>
+                            <button class="snippet-tag" data-insert="SELECT * FROM artifact_sets WHERE name LIKE 'Prayers%';">Tiaras</button>
+                            <button class="snippet-tag" data-insert="SELECT * FROM character_builds WHERE tier_rating = 'SS';">SS Builds</button>
+                            <button class="snippet-tag" data-insert="JOIN character_builds cb ON characters.character_id = cb.character_id">JOIN Builds</button>
+                            <button class="snippet-tag" data-insert="GROUP BY region HAVING COUNT(*) > 5">GROUP BY</button>
+                        </div>
+                    </div>
+
+                    <!-- Right / Bottom: Query Results Card -->
+                    <div class="card results-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="leaf-dot">🍃</span> Query Output
+                                <span id="status-badge" class="status-badge idle">Ready</span>
+                            </div>
+                            <div class="result-actions" id="result-actions" style="display: none;">
+                                <input type="text" id="filter-results-input" placeholder="Search in results..." class="filter-input" />
+                                <button id="copy-sql-btn" class="secondary-btn" title="Copy SQL">Copy SQL</button>
+                                <button id="download-csv-btn" class="secondary-btn" title="Download CSV">Export CSV</button>
+                                <button id="download-json-btn" class="secondary-btn" title="Download JSON">Export JSON</button>
+                            </div>
+                        </div>
+
+                        <div class="results-container" id="results-container">
+                            <div class="empty-state">
+                                <div class="empty-leaf">🍁</div>
+                                <h3>No Query Executed Yet</h3>
+                                <p>Select an example from the ribbon, load a query from <strong>Kazuha's Showcase</strong>, or write your own custom SQL above.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: Visual ER Model -->
+            <section id="tab-er" class="tab-pane">
+                <div class="card er-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="leaf-dot">🍁</span> Relational Entity-Relationship (ER) Architecture
+                        </div>
+                        <span class="badge gold-pill">Strict Foreign Key Enforcement (PRAGMA foreign_keys = ON)</span>
+                    </div>
+
+                    <div class="er-visual-container">
+                        <div class="er-legend">
+                            <span class="legend-item"><span class="badge pk-badge">PK</span> Primary Key</span>
+                            <span class="legend-item"><span class="badge fk-badge">FK</span> Foreign Key</span>
+                            <span class="legend-item"><span class="badge req-badge">REQ</span> NOT NULL</span>
+                            <span class="legend-item"><span class="connector-indicator">─ ─ ─</span> 1-to-Many Relational Link</span>
+                        </div>
+
+                        <!-- ER Nodes Grid -->
+                        <div class="er-grid" id="er-nodes">
+                            <!-- Character Node -->
+                            <div class="er-node" id="node-characters">
+                                <div class="node-header">
+                                    <span class="node-icon">👤</span>
+                                    <span class="node-name">characters</span>
+                                    <span class="node-count" id="er-count-characters">114 rows</span>
+                                </div>
+                                <div class="node-body">
+                                    <div class="col-row is-pk"><span class="badge pk-badge">PK</span> <span class="col-name">character_id</span> <span class="col-type">INT</span></div>
+                                    <div class="col-row"><span class="badge req-badge">REQ</span> <span class="col-name">name</span> <span class="col-type">TEXT (UK)</span></div>
+                                    <div class="col-row"><span class="badge req-badge">REQ</span> <span class="col-name">rarity</span> <span class="col-type">INT (4, 5)</span></div>
+                                    <div class="col-row"><span class="badge req-badge">REQ</span> <span class="col-name">vision</span> <span class="col-type">TEXT</span></div>
+                                    <div class="col-row"><span class="badge req-badge">REQ</span> <span class="col-name">weapon_type</span> <span class="col-type">TEXT</span></div>
+                                    <div class="col-row"><span class="badge req-badge">REQ</span> <span class="col-name">region</span> <span class="col-type">TEXT (8 Regions)</span></div>
+                                    <div class="col-row"><span class="col-name">base_hp / atk / def</span> <span class="col-type">INT</span></div>
+                                    <div class="col-row"><span class="col-name">talent_priority</span> <span class="col-type">TEXT (Game8)</span></div>
+                                    <div class="col-row"><span class="col-name">release_patch</span> <span class="col-type">REAL</span></div>
+                                </div>
+                            </div>
+
+                            <!-- Weapons Node -->
+                            <div class="er-node" id="node-weapons">
+                                <div class="node-header">
+                                    <span class="node-icon">🗡️</span>
+                                    <span class="node-name">weapons</span>
+                                    <span class="node-count" id="er-count-weapons">103 rows</span>
+                                </div>
+                                <div class="node-body">
+                                    <div class="col-row is-pk"><span class="badge pk-badge">PK</span> <span class="col-name">weapon_id</span> <span class="col-type">INT</span></div>
+                                    <div class="col-row"><span class="badge req-badge">REQ</span> <span class="col-name">name</span> <span class="col-type">TEXT (UK)</span></div>
+                                    <div class="col-row"><span class="badge req-badge">REQ</span> <span class="col-name">weapon_type</span> <span class="col-type">TEXT</span></div>
+                                    <div class="col-row"><span class="badge req-badge">REQ</span> <span class="col-name">rarity</span> <span class="col-type">INT (3, 4, 5)</span></div>
+                                    <div class="col-row"><span class="col-name">base_atk</span> <span class="col-type">INT</span></div>
+                                    <div class="col-row"><span class="col-name">sub_stat_type / val</span> <span class="col-type">TEXT / REAL</span></div>
+                                    <div class="col-row"><span class="col-name">is_craftable</span> <span class="col-type">INT (0, 1)</span></div>
+                                    <div class="col-row is-fk"><span class="badge fk-badge">FK</span> <span class="col-name">signature_character_id</span> <span class="col-type">→ characters</span></div>
+                                </div>
+                            </div>
+
+                            <!-- Artifact Sets Node -->
+                            <div class="er-node" id="node-artifacts">
+                                <div class="node-header">
+                                    <span class="node-icon">🌸</span>
+                                    <span class="node-name">artifact_sets</span>
+                                    <span class="node-count" id="er-count-artifacts">64 rows</span>
+                                </div>
+                                <div class="node-body">
+                                    <div class="col-row is-pk"><span class="badge pk-badge">PK</span> <span class="col-name">artifact_set_id</span> <span class="col-type">INT</span></div>
+                                    <div class="col-row"><span class="badge req-badge">REQ</span> <span class="col-name">name</span> <span class="col-type">TEXT (UK)</span></div>
+                                    <div class="col-row"><span class="col-name">domain_name</span> <span class="col-type">TEXT</span></div>
+                                    <div class="col-row"><span class="col-name">region</span> <span class="col-type">TEXT</span></div>
+                                    <div class="col-row"><span class="col-name">two_piece_bonus</span> <span class="col-type">TEXT</span></div>
+                                    <div class="col-row"><span class="col-name">four_piece_bonus</span> <span class="col-type">TEXT</span></div>
+                                </div>
+                            </div>
+
+                            <!-- Character Builds Node (Central Junction) -->
+                            <div class="er-node highlight-junction" id="node-builds">
+                                <div class="node-header">
+                                    <span class="node-icon">⚔️</span>
+                                    <span class="node-name">character_builds</span>
+                                    <span class="node-count" id="er-count-builds">107 rows</span>
+                                </div>
+                                <div class="node-body">
+                                    <div class="col-row is-pk"><span class="badge pk-badge">PK</span> <span class="col-name">build_id</span> <span class="col-type">INT</span></div>
+                                    <div class="col-row is-fk"><span class="badge fk-badge">FK</span> <span class="col-name">character_id</span> <span class="col-type">→ characters</span></div>
+                                    <div class="col-row"><span class="col-name">build_name</span> <span class="col-type">TEXT</span></div>
+                                    <div class="col-row"><span class="col-name">role</span> <span class="col-type">TEXT</span></div>
+                                    <div class="col-row is-fk"><span class="badge fk-badge">FK</span> <span class="col-name">recommended_weapon_id</span> <span class="col-type">→ weapons</span></div>
+                                    <div class="col-row is-fk"><span class="badge fk-badge">FK</span> <span class="col-name">recommended_artifact_id</span> <span class="col-type">→ artifact_sets</span></div>
+                                    <div class="col-row"><span class="col-name">sands_stat</span> <span class="col-type">TEXT</span></div>
+                                    <div class="col-row"><span class="col-name">goblet_stat</span> <span class="col-type">TEXT</span></div>
+                                    <div class="col-row"><span class="col-name">circlet_stat</span> <span class="col-type">TEXT</span></div>
+                                    <div class="col-row"><span class="col-name">tier_rating</span> <span class="col-type">TEXT (SS, S+, S, A)</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SVG Connectors Overlay -->
+                        <div class="er-description-box">
+                            <h4>Relational Foreign Key Map:</h4>
+                            <ul>
+                                <li><code>character_builds.character_id</code> ➔ <strong>characters.character_id</strong> (Cascades on delete)</li>
+                                <li><code>character_builds.recommended_weapon_id</code> ➔ <strong>weapons.weapon_id</strong> (Guarantees weapon exists)</li>
+                                <li><code>character_builds.recommended_artifact_id</code> ➔ <strong>artifact_sets.artifact_set_id</strong> (Guarantees set exists)</li>
+                                <li><code>weapons.signature_character_id</code> ➔ <strong>characters.character_id</strong> (Nullable: allows generalist/standard weapons)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: Schema Explorer -->
+            <section id="tab-schema" class="tab-pane">
+                <div class="schema-layout">
+                    <div class="schema-search-bar">
+                        <input type="text" id="schema-filter" placeholder="Search tables or columns (e.g. 'base_atk', 'sands', 'vision')..." />
+                    </div>
+                    <div class="schema-accordion-container" id="schema-accordion">
+                        <!-- Populated dynamically via /api/schema -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: Showcase Queries -->
+            <section id="tab-showcase" class="tab-pane">
+                <div class="showcase-container">
+                    <div class="showcase-intro">
+                        <h3>🍁 Kazuha's Master SQL Anthology</h3>
+                        <p>Explore these pre-built, production-quality queries designed to teach you every core read pattern. Click <strong>"Load in Editor"</strong> on any query to run it immediately!</p>
+                    </div>
+                    <div class="showcase-grid" id="showcase-grid">
+                        <!-- Populated dynamically via /api/samples -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="kazuha-footer">
+            <p>Kaedehara Kazuha SQL Sanctuary · Crafted for Relational Mastery · <em>"Wherever in this world I may roam, knowledge is my true home."</em></p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/kazuha.js"></script>
+</body>
+</html>

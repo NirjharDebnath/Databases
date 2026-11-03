@@ -1,0 +1,108 @@
+build_id,character_id,build_name,role,recommended_weapon_id,recommended_artifact_id,sands_stat,goblet_stat,circlet_stat,tier_rating,playstyle_notes
+301,70,Signature Hydro Hypercarry,Main DPS,101,47,HP%,Hydro DMG,CRIT DMG,SS,Charges Equitable Judgment to unleash devastating Hydro beams scaling off Max HP
+302,70,F2P Prototype Beam,Main DPS,171,47,HP%,Hydro DMG,CRIT Rate,S+,Uses Prototype Amber to solve energy requirements while boosting HP%
+303,70,Sacrificial Jade BP Carry,Main DPS,162,47,HP%,Hydro DMG,CRIT DMG,SS,Battle Pass weapon giving massive CRIT Rate and off-field HP/EM buffs
+304,71,Salon Solitaire Sub-DPS,Sub-DPS,102,48,HP%,HP%,CRIT Rate,SS,Drains team HP via salon members to generate massive universal Fanfare damage buff
+305,71,F2P Ferryman Buffer,Sub-DPS,188,48,Energy Recharge,Hydro DMG,CRIT Rate,S+,Solves high ER requirement to ensure continuous 100% Burst uptime
+306,71,Key of Khaj-Nisut Team EM Buffer,Support,116,33,HP%,HP%,HP%,SS,Converts huge HP pool into teamwide Elemental Mastery buffs
+307,72,BoL Crimson Hypercarry,Main DPS,103,51,ATK%,Pyro DMG,CRIT Rate,SS,Absorbs Blood-Debt Directives into Bond of Life for Pyro infused Normal Attacks
+308,72,F2P White Tassel Carry,Main DPS,201,51,ATK%,Pyro DMG,CRIT DMG,S,Leverages White Tassel R5 massive normal attack multiplier
+309,72,Gladiator's Finale Veteran Carry,Main DPS,103,19,ATK%,Pyro DMG,CRIT Rate,S+,High convenience farmable set providing 35% normal attack damage bonus
+310,73,Gunbrella Shotgun Carry,Main DPS,123,50,ATK%,Geo DMG,CRIT Rate,S+,Collects Crystallize Shrapnel to fire point-blank explosive Gunbrella blasts
+311,73,Serpent Spine BP Cannon,Main DPS,154,50,ATK%,Geo DMG,CRIT DMG,S+,Stacks Serpent Spine damage buffs protected by Crystallize shields
+312,74,BoL Electro Pistoleer,Main DPS,124,51,ATK%,Electro DMG,CRIT DMG,S+,Alternates between swift pistol shots and lunging thrusts scaling with Bond of Life
+313,74,Black Sword Electro Duellist,Main DPS,153,51,ATK%,Electro DMG,CRIT DMG,S,Battle Pass sword boosting normal attack multipliers with self-healing
+314,75,Cryo Brawler Hypercarry,Main DPS,122,47,ATK%,Cryo DMG,CRIT Rate,S+,Infuses punch combos with Cryo while managing HP fluctuation for Marechaussee stacks
+315,75,Widsith Melt Puncher,Main DPS,196,47,Elemental Mastery,Cryo DMG,CRIT Rate,S+,Huge burst damage in Melt teams with Bennett and Xiangling
+316,76,Mono-Pyro Trickster,Main DPS,121,47,ATK%,Pyro DMG,CRIT DMG,S+,Fires Prop Arrows to summon Grin-Malkin Hats for massive Pyro burst damage
+317,77,Burning Sub-DPS Lumidouce,Sub-DPS,126,52,ATK%,Dendro DMG,CRIT Rate,S+,Levels up Lumidouce Case against burning enemies for continuous off-field Dendro DMG
+318,78,Bubble Healer & Buffer,Healer,125,49,HP%,HP%,HP%,S,Blows bouncing soothing bubbles to heal team and buff off-field skill damage
+319,40,Emblem Burst Hypercarry,Main DPS,104,36,Energy Recharge,Electro DMG,CRIT Rate,SS,Unleashes Musou no Hitotachi and acts as universal team energy battery
+320,40,F2P The Catch National Driver,Sub-DPS,187,36,Energy Recharge,ATK%,CRIT Rate,SS,Powers Xiangling and Xingqiu rotations with seamless burst uptime
+321,40,Full EM Hyperbloom Trigger,Sub-DPS,175,44,Elemental Mastery,Elemental Mastery,Elemental Mastery,SS,"Triggers 30,000+ Hyperbloom damage per core using Dragon's Bane or Kitain Cross"
+322,56,Deepwood Off-Field Catalyst,Sub-DPS,105,41,Elemental Mastery,Elemental Mastery,Elemental Mastery,SS,Links up to 8 enemies with Tri-Karma Purification and provides up to 250 EM buff
+323,56,Gilded Aggravate Driver,Main DPS,113,42,Elemental Mastery,Dendro DMG,CRIT Rate,S+,High-crit spread driver using Shrine of Maya on field
+324,56,F2P Sacrificial Bloom Support,Support,194,41,Elemental Mastery,Elemental Mastery,Elemental Mastery,SS,Budget catalyst providing massive flat EM and skill cooldown reset
+325,41,Viridescent Swirl Emperor,Support,106,24,Elemental Mastery,Elemental Mastery,Elemental Mastery,SS,Groups enemies and shreds 40% elemental RES while granting massive elemental DMG%
+326,41,F2P Iron Sting Buffer,Support,164,24,Elemental Mastery,Elemental Mastery,Elemental Mastery,SS,Accessible forgeable weapon giving consistent team buffs
+327,41,Favonius Team Battery,Support,188,24,Elemental Mastery,Elemental Mastery,CRIT Rate,SS,Solves ER bottlenecks across high-cost burst team compositions
+328,20,Tenacity Shieldbot,Shielder,107,33,HP%,HP%,HP%,SS,Provides completely unbreakable Jade Shield and 20% universal resistance shred
+329,20,F2P Black Tassel Protector,Shielder,202,33,HP%,HP%,HP%,SS,Max HP optimization for total invulnerability
+330,20,Planet Befall Burst Nuke,Sub-DPS,107,21,HP%,Geo DMG,CRIT Rate,S+,Drops petrifying meteorites dealing massive AOE Geo damage
+331,21,Vaporize Charged Carry,Main DPS,107,30,HP%,Pyro DMG,CRIT Rate,SS,Converts HP to ATK via Guide to Afterlife for massive vaporize charged strikes
+332,21,F2P Dragon's Bane Vape,Main DPS,198,30,HP%,Pyro DMG,CRIT DMG,S+,Heavy elemental mastery weapon for huge vaporize multipliers
+333,21,Shimenawa Reminiscence Heavy Striker,Main DPS,107,35,HP%,Pyro DMG,CRIT Rate,S+,Trades burst availability for 50% stronger charged attacks
+334,24,Exquisite Dice Sub-DPS,Sub-DPS,109,36,HP%,Hydro DMG,CRIT Rate,SS,Coordinates off-field hydro darts with active attacks and ramps team damage
+335,24,Favonius Team Battery,Sub-DPS,190,36,Energy Recharge,Hydro DMG,CRIT Rate,SS,Guarantees 100% burst uptime while supplying team particles
+336,8,Noblesse Fantastic Voyage,Support,143,21,Energy Recharge,HP%,Healing Bonus,SS,"The premier attack buffer in Teyvat, heals up to 70% and grants huge flat ATK"
+337,8,F2P Favonius Battery,Support,188,21,Energy Recharge,HP%,Healing Bonus,SS,High energy generation for demanding Pyro burst carries
+338,8,Sapwood Blade Sumeru Buffer,Support,178,21,Energy Recharge,HP%,Healing Bonus,SS,Craftable Sumeru sword boosting EM while granting high base ATK
+339,30,Emblem Pyronado Queen,Sub-DPS,187,36,Energy Recharge,Pyro DMG,CRIT Rate,SS,No ICD off-field spinning Pyronado snapshotting Bennett buff
+340,30,Staff of Scarlet Sands Vape Carry,Sub-DPS,118,36,Elemental Mastery,Pyro DMG,CRIT Rate,SS,High-investment build converting EM into massive attack
+341,31,Raincutter Hydro Enabler,Sub-DPS,193,36,ATK%,Hydro DMG,CRIT Rate,SS,"Consistent hydro application, damage reduction, and interruption resistance"
+342,31,Favonius Battery Enabler,Sub-DPS,188,36,Energy Recharge,Hydro DMG,CRIT Rate,SS,Double particle trigger for energy-starved carries
+343,57,Foliar Incision Mirror Carry,Main DPS,110,42,Elemental Mastery,Dendro DMG,CRIT Rate,SS,Generates Chisel-Light Mirrors for lightning-fast Dendro projection attacks
+344,57,Iron Sting F2P Spread Carry,Main DPS,164,42,Elemental Mastery,Dendro DMG,CRIT Rate,S+,Craftable sword boosting elemental damage upon dealing elemental hits
+345,59,Bountiful Bloom Core,Sub-DPS,116,46,HP%,HP%,HP%,SS,Transforms Dendro Cores into instant-exploding Bountiful Cores with massive AOE
+346,59,F2P Iron Sting Bloom Driver,Sub-DPS,164,46,HP%,HP%,HP%,S+,Budget option providing high EM when Key of Khaj-Nisut is unavailable
+347,42,Blizzard Soumetsu Hypercarry,Main DPS,108,31,ATK%,Cryo DMG,CRIT DMG,S+,Unleashes 20-hit Frostflake Sekki slicing frozen enemies
+348,42,Amenoma Kageuchi Craftable Carry,Main DPS,173,31,ATK%,Cryo DMG,CRIT DMG,S+,Inazuma craftable refunding flat energy after every burst
+349,23,Bane of All Evil Plunge Carry,Main DPS,135,39,ATK%,Anemo DMG,CRIT Rate,S+,High-jump plunging attacks across wide enemy waves during Yaksha mask
+350,23,Long Night's Oath Modern Plunger,Main DPS,135,56,ATK%,Anemo DMG,CRIT Rate,SS,Takes full advantage of the Natlan plunging attack set with Xianyun
+351,22,Amos Frostflake Sniper,Main DPS,134,20,ATK%,Cryo DMG,CRIT Rate,S+,Bloom-exploding charged shots dealing long-range devastation
+352,22,Blizzard Strayer Morgana Freeze,Main DPS,134,31,ATK%,Cryo DMG,CRIT DMG,S+,Permafreeze team driver with Venti and Mona
+353,101,International Riptide Driver,Main DPS,111,32,ATK%,Hydro DMG,CRIT Rate,S+,Triggers cascading Hydro Riptide slashes in melee stance for Xiangling vapes
+354,43,Niwabi Fire-Dance Carry,Main DPS,112,35,ATK%,Pyro DMG,CRIT Rate,S+,Rapid single-target blazing arrow volleys vaporizing enemies from afar
+355,43,Rust Normal Attack Blaster,Main DPS,197,35,ATK%,Pyro DMG,CRIT Rate,S+,Signature 4-star bow providing up to 80% normal attack damage bonus
+356,44,Ocean-Hued Jellyfish Healer,Healer,200,38,HP%,Hydro DMG,Healing Bonus,SS,Unrivaled continuous AOE Hydro application and teamwide healing
+357,44,Tenacity Freeze Enabler,Support,200,33,HP%,HP%,Healing Bonus,SS,Holds Thrilling Tales and Tenacity to buff Ayaka's ATK by 68%
+358,45,Redhorn Geo Bull Chucker,Main DPS,114,37,DEF%,Geo DMG,CRIT Rate,S+,Unleashes fierce Arataki Kesagiri charged slashes scaling with Defense
+359,45,Whiteblind F2P Geo Slasher,Main DPS,165,37,DEF%,Geo DMG,CRIT Rate,S,Forgeable claymore stacking DEF and ATK upon hitting enemies
+360,46,Sesshou Sakura Sub-DPS,Sub-DPS,113,48,ATK%,Electro DMG,CRIT Rate,S+,Plants 3 lightning totems for constant off-field electro strikes and burst nuke
+361,46,Gilded Dreams Aggravate Totem,Sub-DPS,113,42,Elemental Mastery,Electro DMG,CRIT Rate,S+,Scales skill damage from EM in Dendro Quicken teams
+362,58,Windfavored Aerial Carry,Main DPS,119,43,ATK%,Anemo DMG,CRIT Rate,S+,Hovers in the air firing rapid wind blades immune to melee ground attacks
+363,28,Seamless Shield & Healing,Healer,136,41,HP%,HP%,HP%,S+,"Provides continuous healing, small reactive shields, and Dendro reaction buff"
+364,29,Cloud Retainer Plunge Enabler,Healer,137,21,ATK%,ATK%,ATK%,S+,Enables any character to perform massive plunging attacks with huge flat ATK buffs
+365,48,Automaton Puppet Sub-DPS,Sub-DPS,138,48,DEF%,Geo DMG,CRIT Rate,S+,Summons Sode dolls that coordinate with Geo constructs for heavy dual-scaling damage
+366,83,Surf's Up Sharky Vaporize,Main DPS,127,54,HP%,Hydro DMG,CRIT Rate,SS,Surfs into enemies stacking Wavechaser to fire massive single-hit Sharky Bites
+367,83,F2P Ring of Yaxche Surfer,Main DPS,186,54,HP%,Hydro DMG,CRIT DMG,S+,Natlan craftable catalyst boosting normal attack damage scaling on HP
+368,84,Mountain King Burgeon Cannon,Main DPS,128,54,ATK%,Dendro DMG,CRIT Rate,SS,Grapples around targets in loop movement to unleash powerful Scalespiker Cannon shots
+369,84,Earth Shaker Craftable Burgeon,Main DPS,183,54,ATK%,Dendro DMG,CRIT Rate,S+,Natlan craftable boosting skill damage when triggering Pyro reactions
+370,85,Peak Patrol Triple Buffer,Support,129,53,DEF%,DEF%,DEF%,SS,Rolls on roller skates to shred elemental resistances and heal team based on DEF
+371,85,F2P Favonius Shredder,Support,188,53,DEF%,DEF%,CRIT Rate,SS,Provides universal particle generation while triggering Cinder City elemental buffs
+372,86,Astral Vulture Multi-Element,Main DPS,130,54,ATK%,Anemo DMG,CRIT DMG,S+,Flies in Soulsnatcher state loading multi-elemental Shadowhunt Shells into her sniper bow
+373,87,Blazing Suns Pyro Sovereign,Main DPS,131,54,ATK%,Pyro DMG,CRIT Rate,SS,Natlan Pyro powerhouse riding her flaming motorcycle with immense elemental burst damage
+374,88,Starcaller Shield & Cryo Enabler,Support,132,53,Elemental Mastery,Elemental Mastery,Elemental Mastery,S+,Shields and enables Melt compositions using Nightsoul mechanics
+375,89,Twirly Whirly Cinder Buffer,Sub-DPS,189,53,DEF%,Geo DMG,DEF%,S,Drives turbo drill while triggering Cinder City 40% elemental damage buff for teammates
+376,92,Borderlands Automaton Sub-DPS,Sub-DPS,103,48,ATK%,Electro DMG,CRIT Rate,SS,Nod-Krai mechanical enabler unleashing periodic electro pulses
+377,93,Lightkeeper Dendro Anchor,Support,105,41,Elemental Mastery,Dendro DMG,Elemental Mastery,SS,Nod-Krai archivist providing deepwood shred and elemental amplification
+378,94,Thunderous Lightkeeper Carry,Main DPS,103,36,ATK%,Electro DMG,CRIT Rate,SS,Aggressive polearm combatant commanding Nod-Krai lightning storms
+379,102,Moon Maiden Hydro Symphony,Sub-DPS,101,59,HP%,Hydro DMG,CRIT Rate,SS,Harbinger song resonance dealing echoing off-field hydro damage and lunar buffs
+380,103,Marionette Construct Commander,Support,145,50,ATK%,Geo DMG,CRIT Rate,SS,Commands mechanical guard marionettes to protect and buff active characters
+381,104,Apex Cryo Juggernaut,Main DPS,141,55,ATK%,Cryo DMG,CRIT Rate,SS,Snezhnaya's First Harbinger delivering overwhelming physical and cryo devastation
+382,1,Wind's Grand Ode Crowd Control,Support,140,24,Energy Recharge,Anemo DMG,CRIT Rate,S+,Unmatched black hole vortex grouping all lightweight enemies indefinitely
+383,2,Crimson Witch Searing Onslaught,Main DPS,141,30,ATK%,Pyro DMG,CRIT Rate,S,Classic 3-stage elemental skill weaving normal attacks with fiery phoenix burst
+384,3,Dandelion Breeze Sunfire Healer,Healer,188,21,ATK%,Anemo DMG,Healing Bonus,S+,Pairs with Bennett for rapid self-swirl Sunfire pyro melting
+385,4,Sparks 'n' Splash Pyro Bomber,Main DPS,196,30,ATK%,Pyro DMG,CRIT Rate,S,Throws bouncy Jumpty Dumpties and laser sparks for heavy poise damage
+386,5,Stellaris Phantasm Nuke Enabler,Sub-DPS,196,21,Energy Recharge,Hydro DMG,CRIT Rate,S+,Applies Omen debuff granting up to 60% damage amplification
+387,6,Solar Isotoma Transient Blossom,Sub-DPS,182,37,DEF%,Geo DMG,CRIT Rate,S+,Places elevator flower triggering consistent off-field Geo DEF-scaling blossoms
+388,7,Lightfall Sword Physical Nuke,Main DPS,133,34,ATK%,Physical DMG,CRIT Rate,S+,Stacks energy during Glacial Illumination to detonate multi-million physical bomb
+389,9,Golden Troupe Oz Battery,Sub-DPS,109,48,ATK%,Electro DMG,CRIT Rate,SS,Oz machine gun applying rapid Electro and generating nonstop particles
+390,10,Swirl Battery & EM Sharer,Support,194,24,Elemental Mastery,Elemental Mastery,Elemental Mastery,S+,Shares 20% of her EM to all teammates while holding Thrilling Tales or Sac Fragments
+391,25,Aggravate Starward Sword,Main DPS,108,36,ATK%,Electro DMG,CRIT Rate,S+,Fast blink teleports and multi-slash burst triggering nonstop Aggravate reactions
+392,27,Icy Quill Cryo Buffer,Support,135,21,ATK%,ATK%,ATK%,S+,Grants flat damage buffs to every Cryo hit based on her own total ATK
+393,53,Full EM Hyperbloom Ring,Healer,164,44,Elemental Mastery,Elemental Mastery,Elemental Mastery,SS,Sanctifying Ring detonates Dendro cores every 1.5s while healing active character
+394,67,Anemo Dedicated Res Shredder,Support,190,21,Energy Recharge,Anemo DMG,CRIT Rate,SS,Shreds 30% Anemo RES and buffs Anemo DMG for Wanderer and Xiao carries
+395,82,Overload Resistance Shredder,Support,202,21,HP%,HP%,HP%,SS,Enables Overload comps to shred 40% Pyro & Electro RES and buff ATK up to 40%
+396,39,Man Chai Plunging Vaporizer,Main DPS,183,47,ATK%,Pyro DMG,CRIT Rate,S+,Leaps high into the air with Man Chai companion for massive plunge vaporize melts
+397,60,Scarlet Sands Quickbloom,Main DPS,118,42,Elemental Mastery,Electro DMG,CRIT Rate,S+,Enters Pactsworn Pathclearer state weaving endseer dustfalls during burst
+398,61,Hunter's Path Spread Sniper,Main DPS,117,20,Elemental Mastery,Dendro DMG,CRIT DMG,S+,Fires three rapid Wreath Arrows tracking targets with cluster shafts
+399,47,Haran Shunsuiken Slasher,Main DPS,115,32,ATK%,Hydro DMG,CRIT Rate,S+,Enters Takimeguri Kanka state slashing Hydro waves with rapid attack speed
+400,62,Vourukasha Flame-Mane Burst,Sub-DPS,120,46,HP%,Pyro DMG,CRIT Rate,S,Mitigates party damage into Redmane's Blood while delivering blazing punch combos
+401,106,Chenyu Rattan Swirl Buffer,Support,194,24,Elemental Mastery,Elemental Mastery,Elemental Mastery,S+,Applies continuous Anemo swirl and shares Elemental Mastery with party
+402,107,Baku Illusionist Swirl Sub-DPS,Sub-DPS,113,24,ATK%,Anemo DMG,CRIT Rate,S+,Inazuma clinical psychologist unleashing phantasmal swirl illusions
+403,108,Masked Hero Thunder Plunge,Main DPS,149,56,ATK%,Electro DMG,CRIT Rate,SS,Natlan warrior delivering heavy plunging Electro strikes using Long Night's Oath
+404,112,Lea Lotus Lamp Bloom Support,Sub-DPS,178,41,Energy Recharge,Dendro DMG,CRIT Rate,S+,Summons Lea Lotus Lamp reacting with Hydro and Electro for huge Bloom utility
+405,110,Starfell Sword Geo Construct,Sub-DPS,153,25,ATK%,Geo DMG,CRIT Rate,S,Drops massive Starfell meteors granting party 10% CRIT Rate inside Wake of Earth
+406,109,Palm Vortex Resistance Shredder,Support,164,24,Elemental Mastery,Anemo DMG,Elemental Mastery,S,Early-game Anemo shredder pulling enemies into tornado burst
+407,114,Nightsoul Blazing Sword,Main DPS,179,54,ATK%,Pyro DMG,CRIT Rate,S+,Channels Natlan sacred flames utilizing Obsidian Codex Nightsoul bonuses

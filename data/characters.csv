@@ -1,0 +1,115 @@
+character_id,name,rarity,vision,weapon_type,region,default_role,base_hp,base_atk,base_def,talent_priority,release_patch
+1,Venti,5,Anemo,Bow,Mondstadt,Support,10531,263,669,Burst > Skill > Normal,1.0
+2,Diluc,5,Pyro,Claymore,Mondstadt,Main DPS,12981,335,784,Skill = Burst > Normal,1.0
+3,Jean,5,Anemo,Sword,Mondstadt,Healer,14695,239,769,Burst > Skill > Normal,1.0
+4,Klee,5,Pyro,Catalyst,Mondstadt,Main DPS,10287,311,615,Burst = Skill = Normal,1.0
+5,Mona,5,Hydro,Catalyst,Mondstadt,Sub-DPS,10409,287,653,Burst > Skill > Normal,1.0
+6,Albedo,5,Geo,Sword,Mondstadt,Sub-DPS,13226,251,876,Skill > Burst > Normal,1.2
+7,Eula,5,Cryo,Claymore,Mondstadt,Main DPS,13226,342,751,Burst > Skill > Normal,1.5
+8,Bennett,4,Pyro,Sword,Mondstadt,Support,12397,191,771,Burst > Skill > Normal,1.0
+9,Fischl,4,Electro,Bow,Mondstadt,Sub-DPS,9189,244,594,Skill > Burst > Normal,1.0
+10,Sucrose,4,Anemo,Catalyst,Mondstadt,Support,9244,170,703,Skill = Burst > Normal,1.0
+11,Barbara,4,Hydro,Catalyst,Mondstadt,Healer,9787,159,669,Burst = Skill > Normal,1.0
+12,Razor,4,Electro,Claymore,Mondstadt,Main DPS,11962,234,751,Burst = Normal > Skill,1.0
+13,Noelle,4,Geo,Claymore,Mondstadt,Shielder,12071,191,799,Normal > Burst > Skill,1.0
+14,Kaeya,4,Cryo,Sword,Mondstadt,Sub-DPS,11636,223,792,Burst > Skill > Normal,1.0
+15,Lisa,4,Electro,Catalyst,Mondstadt,Sub-DPS,9570,232,573,Burst > Skill > Normal,1.0
+16,Amber,4,Pyro,Bow,Mondstadt,Sub-DPS,9461,223,601,Burst > Skill > Normal,1.0
+17,Diona,4,Cryo,Bow,Mondstadt,Shielder,9570,212,601,Skill > Burst > Normal,1.1
+18,Rosaria,4,Cryo,Polearm,Mondstadt,Sub-DPS,12289,240,710,Burst > Skill > Normal,1.4
+19,Mika,4,Cryo,Polearm,Mondstadt,Healer,12506,223,713,Burst = Skill > Normal,3.5
+20,Zhongli,5,Geo,Polearm,Liyue,Shielder,14695,251,738,Skill > Burst > Normal,1.1
+21,Hu Tao,5,Pyro,Polearm,Liyue,Main DPS,15552,106,876,Normal > Skill > Burst,1.3
+22,Ganyu,5,Cryo,Bow,Liyue,Main DPS,9797,335,630,Normal > Burst > Skill,1.2
+23,Xiao,5,Anemo,Polearm,Liyue,Main DPS,12720,349,799,Normal > Burst > Skill,1.3
+24,Yelan,5,Hydro,Bow,Liyue,Sub-DPS,14450,244,547,Burst > Skill > Normal,2.7
+25,Keqing,5,Electro,Sword,Liyue,Main DPS,13103,323,799,Burst = Skill = Normal,1.0
+26,Qiqi,5,Cryo,Sword,Liyue,Healer,12368,287,922,Burst = Skill > Normal,1.0
+27,Shenhe,5,Cryo,Polearm,Liyue,Support,12993,304,830,Skill > Burst > Normal,2.4
+28,Baizhu,5,Dendro,Catalyst,Liyue,Healer,13348,193,500,Burst > Skill > Normal,3.6
+29,Xianyun,5,Anemo,Catalyst,Liyue,Healer,10398,335,573,Burst > Skill > Normal,4.4
+30,Xiangling,4,Pyro,Polearm,Liyue,Sub-DPS,10875,225,669,Burst > Skill > Normal,1.0
+31,Xingqiu,4,Hydro,Sword,Liyue,Sub-DPS,10222,202,758,Burst > Skill > Normal,1.0
+32,Ningguang,4,Geo,Catalyst,Liyue,Main DPS,9787,212,573,Normal > Burst > Skill,1.0
+33,Beidou,4,Electro,Claymore,Liyue,Sub-DPS,13050,225,648,Burst > Skill > Normal,1.0
+34,Chongyun,4,Cryo,Claymore,Liyue,Sub-DPS,10984,223,648,Burst > Skill > Normal,1.0
+35,Xinyan,4,Pyro,Claymore,Liyue,Shielder,11201,249,799,Burst = Skill > Normal,1.1
+36,Yanfei,4,Pyro,Catalyst,Liyue,Main DPS,9352,240,587,Normal > Burst > Skill,1.5
+37,Yun Jin,4,Geo,Polearm,Liyue,Support,10657,191,734,Burst > Skill > Normal,2.4
+38,Yaoyao,4,Dendro,Polearm,Liyue,Healer,12289,212,751,Skill = Burst > Normal,3.4
+39,Gaming,4,Pyro,Claymore,Liyue,Main DPS,11419,302,696,Normal = Skill > Burst,4.4
+106,Lan Yan,4,Anemo,Catalyst,Liyue,Support,9570,196,628,Burst > Skill > Normal,5.3
+40,Raiden Shogun,5,Electro,Polearm,Inazuma,Main DPS,12907,337,789,Burst > Skill > Normal,2.1
+41,Kaedehara Kazuha,5,Anemo,Sword,Inazuma,Support,13348,297,807,Burst = Skill > Normal,1.6
+42,Kamisato Ayaka,5,Cryo,Sword,Inazuma,Main DPS,12858,342,784,Burst > Normal > Skill,2.0
+43,Yoimiya,5,Pyro,Bow,Inazuma,Main DPS,10164,323,615,Normal > Skill > Burst,2.0
+44,Sangonomiya Kokomi,5,Hydro,Catalyst,Inazuma,Healer,13471,234,657,Skill > Burst > Normal,2.1
+45,Arataki Itto,5,Geo,Claymore,Inazuma,Main DPS,12858,227,959,Normal > Burst > Skill,2.3
+46,Yae Miko,5,Electro,Catalyst,Inazuma,Sub-DPS,10372,340,569,Skill > Burst > Normal,2.5
+47,Kamisato Ayato,5,Hydro,Sword,Inazuma,Main DPS,13715,299,769,Skill > Burst > Normal,2.6
+48,Chiori,5,Geo,Sword,Inazuma,Sub-DPS,11438,323,953,Skill > Burst > Normal,4.5
+49,Kujou Sara,4,Electro,Bow,Inazuma,Support,9570,195,628,Skill > Burst > Normal,2.1
+50,Sayu,4,Anemo,Claymore,Inazuma,Healer,11854,244,745,Burst > Skill > Normal,2.0
+51,Thoma,4,Pyro,Polearm,Inazuma,Shielder,10331,202,751,Burst = Skill > Normal,2.2
+52,Gorou,4,Geo,Bow,Inazuma,Support,9570,183,648,Skill > Burst > Normal,2.3
+53,Kuki Shinobu,4,Electro,Sword,Inazuma,Healer,12289,212,751,Skill > Burst > Normal,2.7
+54,Shikanoin Heizou,4,Anemo,Catalyst,Inazuma,Main DPS,10657,225,684,Skill > Normal > Burst,2.8
+55,Kirara,4,Dendro,Sword,Inazuma,Shielder,12180,223,546,Skill > Burst > Normal,3.7
+107,Yumemizuki Mizuki,5,Anemo,Catalyst,Inazuma,Sub-DPS,10398,335,573,Skill > Burst > Normal,5.4
+56,Nahida,5,Dendro,Catalyst,Sumeru,Sub-DPS,10331,299,630,Skill > Burst > Normal,3.2
+57,Alhaitham,5,Dendro,Sword,Sumeru,Main DPS,13348,313,782,Skill > Normal > Burst,3.4
+58,Wanderer,5,Anemo,Catalyst,Sumeru,Main DPS,10164,328,607,Normal > Skill > Burst,3.3
+59,Nilou,5,Hydro,Sword,Sumeru,Sub-DPS,15185,230,729,Skill > Burst > Normal,3.1
+60,Cyno,5,Electro,Polearm,Sumeru,Main DPS,12488,318,859,Burst > Skill > Normal,3.1
+61,Tighnari,5,Dendro,Bow,Sumeru,Main DPS,10850,268,630,Normal > Skill = Burst,3.0
+62,Dehya,5,Pyro,Claymore,Sumeru,Sub-DPS,15675,265,628,Skill > Burst > Normal,3.5
+63,Collei,4,Dendro,Bow,Sumeru,Sub-DPS,9787,200,601,Burst > Skill > Normal,3.0
+64,Dori,4,Electro,Claymore,Sumeru,Healer,12397,223,723,Burst > Skill > Normal,3.0
+65,Candace,4,Hydro,Polearm,Sumeru,Support,10875,212,683,Burst > Skill > Normal,3.1
+66,Layla,4,Cryo,Sword,Sumeru,Shielder,11092,216,655,Skill > Burst > Normal,3.2
+67,Faruzan,4,Anemo,Bow,Sumeru,Support,9570,196,628,Burst > Skill > Normal,3.3
+68,Kaveh,4,Dendro,Claymore,Sumeru,Main DPS,11962,234,751,Burst > Skill = Normal,3.6
+69,Sethos,4,Electro,Bow,Sumeru,Main DPS,9787,225,560,Normal > Burst > Skill,4.7
+70,Neuvillette,5,Hydro,Catalyst,Fontaine,Main DPS,14695,208,576,Normal > Burst = Skill,4.1
+71,Furina,5,Hydro,Sword,Fontaine,Sub-DPS,15307,244,696,Burst > Skill > Normal,4.2
+72,Arlecchino,5,Pyro,Polearm,Fontaine,Main DPS,13103,342,765,Normal > Skill > Burst,4.6
+73,Navia,5,Geo,Claymore,Fontaine,Main DPS,12650,352,793,Skill > Burst > Normal,4.3
+74,Clorinde,5,Electro,Sword,Fontaine,Main DPS,12956,337,784,Skill > Burst > Normal,4.7
+75,Wriothesley,5,Cryo,Catalyst,Fontaine,Main DPS,13593,318,765,Normal > Skill > Burst,4.1
+76,Lyney,5,Pyro,Bow,Fontaine,Main DPS,11021,318,538,Normal > Skill > Burst,4.0
+77,Emilie,5,Dendro,Polearm,Fontaine,Sub-DPS,13348,335,769,Skill > Burst > Normal,4.8
+78,Sigewinne,5,Hydro,Bow,Fontaine,Healer,13348,193,500,Skill > Burst > Normal,4.7
+79,Lynette,4,Anemo,Sword,Fontaine,Sub-DPS,12397,232,713,Burst > Skill > Normal,4.0
+80,Freminet,4,Cryo,Claymore,Fontaine,Main DPS,12071,255,708,Skill > Normal > Burst,4.0
+81,Charlotte,4,Cryo,Catalyst,Fontaine,Healer,10766,173,545,Burst > Skill > Normal,4.2
+82,Chevreuse,4,Pyro,Polearm,Fontaine,Support,11962,193,608,Skill > Burst > Normal,4.3
+83,Mualani,5,Hydro,Catalyst,Natlan,Main DPS,15185,193,569,Skill > Burst > Normal,5.0
+84,Kinich,5,Dendro,Claymore,Natlan,Main DPS,12858,332,815,Skill > Burst > Normal,5.0
+85,Xilonen,5,Geo,Sword,Natlan,Support,12397,224,929,Skill > Burst > Normal,5.1
+86,Chasca,5,Anemo,Bow,Natlan,Main DPS,10850,347,594,Skill > Burst > Normal,5.2
+87,Mavuika,5,Pyro,Claymore,Natlan,Main DPS,13864,335,792,Burst > Skill > Normal,5.3
+88,Citlali,5,Cryo,Catalyst,Natlan,Support,11201,232,655,Skill > Burst > Normal,5.3
+89,Kachina,4,Geo,Polearm,Natlan,Sub-DPS,11636,212,792,Skill > Burst > Normal,5.0
+90,Ororon,4,Electro,Bow,Natlan,Sub-DPS,10409,225,601,Burst > Skill > Normal,5.2
+91,Iansan,4,Electro,Polearm,Natlan,Main DPS,11419,268,674,Skill > Burst > Normal,5.4
+108,Varesa,5,Electro,Catalyst,Natlan,Main DPS,12858,342,784,Normal > Skill > Burst,5.5
+92,Ineffa,5,Electro,Polearm,Nod-Krai,Sub-DPS,13348,337,789,Skill > Burst > Normal,5.8
+93,Lauma,5,Dendro,Catalyst,Nod-Krai,Support,12907,244,738,Burst > Skill > Normal,6.0
+94,Flins,5,Electro,Polearm,Nod-Krai,Main DPS,12858,342,784,Skill > Burst > Normal,6.0
+95,Aino,4,Hydro,Claymore,Nod-Krai,Sub-DPS,11962,232,708,Skill > Burst > Normal,6.0
+96,Nefer,5,Dendro,Catalyst,Nod-Krai,Main DPS,11021,335,607,Skill > Normal > Burst,6.1
+97,Jahoda,4,Anemo,Bow,Nod-Krai,Support,9787,196,628,Burst > Skill > Normal,6.1
+98,Illuga,4,Geo,Polearm,Nod-Krai,Support,11201,212,751,Skill > Burst > Normal,6.2
+99,Zibai,5,Geo,Sword,Nod-Krai,Main DPS,13103,332,850,Skill > Burst > Normal,6.2
+100,Linnea,5,Geo,Bow,Nod-Krai,Sub-DPS,12397,318,715,Burst > Skill > Normal,6.3
+101,Tartaglia,5,Hydro,Bow,Snezhnaya,Main DPS,13103,301,815,Skill > Burst > Normal,1.1
+102,Columbina,5,Hydro,Catalyst,Snezhnaya,Sub-DPS,14695,268,696,Burst > Skill > Normal,6.0
+103,Sandrone,5,Geo,Catalyst,Snezhnaya,Support,12858,244,876,Skill > Burst > Normal,6.2
+104,Capitano,5,Cryo,Claymore,Snezhnaya,Main DPS,15552,359,876,Normal > Skill > Burst,6.1
+105,Aloy,5,Cryo,Bow,Outlander,Sub-DPS,10899,234,676,Skill > Burst > Normal,2.1
+109,Traveler (Anemo),5,Anemo,Sword,Outlander,Sub-DPS,10875,204,683,Burst > Skill > Normal,1.0
+110,Traveler (Geo),5,Geo,Sword,Outlander,Sub-DPS,10875,204,683,Skill > Burst > Normal,1.0
+111,Traveler (Electro),5,Electro,Sword,Outlander,Support,10875,204,683,Burst > Skill > Normal,2.0
+112,Traveler (Dendro),5,Dendro,Sword,Outlander,Sub-DPS,10875,204,683,Burst > Skill > Normal,3.0
+113,Traveler (Hydro),5,Hydro,Sword,Outlander,Sub-DPS,10875,204,683,Skill > Burst > Normal,4.0
+114,Traveler (Pyro),5,Pyro,Sword,Outlander,Main DPS,10875,204,683,Skill > Burst > Normal,5.3

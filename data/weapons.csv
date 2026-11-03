@@ -1,0 +1,104 @@
+weapon_id,name,weapon_type,rarity,base_atk,sub_stat_type,sub_stat_value,is_craftable,signature_character_id
+101,Tome of the Eternal Flow,Catalyst,5,542,CRIT DMG,88.2,0,70
+102,Splendor of Tranquil Waters,Sword,5,542,CRIT DMG,88.2,0,71
+103,Crimson Moon's Semblance,Polearm,5,674,CRIT Rate,22.1,0,72
+104,Engulfing Lightning,Polearm,5,608,Energy Recharge,55.1,0,40
+105,A Thousand Floating Dreams,Catalyst,5,542,Elemental Mastery,265.0,0,56
+106,Freedom-Sworn,Sword,5,608,Elemental Mastery,198.0,0,41
+107,Staff of Homa,Polearm,5,608,CRIT DMG,66.2,0,21
+108,Mistsplitter Reforged,Sword,5,674,CRIT DMG,44.1,0,42
+109,Aqua Simulacra,Bow,5,542,CRIT DMG,88.2,0,24
+110,Light of Foliar Incision,Sword,5,542,CRIT DMG,88.2,0,57
+111,Polar Star,Bow,5,608,CRIT Rate,33.1,0,101
+112,Thundering Pulse,Bow,5,608,CRIT DMG,66.2,0,43
+113,Kagura's Verity,Catalyst,5,608,CRIT DMG,66.2,0,46
+114,Redhorn Stonethresher,Claymore,5,542,CRIT DMG,88.2,0,45
+115,Haran Geppaku Futsu,Sword,5,608,CRIT Rate,33.1,0,47
+116,Key of Khaj-Nisut,Sword,5,542,HP%,66.2,0,59
+117,Hunter's Path,Bow,5,542,CRIT Rate,44.1,0,61
+118,Staff of the Scarlet Sands,Polearm,5,542,CRIT Rate,44.1,0,60
+119,Tulaytullah's Remembrance,Catalyst,5,674,CRIT DMG,44.1,0,58
+120,Beacon of the Reed Sea,Claymore,5,608,CRIT Rate,33.1,0,62
+121,The First Great Magic,Bow,5,608,CRIT DMG,66.2,0,76
+122,Cashflow Supervision,Catalyst,5,674,CRIT Rate,22.1,0,75
+123,Verdict,Claymore,5,674,CRIT Rate,22.1,0,73
+124,Absolution,Sword,5,674,CRIT DMG,44.1,0,74
+125,Silvershower Heartstrings,Bow,5,542,HP%,66.2,0,78
+126,Lumidouce Elegy,Polearm,5,608,CRIT Rate,33.1,0,77
+127,Surf's Up,Catalyst,5,542,CRIT DMG,88.2,0,83
+128,Fang of the Mountain King,Claymore,5,608,CRIT Rate,33.1,0,84
+129,Peak Patrol Song,Sword,5,542,DEF%,82.7,0,85
+130,Astral Vulture's Crimson Plumage,Bow,5,608,CRIT DMG,66.2,0,86
+131,A Thousand Blazing Suns,Claymore,5,608,CRIT Rate,33.1,0,87
+132,Starcaller's Watch,Catalyst,5,542,Elemental Mastery,265.0,0,88
+133,Song of Broken Pines,Claymore,5,741,Physical DMG,20.7,0,7
+134,Amos' Bow,Bow,5,608,ATK%,49.6,0,22
+135,Primordial Jade Winged-Spear,Polearm,5,674,CRIT Rate,22.1,0,23
+136,Jadefall's Splendor,Catalyst,5,608,HP%,49.6,0,28
+137,Crane's Echoing Call,Catalyst,5,741,ATK%,16.5,0,29
+138,Uraku Misugiri,Sword,5,542,CRIT DMG,88.2,0,48
+139,Vortex Vanquisher,Polearm,5,608,ATK%,49.6,0,20
+140,Elegy for the End,Bow,5,608,Energy Recharge,55.1,0,1
+141,Wolf's Gravestone,Claymore,5,608,ATK%,49.6,0,
+142,Primordial Jade Cutter,Sword,5,542,CRIT Rate,44.1,0,
+143,Aquila Favonia,Sword,5,674,Physical DMG,41.3,0,
+144,Skyward Harp,Bow,5,674,CRIT Rate,22.1,0,
+145,Skyward Atlas,Catalyst,5,674,ATK%,33.1,0,
+146,Skyward Blade,Sword,5,608,Energy Recharge,55.1,0,
+147,Skyward Pride,Claymore,5,674,Energy Recharge,36.8,0,
+148,Skyward Spine,Polearm,5,674,Energy Recharge,36.8,0,
+149,Lost Prayer to the Sacred Winds,Catalyst,5,608,CRIT Rate,33.1,0,
+150,Summit Shaper,Sword,5,608,ATK%,49.6,0,
+151,The Unforged,Claymore,5,608,ATK%,49.6,0,
+152,Memory of Dust,Catalyst,5,608,ATK%,49.6,0,
+153,The Black Sword,Sword,4,510,CRIT Rate,27.6,0,
+154,Serpent Spine,Claymore,4,510,CRIT Rate,27.6,0,
+155,Deathmatch,Polearm,4,454,CRIT Rate,36.8,0,
+156,The Viridescent Hunt,Bow,4,510,CRIT Rate,27.6,0,
+157,Solar Pearl,Catalyst,4,510,CRIT Rate,27.6,0,
+158,Wolf-Fang,Sword,4,510,CRIT Rate,27.6,0,
+159,Talking Stick,Claymore,4,565,CRIT Rate,18.4,0,
+160,Ballad of the Fjords,Polearm,4,510,CRIT Rate,27.6,0,
+161,Scion of the Blazing Sun,Bow,4,565,CRIT Rate,18.4,0,
+162,Sacrificial Jade,Catalyst,4,454,CRIT Rate,36.8,0,
+163,Prototype Rancour,Sword,4,565,Physical DMG,34.5,1,
+164,Iron Sting,Sword,4,510,Elemental Mastery,165.0,1,
+165,Whiteblind,Claymore,4,510,DEF%,51.7,1,
+166,Prototype Archaic,Claymore,4,565,ATK%,27.6,1,
+167,Crescent Pike,Polearm,4,565,Physical DMG,34.5,1,
+168,Prototype Starglitter,Polearm,4,510,Energy Recharge,45.9,1,
+169,Prototype Crescent,Bow,4,510,ATK%,41.3,1,
+170,Compound Bow,Bow,4,454,Physical DMG,69.0,1,
+171,Prototype Amber,Catalyst,4,510,HP%,41.3,1,
+172,Mappa Mare,Catalyst,4,565,Elemental Mastery,110.0,1,
+173,Amenoma Kageuchi,Sword,4,454,ATK%,55.1,1,
+174,Katsuragikiri Nagamasa,Claymore,4,510,Energy Recharge,45.9,1,
+175,Kitain Cross Spear,Polearm,4,565,Elemental Mastery,110.0,1,
+176,Hamayumi,Bow,4,454,ATK%,55.1,1,
+177,Hakushin Ring,Catalyst,4,565,Energy Recharge,30.6,1,
+178,Sapwood Blade,Sword,4,565,Energy Recharge,30.6,1,
+179,Finale of the Deep,Sword,4,565,ATK%,27.6,1,
+180,Tidal Shadow,Claymore,4,510,ATK%,41.3,1,
+181,Rightful Reward,Polearm,4,565,HP%,27.6,1,
+182,Flute of Ezpitzal,Sword,4,454,DEF%,69.0,1,
+183,Earth Shaker,Claymore,4,565,ATK%,27.6,1,
+184,Footprint of the Rainbow,Polearm,4,510,DEF%,51.7,1,
+185,Chain Breaker,Bow,4,565,ATK%,27.6,1,
+186,Ring of Yaxche,Catalyst,4,510,HP%,41.3,1,
+187,The Catch,Polearm,4,510,Energy Recharge,45.9,0,
+188,Favonius Sword,Sword,4,454,Energy Recharge,61.3,0,
+189,Favonius Lance,Polearm,4,565,Energy Recharge,30.6,0,
+190,Favonius Warbow,Bow,4,454,Energy Recharge,61.3,0,
+191,Favonius Codex,Catalyst,4,510,Energy Recharge,45.9,0,
+192,Favonius Greatsword,Claymore,4,454,Energy Recharge,61.3,0,
+193,Sacrificial Sword,Sword,4,454,Energy Recharge,61.3,0,
+194,Sacrificial Fragments,Catalyst,4,454,Elemental Mastery,221.0,0,
+195,Sacrificial Bow,Bow,4,565,Energy Recharge,30.6,0,
+196,The Widsith,Catalyst,4,510,CRIT DMG,55.1,0,
+197,Rust,Bow,4,510,ATK%,41.3,0,
+198,Dragon's Bane,Polearm,4,454,Elemental Mastery,221.0,0,
+199,Festering Desire,Sword,4,510,Energy Recharge,45.9,0,
+200,Thrilling Tales of Dragon Slayers,Catalyst,3,401,HP%,35.2,0,
+201,White Tassel,Polearm,3,401,CRIT Rate,23.4,0,
+202,Black Tassel,Polearm,3,354,HP%,46.9,0,
+203,Slingshot,Bow,3,354,CRIT Rate,31.2,0,

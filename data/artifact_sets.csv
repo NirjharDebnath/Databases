@@ -1,0 +1,65 @@
+artifact_set_id,name,domain_name,region,two_piece_bonus,four_piece_bonus
+1,Initiate,Quest / Story Domain,Mondstadt,None,None
+2,Adventurer,Chests / Early Domains,Mondstadt,"+1,000 Max HP",Opening a chest regenerates 30% Max HP over 5s
+3,Lucky Dog,Chests / Early Domains,Mondstadt,+100 DEF,Picking up Mora restores 300 HP
+4,Traveling Doctor,Chests / Early Domains,Mondstadt,+20% Incoming Healing,Using Elemental Burst restores 20% HP
+5,Resolution of Sojourner,Mid-Level Domains,Mondstadt,+18% ATK,Increases Charged Attack CRIT Rate by 30%
+6,Tiny Miracle,Mid-Level Domains,Mondstadt,+20% All Elemental RES,Incoming Elemental DMG increases corresponding Elemental RES by 30% for 10s
+7,Berserker,Bosses / Chests,Teyvat,+12% CRIT Rate,"When HP is below 70%, CRIT Rate increases by an additional 24%"
+8,Instructor,Bosses / Chests,Teyvat,+80 Elemental Mastery,Triggering an Elemental Reaction increases all party members' EM by 120 for 8s
+9,The Exile,Bosses / Chests,Teyvat,+20% Energy Recharge,Using Burst regenerates 2 Energy for all other party members every 2s for 6s
+10,Defender's Will,Mid-Level Domains,Liyue,+30% DEF,"For each different element present in party, corresponding Elemental RES +30%"
+11,Brave Heart,Mid-Level Domains,Liyue,+18% ATK,Increases DMG by 30% against opponents with more than 50% HP
+12,Martial Artist,Ridge Watch / Mid Domains,Liyue,+15% Normal and Charged Attack DMG,"After using Skill, increases Normal and Charged Attack DMG by 25% for 8s"
+13,Gambler,Clear Pool / Mid Domains,Liyue,+20% Elemental Skill DMG,Defeating an opponent has 100% chance to reset Skill CD (CD 15s)
+14,Scholar,Clear Pool / Mid Domains,Liyue,+20% Energy Recharge,Gaining Energy particles gives 3 Energy to all Bow and Catalyst party members (CD 3s)
+15,Prayers for Wisdom,Electro Hypostasis / Bosses,Teyvat,Reduces duration of Electro effects by 40%,1-Piece Set (Tiara of Thunder)
+16,Prayers for Destiny,Oceanid / Bosses,Teyvat,Reduces duration of Hydro effects by 40%,1-Piece Set (Tiara of Torrents)
+17,Prayers for Illumination,Pyro Regisvine / Bosses,Teyvat,Reduces duration of Pyro effects by 40%,1-Piece Set (Tiara of Flame)
+18,Prayers to Springtime,Cryo Regisvine / Bosses,Teyvat,Reduces duration of Cryo effects by 40%,1-Piece Set (Tiara of Frost)
+19,Gladiator's Finale,Boss Drop / Strongbox,Teyvat,+18% ATK,"Normal Attack DMG +35% for Sword, Claymore, or Polearm wielders"
+20,Wanderer's Troupe,Boss Drop / Strongbox,Teyvat,+80 Elemental Mastery,Charged Attack DMG +35% for Bow or Catalyst wielders
+21,Noblesse Oblige,Clear Pool and Mountain Cavern,Liyue,+20% Elemental Burst DMG,Using Elemental Burst increases all party members' ATK by 20% for 12s
+22,Bloodstained Chivalry,Clear Pool and Mountain Cavern,Liyue,+25% Physical DMG,"After defeating an opponent, Charged Attack DMG +50% and stamina cost reduced to 0 for 10s"
+23,Maiden Beloved,Valley of Remembrance,Mondstadt,+15% Healing Bonus,Using Skill or Burst increases healing received by all party members by 20% for 10s
+24,Viridescent Venerer,Valley of Remembrance,Mondstadt,+15% Anemo DMG,Increases Swirl DMG by 60%; decreases opponent Elemental RES to swirled element by 40% for 10s
+25,Archaic Petra,Domain of Guyun,Liyue,+15% Geo DMG,Obtaining an Elemental Shard via Crystallize grants party +35% DMG for that element for 10s
+26,Retracing Bolide,Domain of Guyun,Liyue,+35% Shield Strength,"While protected by a shield, gain +40% Normal and Charged Attack DMG"
+27,Thundersoother,Midsummer Courtyard,Mondstadt,+40% Electro RES,Increases DMG against opponents affected by Electro by 35%
+28,Thundering Fury,Midsummer Courtyard,Mondstadt,+15% Electro DMG,Increases reaction DMG; decreases Skill CD by 1s upon triggering reactions
+29,Lavawalker,Hidden Palace of Zhou Formula,Liyue,+40% Pyro RES,Increases DMG against opponents affected by Pyro by 35%
+30,Crimson Witch of Flames,Hidden Palace of Zhou Formula,Liyue,+15% Pyro DMG,"Increases Overloaded, Burning, Burgeon DMG by 40%, Vape and Melt DMG by 15%"
+31,Blizzard Strayer,Peak of Vindagnyr,Mondstadt,+15% Cryo DMG,Attacking Cryo-affected enemy grants +20% CRIT Rate; Frozen enemy grants additional +20%
+32,Heart of Depth,Peak of Vindagnyr,Mondstadt,+15% Hydro DMG,Using Elemental Skill increases Normal and Charged Attack DMG by 30% for 15s
+33,Tenacity of the Millelith,Ridge Watch,Liyue,+20% HP,Elemental Skill hit grants party +20% ATK and +30% Shield Strength for 3s
+34,Pale Flame,Ridge Watch,Liyue,+25% Physical DMG,"Skill hit grants +9% ATK (Max 2 stacks). At 2 stacks, 2pc Physical bonus increased by 100%"
+35,Shimenawa's Reminiscence,Momiji-Dyed Court,Inazuma,+18% ATK,Using Skill consumes 15 Energy to boost Normal/Charged/Plunging DMG by 50% for 10s
+36,Emblem of Severed Fate,Momiji-Dyed Court,Inazuma,+20% Energy Recharge,Increases Elemental Burst DMG by 25% of Energy Recharge (Max 75% bonus)
+37,Husk of Opulent Dreams,Slumbering Court,Inazuma,+30% DEF,Grants Curiosity stacks providing +6% DEF and +6% Geo DMG each (Max 4 stacks)
+38,Ocean-Hued Clam,Slumbering Court,Inazuma,+15% Healing Bonus,Accumulates healing to spawn a Sea-Dyed Foam dealing 90% of accumulated healing as Physical DMG
+39,Vermillion Hereafter,The Lost Valley,Liyue,+18% ATK,"After Burst, character gains Nascent Light: lose HP to gain up to +40% ATK"
+40,Echoes of an Offering,The Lost Valley,Liyue,+18% ATK,"Normal Attacks have 36% chance to trigger Valley Rite, increasing Normal DMG by 70% of ATK"
+41,Deepwood Memories,Spire of Solitary Enlightenment,Sumeru,+15% Dendro DMG,Elemental Skill or Burst hit decreases opponent Dendro RES by 30% for 8s
+42,Gilded Dreams,Spire of Solitary Enlightenment,Sumeru,+80 Elemental Mastery,"Triggering reactions buffs ATK by 14% per same-element teammate, +50 EM per different-element"
+43,Desert Pavilion Chronicle,City of Gold,Sumeru,+15% Anemo DMG,Charged Attack hit grants +10% ATK SPD and +40% Normal/Charged/Plunging DMG for 15s
+44,Flower of Paradise Lost,City of Gold,Sumeru,+80 Elemental Mastery,"Increases Bloom, Hyperbloom, and Burgeon reaction DMG by 40% (Max 80%)"
+45,Nymph's Dream,Molten Iron Fortress,Sumeru,+15% Hydro DMG,Hits generate Mirroured Nymph stacks granting up to +25% ATK and +15% Hydro DMG
+46,Vourukasha's Glow,Molten Iron Fortress,Sumeru,+20% HP,Skill and Burst DMG +10%. Taking DMG increases this bonus by 80% (Max 5 stacks)
+47,Marechaussee Hunter,Denouement of Sin,Fontaine,+15% Normal and Charged Attack DMG,"When HP increases or decreases, CRIT Rate +12% for 5s (Max 3 stacks = 36%)"
+48,Golden Troupe,Denouement of Sin,Fontaine,+20% Elemental Skill DMG,+25% Skill DMG; extra +25% when character is off-field
+49,Song of Days Past,Waterfall Wen,Fontaine,+15% Healing Bonus,"Records healing dealt. After 6s, buffs active character DMG by 8% of recorded healing"
+50,Nighttime Whispers in the Echoing Woods,Waterfall Wen,Fontaine,+18% ATK,Using Skill grants +20% Geo DMG. Crystallize shield increases this bonus by 150%
+51,Fragment of Harmonic Whimsy,Faded Theater,Fontaine,+18% ATK,"When value of Bond of Life changes, DMG dealt +18% for 6s (Max 3 stacks = 54%)"
+52,Unfinished Reverie,Faded Theater,Fontaine,+18% ATK,"After leaving combat for 3s, DMG dealt +50%. In combat, requires Burning nearby to maintain"
+53,Scroll of the Hero of Cinder City,Sanctum of Rainbow Spirits,Natlan,Restores 6 Energy when party triggers Nightsoul Burst,Triggering reaction buffs party Elemental DMG by 12% (up to 40% if in Nightsoul)
+54,Obsidian Codex,Sanctum of Rainbow Spirits,Natlan,+15% DMG while in Nightsoul's Blessing,Consuming Nightsoul points on field increases CRIT Rate by 40% for 6s
+55,Finale of the Deep Galleries,Derelict Masonry Dock,Natlan,+15% Cryo DMG,"When at 0 Elemental Energy, Normal Attack DMG +60% and Burst DMG +60%"
+56,Long Night's Oath,Derelict Masonry Dock,Natlan,+25% Plunging Attack DMG,"Plunging, Charged, or Skill hits grant Radiance Everlasting stacks boosting Plunging DMG"
+57,Night of the Sky's Unveiling,Frostladen Machinery,Nod-Krai,+80 Elemental Mastery,"Triggering Lunar Reactions grants Gleaming Moon: Intent, increasing CRIT Rate by up to 30%"
+58,Silken Moon's Serenade,Frostladen Machinery,Nod-Krai,+20% Energy Recharge,"Dealing Elemental DMG grants Gleaming Moon: Devotion, boosting party EM by up to 120"
+59,Aubade of Morningstar and Moon,Moonchild's Treasures,Nod-Krai,+15% Lunar Reaction DMG,Dealing Lunar Reaction DMG increases character ATK and direct Lunar DMG by 35%
+60,A Day Carved from Rising Winds,Moonchild's Treasures,Nod-Krai,+18% ATK,Grants Blessing of Pastoral Winds boosting ATK by 25% and CRIT Rate by 20% with Witch's Homework
+61,Celestial Gift,Thorny Crown of the Mountain Wind,Mondstadt,+20% Energy Recharge,Using Skill grants team 20% Elemental DMG bonus (up to 40% with Hexerei Secret Rite)
+62,Disenchantment in Deep Shadow,Thorny Crown of the Mountain Wind,Snezhnaya,+18% ATK,Superconduct Reaction DMG +80% (Stellar +40%); CRIT Rate +16% against affected foes
+63,Scarlet Proof,Palace of Frost,Snezhnaya,+15% Cryo DMG,Triggering Melt or Stellar Reaction increases CRIT DMG by 45% for 8s
+64,Heart of the Furnace,Palace of Frost,Snezhnaya,+80 Elemental Mastery,Swirl and Stellar Swirl reactions grant party +25% ATK and +15% All Elemental DMG
