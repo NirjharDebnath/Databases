@@ -113,12 +113,10 @@ body {
     border-radius: 50%;
     box-shadow: 0 0 20px rgba(211, 62, 56, 0.25);
     flex-shrink: 0;
-}
-
-.crest-svg {
-    width: 42px;
-    height: 42px;
-    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+    font-size: 32px;
+    line-height: 1;
+    text-align: center;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .title-group {
@@ -1097,6 +1095,260 @@ kbd {
 
 .kazuha-footer em {
     color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE LAYOUT
+   -------------------------------------------------------------------------- */
+@media (max-width: 1050px) {
+    .app-container {
+        padding: 16px;
+    }
+
+    .kazuha-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .header-left,
+    .header-right {
+        width: 100%;
+    }
+
+    .header-right {
+        justify-content: space-between;
+    }
+
+    .db-stats-group {
+        flex: 1;
+        flex-wrap: wrap;
+    }
+
+    .stat-pill {
+        flex: 1 1 auto;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 760px) {
+    body {
+        font-size: 13px;
+    }
+
+    .app-container {
+        padding: 10px;
+        gap: 12px;
+    }
+
+    .kazuha-header,
+    .card {
+        padding: 14px;
+        border-radius: var(--radius-md);
+    }
+
+    .header-left {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .kazuha-crest {
+        width: 46px;
+        height: 46px;
+        font-size: 25px;
+    }
+
+    .title-group {
+        min-width: 0;
+    }
+
+    .brand-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .brand-row h1 {
+        font-size: clamp(16px, 5vw, 21px);
+        line-height: 1.25;
+        letter-spacing: 0.8px;
+    }
+
+    .poetic-subtitle {
+        font-size: 12px;
+        line-height: 1.45;
+    }
+
+    .header-right {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .db-stats-group {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+    }
+
+    .stat-pill {
+        min-width: 0;
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+
+    .icon-btn {
+        align-self: flex-end;
+    }
+
+    .nav-tabs {
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    .tab-btn {
+        flex: 0 0 auto;
+        min-width: max-content;
+        padding: 9px 13px;
+        font-size: 12px;
+    }
+
+    .card-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card-title {
+        font-size: 14px;
+    }
+
+    .editor-actions,
+    .result-actions {
+        align-items: stretch;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .shortcut-tip {
+        display: none;
+    }
+
+    .editor-actions .secondary-btn,
+    .editor-actions .run-btn,
+    .result-actions .secondary-btn,
+    .filter-input {
+        flex: 1 1 auto;
+    }
+
+    .filter-input {
+        width: 100%;
+        min-width: 150px;
+    }
+
+    #sql-input {
+        min-height: 170px;
+        font-size: 12px;
+    }
+
+    .quick-ribbon {
+        align-items: flex-start;
+    }
+
+    .er-legend {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    .er-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .node-header {
+        gap: 8px;
+        padding: 10px 12px;
+    }
+
+    .node-name {
+        font-size: 13px;
+    }
+
+    .node-count {
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+    .col-row {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .col-type {
+        margin-left: auto;
+        text-align: right;
+    }
+
+    .er-description-box {
+        padding: 13px;
+    }
+
+    .er-description-box ul {
+        grid-template-columns: minmax(0, 1fr);
+        font-size: 12px;
+    }
+
+    .schema-table-header,
+    .schema-table-body {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .schema-title-left {
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .schema-tbl-name {
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    .schema-cols-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .showcase-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .showcase-card {
+        padding: 14px;
+    }
+
+    .kazuha-footer {
+        padding: 14px 8px;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 420px) {
+    .editor-actions .secondary-btn,
+    .editor-actions .run-btn,
+    .result-actions .secondary-btn {
+        flex-basis: 100%;
+        justify-content: center;
+    }
+
+    .run-btn {
+        justify-content: center;
+    }
+
+    .status-badge {
+        margin-left: 4px;
+    }
 }
 
 /* Custom Scrollbars */
