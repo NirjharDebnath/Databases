@@ -10,12 +10,16 @@ import os
 import time
 import sqlite3
 import re
-from flask import Flask, render_template, request, jsonify
+import json
+from flask import Flask, Response, render_template, request, jsonify, stream_with_context
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "genshin_learning.db")
+MAX_QUERY_LENGTH = 64 * 1024
+RESULT_BATCH_SIZE = 250
 
 app = Flask(__name__)
+app.config["MAX_CONTENT_LENGTH"] = MAX_QUERY_LENGTH + 1024
 
 @app.errorhandler(404)
 def handle_not_found(error):
@@ -27,6 +31,15 @@ def handle_not_found(error):
 def handle_method_not_allowed(error):
     if request.path.startswith("/api/"):
         return jsonify({"success": False, "error": "HTTP method is not allowed for this API endpoint."}), 405
+    return error
+
+@app.errorhandler(413)
+def handle_request_too_large(error):
+    if request.path.startswith("/api/"):
+        return jsonify({
+            "success": False,
+            "error": "Request is too large. Keep the SQL query under 64 KB."
+        }), 413
     return error
 
 # Sample queries curated for learning
@@ -170,6 +183,11 @@ def execute_query():
 
     if not raw_query:
         return jsonify({"success": False, "error": "Query cannot be empty."}), 400
+    if len(raw_query) > MAX_QUERY_LENGTH:
+        return jsonify({
+            "success": False,
+            "error": f"Query is too large. Keep it under {MAX_QUERY_LENGTH // 1024} KB."
+        }), 413
 
     # Safety check: enforce read-only SELECT or EXPLAIN queries
     clean_query = re.sub(r"--.*$", "", raw_query, flags=re.MULTILINE)  # Strip comments
@@ -191,18 +209,7 @@ def execute_query():
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(raw_query)
-        
         columns = [d[0] for d in cursor.description] if cursor.description else []
-        rows = [list(row) for row in cursor.fetchall()]
-        execution_time_ms = round((time.perf_counter() - start_time) * 1000, 2)
-
-        return jsonify({
-            "success": True,
-            "columns": columns,
-            "rows": rows,
-            "count": len(rows),
-            "execution_time_ms": execution_time_ms
-        })
 
     except sqlite3.Error as e:
         execution_time_ms = round((time.perf_counter() - start_time) * 1000, 2)
@@ -216,9 +223,37 @@ def execute_query():
             "success": False,
             "error": f"Internal Error: {str(e)}"
         }), 500
-    finally:
-        if conn is not None:
+
+    @stream_with_context
+    def stream_results():
+        count = 0
+        try:
+            yield json.dumps({"type": "start", "columns": columns}) + "\n"
+            while True:
+                batch = cursor.fetchmany(RESULT_BATCH_SIZE)
+                if not batch:
+                    break
+                count += len(batch)
+                yield json.dumps({
+                    "type": "rows",
+                    "rows": [list(row) for row in batch]
+                }, ensure_ascii=False, default=str) + "\n"
+
+            yield json.dumps({
+                "type": "complete",
+                "count": count,
+                "execution_time_ms": round((time.perf_counter() - start_time) * 1000, 2)
+            }) + "\n"
+        except sqlite3.Error as e:
+            yield json.dumps({
+                "type": "error",
+                "error": str(e),
+                "execution_time_ms": round((time.perf_counter() - start_time) * 1000, 2)
+            }) + "\n"
+        finally:
             conn.close()
+
+    return Response(stream_results(), mimetype="application/x-ndjson")
 
 @app.route("/api/schema", methods=["GET"])
 def get_schema():

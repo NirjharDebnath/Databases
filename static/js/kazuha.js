@@ -34,10 +34,43 @@ async function readApiResponse(response) {
     }
 
     if (!response.ok) {
-        throw new Error(payload.error || `API request failed (HTTP ${response.status}).`);
+        const error = new Error(payload.error || `API request failed (HTTP ${response.status}).`);
+        error.name = "ApiError";
+        throw error;
     }
 
     return payload;
+}
+
+async function streamQueryResponse(response, onEvent) {
+    if (!response.ok) {
+        await readApiResponse(response);
+        throw new Error(`Query request failed (HTTP ${response.status}).`);
+    }
+
+    const contentType = response.headers.get("content-type") || "";
+    if (!contentType.includes("application/x-ndjson")) {
+        throw new Error("The query API returned an unsupported response format.");
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+
+    const processLines = (text) => {
+        buffer += text;
+        const lines = buffer.split("\n");
+        buffer = lines.pop();
+        lines.filter(Boolean).forEach(line => onEvent(JSON.parse(line)));
+    };
+
+    while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        processLines(decoder.decode(value, { stream: true }));
+    }
+    processLines(decoder.decode());
+    if (buffer.trim()) onEvent(JSON.parse(buffer));
 }
 
 // Default Keywords & Functions
@@ -514,27 +547,29 @@ async function executeCurrentQuery() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ query })
         });
-        const result = await readApiResponse(response);
-
-        if (result.success) {
-            statusBadge.textContent = `✓ ${result.count} rows (${result.execution_time_ms} ms)`;
-            statusBadge.className = "status-badge success";
-            queryResultsCache = { columns: result.columns, rows: result.rows };
-            resultActions.style.display = "flex";
-            renderResultsTable(result.columns, result.rows);
-        } else {
-            statusBadge.textContent = "Query Error";
-            statusBadge.className = "status-badge error";
-            resultActions.style.display = "none";
-            resultsContainer.innerHTML = `
-                <div class="error-banner">
-                    <div class="error-title">🍁 Wind Disruption: SQLite Operational Error</div>
-                    <div class="error-message">${escapeHtml(result.error)}</div>
-                </div>
-            `;
+        let completed = false;
+        await streamQueryResponse(response, (event) => {
+            if (event.type === "start") {
+                queryResultsCache = { columns: event.columns, rows: [] };
+                beginStreamingResults(event.columns);
+                resultActions.style.display = "none";
+            } else if (event.type === "rows") {
+                appendStreamingRows(event.rows);
+                statusBadge.textContent = `Receiving ${streamingRowCount.toLocaleString()} rows...`;
+            } else if (event.type === "complete") {
+                completed = true;
+                finishStreamingResults(event.count);
+                statusBadge.textContent = `✓ ${event.count.toLocaleString()} rows (${event.execution_time_ms} ms)`;
+                statusBadge.className = "status-badge success";
+            } else if (event.type === "error") {
+                throw new Error(event.error);
+            }
+        });
+        if (!completed) {
+            throw new Error("The query stream ended before all results were received.");
         }
     } catch (err) {
-        statusBadge.textContent = "Network Error";
+        statusBadge.textContent = err.name === "ApiError" ? "Query Error" : "Network Error";
         statusBadge.className = "status-badge error";
         resultActions.style.display = "none";
         resultsContainer.innerHTML = `
@@ -544,6 +579,60 @@ async function executeCurrentQuery() {
             </div>
         `;
     }
+}
+
+let streamingTableBody = null;
+let streamingRowCount = 0;
+
+function beginStreamingResults(columns) {
+    streamingRowCount = 0;
+    const container = document.getElementById("results-container");
+    let header = "";
+    columns.forEach(col => {
+        header += `<th>${escapeHtml(col)}</th>`;
+    });
+    container.innerHTML = `
+        <div class="table-scroll">
+            <table class="data-table" id="data-table">
+                <thead><tr>${header}</tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    `;
+    streamingTableBody = container.querySelector("tbody");
+}
+
+function appendStreamingRows(rows) {
+    if (!streamingTableBody) return;
+    const fragment = document.createDocumentFragment();
+    rows.forEach(row => {
+        const tr = document.createElement("tr");
+        row.forEach(value => {
+            const td = document.createElement("td");
+            if (value === null) {
+                td.innerHTML = '<span class="null-cell">NULL</span>';
+            } else {
+                td.textContent = String(value);
+            }
+            tr.appendChild(td);
+        });
+        fragment.appendChild(tr);
+    });
+    streamingTableBody.appendChild(fragment);
+    streamingRowCount += rows.length;
+}
+
+function finishStreamingResults(count) {
+    if (count === 0) {
+        document.getElementById("results-container").innerHTML = `
+            <div class="empty-state">
+                <div class="empty-leaf">🍃</div>
+                <h3>Zero Rows Returned</h3>
+                <p>The query executed successfully, but no matching records were found.</p>
+            </div>
+        `;
+    }
+    streamingTableBody = null;
 }
 
 function renderResultsTable(columns, rows) {
