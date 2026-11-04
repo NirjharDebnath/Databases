@@ -17,6 +17,18 @@ DB_PATH = os.path.join(BASE_DIR, "genshin_learning.db")
 
 app = Flask(__name__)
 
+@app.errorhandler(404)
+def handle_not_found(error):
+    if request.path.startswith("/api/"):
+        return jsonify({"success": False, "error": "API endpoint not found."}), 404
+    return error
+
+@app.errorhandler(405)
+def handle_method_not_allowed(error):
+    if request.path.startswith("/api/"):
+        return jsonify({"success": False, "error": "HTTP method is not allowed for this API endpoint."}), 405
+    return error
+
 # Sample queries curated for learning
 SAMPLE_QUERIES = [
     {
@@ -141,8 +153,20 @@ def index():
 
 @app.route("/api/query", methods=["POST"])
 def execute_query():
-    data = request.get_json() or {}
-    raw_query = data.get("query", "").strip()
+    if not request.is_json:
+        return jsonify({
+            "success": False,
+            "error": "Request must use Content-Type: application/json."
+        }), 415
+
+    data = request.get_json(silent=True) or {}
+    if not isinstance(data, dict):
+        return jsonify({"success": False, "error": "Request body must be a JSON object."}), 400
+
+    raw_query = data.get("query", "")
+    if not isinstance(raw_query, str):
+        return jsonify({"success": False, "error": "The query must be a string."}), 400
+    raw_query = raw_query.strip()
 
     if not raw_query:
         return jsonify({"success": False, "error": "Query cannot be empty."}), 400
@@ -162,6 +186,7 @@ def execute_query():
             }), 403
 
     start_time = time.perf_counter()
+    conn = None
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -170,7 +195,6 @@ def execute_query():
         columns = [d[0] for d in cursor.description] if cursor.description else []
         rows = [list(row) for row in cursor.fetchall()]
         execution_time_ms = round((time.perf_counter() - start_time) * 1000, 2)
-        conn.close()
 
         return jsonify({
             "success": True,
@@ -192,6 +216,9 @@ def execute_query():
             "success": False,
             "error": f"Internal Error: {str(e)}"
         }), 500
+    finally:
+        if conn is not None:
+            conn.close()
 
 @app.route("/api/schema", methods=["GET"])
 def get_schema():
@@ -256,6 +283,6 @@ def preview_table(table_name):
     return jsonify({"columns": columns, "rows": rows})
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 12000))
+    port = 12000
     print(f"\n🍁 Kaedehara Kazuha SQL Sanctuary is starting on http://127.0.0.1:{port}")
     app.run(host="0.0.0.0", port=port, debug=False)

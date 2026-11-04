@@ -15,6 +15,31 @@ let activeAutocompleteIndex = 0;
 let currentAutocompleteMatches = [];
 let queryResultsCache = { columns: [], rows: [] };
 
+async function readApiResponse(response) {
+    const contentType = response.headers.get("content-type") || "";
+    const body = await response.text();
+    let payload;
+
+    if (contentType.includes("application/json")) {
+        try {
+            payload = JSON.parse(body);
+        } catch {
+            throw new Error(`The server returned invalid JSON (HTTP ${response.status}).`);
+        }
+    } else {
+        throw new Error(
+            `The API returned HTML instead of JSON (HTTP ${response.status}). ` +
+            "Start the application with run_web.sh, not a static web server."
+        );
+    }
+
+    if (!response.ok) {
+        throw new Error(payload.error || `API request failed (HTTP ${response.status}).`);
+    }
+
+    return payload;
+}
+
 // Default Keywords & Functions
 const SQL_KEYWORDS = [
     "SELECT", "FROM", "WHERE", "JOIN", "INNER JOIN", "LEFT JOIN", "ON",
@@ -159,7 +184,7 @@ function initMapleLeavesCanvas() {
 async function fetchSchemaMetadata() {
     try {
         const res = await fetch("/api/schema");
-        schemaCache = await res.json();
+        schemaCache = await readApiResponse(res);
         
         // Update header badges
         if (schemaCache.characters) document.getElementById("stat-chars").textContent = schemaCache.characters.row_count;
@@ -182,7 +207,7 @@ async function fetchSchemaMetadata() {
 async function fetchShowcaseQueries() {
     try {
         const res = await fetch("/api/samples");
-        const samples = await res.json();
+        const samples = await readApiResponse(res);
         renderShowcaseCards(samples);
     } catch (err) {
         console.error("Failed to load showcase queries:", err);
@@ -489,7 +514,7 @@ async function executeCurrentQuery() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ query })
         });
-        const result = await response.json();
+        const result = await readApiResponse(response);
 
         if (result.success) {
             statusBadge.textContent = `✓ ${result.count} rows (${result.execution_time_ms} ms)`;
@@ -511,10 +536,11 @@ async function executeCurrentQuery() {
     } catch (err) {
         statusBadge.textContent = "Network Error";
         statusBadge.className = "status-badge error";
+        resultActions.style.display = "none";
         resultsContainer.innerHTML = `
             <div class="error-banner">
                 <div class="error-title">Connection Error</div>
-                <div class="error-message">${err.message}</div>
+                <div class="error-message">${escapeHtml(err.message || "Unable to contact the SQL API.")}</div>
             </div>
         `;
     }
