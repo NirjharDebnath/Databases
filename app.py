@@ -10,13 +10,13 @@ import os
 import time
 import sqlite3
 import re
-from flask import Flask, render_template, request, jsonify
+import json
+from flask import Flask, Response, render_template, request, jsonify, stream_with_context
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "genshin_learning.db")
 MAX_QUERY_LENGTH = 64 * 1024
-MAX_RESULT_ROWS = 10_000
-QUERY_TIMEOUT_SECONDS = 5
+RESULT_BATCH_SIZE = 250
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = MAX_QUERY_LENGTH + 1024
@@ -205,53 +205,14 @@ def execute_query():
 
     start_time = time.perf_counter()
     conn = None
-    timed_out = False
     try:
         conn = get_db_connection()
-        deadline = start_time + QUERY_TIMEOUT_SECONDS
-
-        def stop_expensive_query():
-            nonlocal timed_out
-            if time.perf_counter() >= deadline:
-                timed_out = True
-                return 1
-            return 0
-
-        conn.set_progress_handler(stop_expensive_query, 10_000)
         cursor = conn.cursor()
         cursor.execute(raw_query)
-        
         columns = [d[0] for d in cursor.description] if cursor.description else []
-        rows = [list(row) for row in cursor.fetchmany(MAX_RESULT_ROWS + 1)]
-        truncated = len(rows) > MAX_RESULT_ROWS
-        if truncated:
-            rows = rows[:MAX_RESULT_ROWS]
-        execution_time_ms = round((time.perf_counter() - start_time) * 1000, 2)
-
-        return jsonify({
-            "success": True,
-            "columns": columns,
-            "rows": rows,
-            "count": len(rows),
-            "execution_time_ms": execution_time_ms,
-            "truncated": truncated,
-            "warning": (
-                f"Only the first {MAX_RESULT_ROWS:,} rows are shown. "
-                "Add a LIMIT clause to retrieve a smaller, complete result."
-            ) if truncated else None
-        })
 
     except sqlite3.Error as e:
         execution_time_ms = round((time.perf_counter() - start_time) * 1000, 2)
-        if timed_out:
-            return jsonify({
-                "success": False,
-                "error": (
-                    f"Query exceeded the {QUERY_TIMEOUT_SECONDS}-second safety limit. "
-                    "Add filters, indexes, or a LIMIT clause and try again."
-                ),
-                "execution_time_ms": execution_time_ms
-            }), 408
         return jsonify({
             "success": False,
             "error": str(e),
@@ -262,9 +223,37 @@ def execute_query():
             "success": False,
             "error": f"Internal Error: {str(e)}"
         }), 500
-    finally:
-        if conn is not None:
+
+    @stream_with_context
+    def stream_results():
+        count = 0
+        try:
+            yield json.dumps({"type": "start", "columns": columns}) + "\n"
+            while True:
+                batch = cursor.fetchmany(RESULT_BATCH_SIZE)
+                if not batch:
+                    break
+                count += len(batch)
+                yield json.dumps({
+                    "type": "rows",
+                    "rows": [list(row) for row in batch]
+                }, ensure_ascii=False, default=str) + "\n"
+
+            yield json.dumps({
+                "type": "complete",
+                "count": count,
+                "execution_time_ms": round((time.perf_counter() - start_time) * 1000, 2)
+            }) + "\n"
+        except sqlite3.Error as e:
+            yield json.dumps({
+                "type": "error",
+                "error": str(e),
+                "execution_time_ms": round((time.perf_counter() - start_time) * 1000, 2)
+            }) + "\n"
+        finally:
             conn.close()
+
+    return Response(stream_results(), mimetype="application/x-ndjson")
 
 @app.route("/api/schema", methods=["GET"])
 def get_schema():
