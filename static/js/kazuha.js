@@ -34,7 +34,9 @@ async function readApiResponse(response) {
     }
 
     if (!response.ok) {
-        throw new Error(payload.error || `API request failed (HTTP ${response.status}).`);
+        const error = new Error(payload.error || `API request failed (HTTP ${response.status}).`);
+        error.name = "ApiError";
+        throw error;
     }
 
     return payload;
@@ -517,11 +519,21 @@ async function executeCurrentQuery() {
         const result = await readApiResponse(response);
 
         if (result.success) {
-            statusBadge.textContent = `✓ ${result.count} rows (${result.execution_time_ms} ms)`;
+            statusBadge.textContent = result.truncated
+                ? `✓ First ${result.count.toLocaleString()} rows (${result.execution_time_ms} ms)`
+                : `✓ ${result.count} rows (${result.execution_time_ms} ms)`;
             statusBadge.className = "status-badge success";
             queryResultsCache = { columns: result.columns, rows: result.rows };
             resultActions.style.display = "flex";
             renderResultsTable(result.columns, result.rows);
+            if (result.warning) {
+                resultsContainer.insertAdjacentHTML("afterbegin", `
+                    <div class="error-banner">
+                        <div class="error-title">Result Limited for Safety</div>
+                        <div class="error-message">${escapeHtml(result.warning)}</div>
+                    </div>
+                `);
+            }
         } else {
             statusBadge.textContent = "Query Error";
             statusBadge.className = "status-badge error";
@@ -534,7 +546,7 @@ async function executeCurrentQuery() {
             `;
         }
     } catch (err) {
-        statusBadge.textContent = "Network Error";
+        statusBadge.textContent = err.name === "ApiError" ? "Query Error" : "Network Error";
         statusBadge.className = "status-badge error";
         resultActions.style.display = "none";
         resultsContainer.innerHTML = `

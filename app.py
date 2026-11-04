@@ -14,8 +14,12 @@ from flask import Flask, render_template, request, jsonify
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "genshin_learning.db")
+MAX_QUERY_LENGTH = 64 * 1024
+MAX_RESULT_ROWS = 10_000
+QUERY_TIMEOUT_SECONDS = 5
 
 app = Flask(__name__)
+app.config["MAX_CONTENT_LENGTH"] = MAX_QUERY_LENGTH + 1024
 
 @app.errorhandler(404)
 def handle_not_found(error):
@@ -27,6 +31,15 @@ def handle_not_found(error):
 def handle_method_not_allowed(error):
     if request.path.startswith("/api/"):
         return jsonify({"success": False, "error": "HTTP method is not allowed for this API endpoint."}), 405
+    return error
+
+@app.errorhandler(413)
+def handle_request_too_large(error):
+    if request.path.startswith("/api/"):
+        return jsonify({
+            "success": False,
+            "error": "Request is too large. Keep the SQL query under 64 KB."
+        }), 413
     return error
 
 # Sample queries curated for learning
@@ -170,6 +183,11 @@ def execute_query():
 
     if not raw_query:
         return jsonify({"success": False, "error": "Query cannot be empty."}), 400
+    if len(raw_query) > MAX_QUERY_LENGTH:
+        return jsonify({
+            "success": False,
+            "error": f"Query is too large. Keep it under {MAX_QUERY_LENGTH // 1024} KB."
+        }), 413
 
     # Safety check: enforce read-only SELECT or EXPLAIN queries
     clean_query = re.sub(r"--.*$", "", raw_query, flags=re.MULTILINE)  # Strip comments
@@ -187,13 +205,27 @@ def execute_query():
 
     start_time = time.perf_counter()
     conn = None
+    timed_out = False
     try:
         conn = get_db_connection()
+        deadline = start_time + QUERY_TIMEOUT_SECONDS
+
+        def stop_expensive_query():
+            nonlocal timed_out
+            if time.perf_counter() >= deadline:
+                timed_out = True
+                return 1
+            return 0
+
+        conn.set_progress_handler(stop_expensive_query, 10_000)
         cursor = conn.cursor()
         cursor.execute(raw_query)
         
         columns = [d[0] for d in cursor.description] if cursor.description else []
-        rows = [list(row) for row in cursor.fetchall()]
+        rows = [list(row) for row in cursor.fetchmany(MAX_RESULT_ROWS + 1)]
+        truncated = len(rows) > MAX_RESULT_ROWS
+        if truncated:
+            rows = rows[:MAX_RESULT_ROWS]
         execution_time_ms = round((time.perf_counter() - start_time) * 1000, 2)
 
         return jsonify({
@@ -201,11 +233,25 @@ def execute_query():
             "columns": columns,
             "rows": rows,
             "count": len(rows),
-            "execution_time_ms": execution_time_ms
+            "execution_time_ms": execution_time_ms,
+            "truncated": truncated,
+            "warning": (
+                f"Only the first {MAX_RESULT_ROWS:,} rows are shown. "
+                "Add a LIMIT clause to retrieve a smaller, complete result."
+            ) if truncated else None
         })
 
     except sqlite3.Error as e:
         execution_time_ms = round((time.perf_counter() - start_time) * 1000, 2)
+        if timed_out:
+            return jsonify({
+                "success": False,
+                "error": (
+                    f"Query exceeded the {QUERY_TIMEOUT_SECONDS}-second safety limit. "
+                    "Add filters, indexes, or a LIMIT clause and try again."
+                ),
+                "execution_time_ms": execution_time_ms
+            }), 408
         return jsonify({
             "success": False,
             "error": str(e),
