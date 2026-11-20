@@ -80,8 +80,11 @@ CREATE TABLE character_builds (
 CREATE INDEX idx_characters_region ON characters(region);
 CREATE INDEX idx_characters_vision ON characters(vision);
 CREATE INDEX idx_weapons_type ON weapons(weapon_type);
+CREATE INDEX IF NOT EXISTS idx_weapons_signature ON weapons(signature_character_id);
 CREATE INDEX idx_builds_character ON character_builds(character_id);
 CREATE INDEX idx_builds_tier ON character_builds(tier_rating);
+CREATE INDEX IF NOT EXISTS idx_builds_weapon ON character_builds(recommended_weapon_id);
+CREATE INDEX IF NOT EXISTS idx_builds_artifact ON character_builds(recommended_artifact_id);
 """
 
 def load_csv(filename):

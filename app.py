@@ -17,6 +17,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "genshin_learning.db")
 MAX_QUERY_LENGTH = 64 * 1024
 RESULT_BATCH_SIZE = 250
+MAX_STREAM_ROWS = 5000
+QUERY_TIMEOUT_SECONDS = 3.0
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = MAX_QUERY_LENGTH + 1024
@@ -160,6 +162,35 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+# SQLite Authorizer Actions allowed for read-only user queries:
+ALLOWED_SQLITE_ACTIONS = {
+    sqlite3.SQLITE_SELECT,
+    sqlite3.SQLITE_READ,
+    sqlite3.SQLITE_FUNCTION,
+    getattr(sqlite3, "SQLITE_RECURSIVE", 33),
+}
+
+def read_only_authorizer(action_code, param1, param2, db_name, trigger_name):
+    """
+    SQLite C-level authorizer callback.
+    Denies all write, modification, pragma, attach, and administrative actions
+    at the database engine level.
+    """
+    if action_code in ALLOWED_SQLITE_ACTIONS:
+        return sqlite3.SQLITE_OK
+    return sqlite3.SQLITE_DENY
+
+def make_progress_handler(start_time, timeout_seconds=QUERY_TIMEOUT_SECONDS):
+    """
+    Watchdog callback invoked periodically during SQLite bytecode execution.
+    Aborts runaway queries and recursive CTE loops if they exceed timeout_seconds.
+    """
+    def progress():
+        if time.perf_counter() - start_time > timeout_seconds:
+            return 1  # Aborts with sqlite3.OperationalError: interrupted
+        return 0
+    return progress
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -189,9 +220,9 @@ def execute_query():
             "error": f"Query is too large. Keep it under {MAX_QUERY_LENGTH // 1024} KB."
         }), 413
 
-    # Safety check: enforce read-only SELECT or EXPLAIN queries
-    clean_query = re.sub(r"--.*$", "", raw_query, flags=re.MULTILINE)  # Strip comments
-    clean_query = re.sub(r"/\*.*?\*/", "", clean_query, flags=re.DOTALL).strip()
+    # Fast preliminary safety check: enforce read-only keywords
+    clean_query = re.sub(r"--.*$", "", raw_query, flags=re.MULTILINE)  # Strip single-line comments
+    clean_query = re.sub(r"/\*.*?\*/", "", clean_query, flags=re.DOTALL).strip()  # Strip multi-line comments
 
     forbidden_patterns = [
         r"\b(INSERT|UPDATE|DELETE|DROP|ALTER|CREATE|REPLACE|ATTACH|DETACH|VACUUM|REINDEX|PRAGMA)\b"
@@ -207,18 +238,41 @@ def execute_query():
     conn = None
     try:
         conn = get_db_connection()
+        # Install C-level engine authorizer to strictly block any non-read operations
+        conn.set_authorizer(read_only_authorizer)
+        # Install C-level progress handler watchdog to abort infinite CTEs or runaway queries
+        conn.set_progress_handler(make_progress_handler(start_time, QUERY_TIMEOUT_SECONDS), 500)
+
         cursor = conn.cursor()
         cursor.execute(raw_query)
         columns = [d[0] for d in cursor.description] if cursor.description else []
 
+    except sqlite3.OperationalError as e:
+        err_msg = str(e)
+        if "interrupted" in err_msg.lower():
+            err_msg = f"Query Execution Timeout: Query exceeded the {QUERY_TIMEOUT_SECONDS}s safety limit and was aborted to prevent server freeze."
+        elif "not authorized" in err_msg.lower() or "denied" in err_msg.lower():
+            err_msg = "Security Restriction: Only read-only queries (SELECT, WITH, EXPLAIN) are permitted."
+        execution_time_ms = round((time.perf_counter() - start_time) * 1000, 2)
+        if conn:
+            conn.close()
+        return jsonify({
+            "success": False,
+            "error": err_msg,
+            "execution_time_ms": execution_time_ms
+        }), 400
     except sqlite3.Error as e:
         execution_time_ms = round((time.perf_counter() - start_time) * 1000, 2)
+        if conn:
+            conn.close()
         return jsonify({
             "success": False,
             "error": str(e),
             "execution_time_ms": execution_time_ms
         }), 400
     except Exception as e:
+        if conn:
+            conn.close()
         return jsonify({
             "success": False,
             "error": f"Internal Error: {str(e)}"
@@ -227,10 +281,19 @@ def execute_query():
     @stream_with_context
     def stream_results():
         count = 0
+        truncated = False
+        warning = None
         try:
             yield json.dumps({"type": "start", "columns": columns}) + "\n"
             while True:
-                batch = cursor.fetchmany(RESULT_BATCH_SIZE)
+                remaining = MAX_STREAM_ROWS - count
+                if remaining <= 0:
+                    truncated = True
+                    warning = f"Safety Limit: Query results capped at {MAX_STREAM_ROWS:,} rows to prevent memory exhaustion. Add a LIMIT clause to refine your query."
+                    break
+
+                batch_limit = min(RESULT_BATCH_SIZE, remaining)
+                batch = cursor.fetchmany(batch_limit)
                 if not batch:
                     break
                 count += len(batch)
@@ -242,12 +305,30 @@ def execute_query():
             yield json.dumps({
                 "type": "complete",
                 "count": count,
+                "truncated": truncated,
+                "warning": warning,
+                "max_rows": MAX_STREAM_ROWS,
+                "execution_time_ms": round((time.perf_counter() - start_time) * 1000, 2)
+            }) + "\n"
+        except sqlite3.OperationalError as e:
+            err_msg = str(e)
+            if "interrupted" in err_msg.lower():
+                err_msg = f"Query Execution Timeout: Query exceeded the {QUERY_TIMEOUT_SECONDS}s safety limit during streaming and was aborted."
+            yield json.dumps({
+                "type": "error",
+                "error": err_msg,
                 "execution_time_ms": round((time.perf_counter() - start_time) * 1000, 2)
             }) + "\n"
         except sqlite3.Error as e:
             yield json.dumps({
                 "type": "error",
                 "error": str(e),
+                "execution_time_ms": round((time.perf_counter() - start_time) * 1000, 2)
+            }) + "\n"
+        except Exception as e:
+            yield json.dumps({
+                "type": "error",
+                "error": f"Stream Error: {str(e)}",
                 "execution_time_ms": round((time.perf_counter() - start_time) * 1000, 2)
             }) + "\n"
         finally:

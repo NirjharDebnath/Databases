@@ -366,6 +366,11 @@ body {
     color: var(--maple-bright);
 }
 
+.status-badge.warning {
+    background: rgba(229, 169, 83, 0.22);
+    color: var(--autumn-amber);
+}
+
 @keyframes pulse {
     from { opacity: 0.6; }
     to { opacity: 1; }
@@ -679,6 +684,20 @@ kbd {
     font-weight: 700;
     color: #ff6b66;
     margin-bottom: 4px;
+}
+
+.results-notice-banner {
+    background: rgba(229, 169, 83, 0.12);
+    border: 1px solid rgba(229, 169, 83, 0.4);
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    color: #fef08a;
+    font-size: 12px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 /* Data Table */

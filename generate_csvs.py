@@ -100,7 +100,7 @@ CHARACTERS = [
     # Fontaine (13)
     (70, "Neuvillette", 5, "Hydro", "Catalyst", "Fontaine", "Main DPS", 14695, 208, 576, "Normal > Burst = Skill", 4.1),
     (71, "Furina", 5, "Hydro", "Sword", "Fontaine", "Sub-DPS", 15307, 244, 696, "Burst > Skill > Normal", 4.2),
-    (72, "Arlecchino", 5, "Pyro", "Polearm", "Fontaine", "Main DPS", 13103, 342, 765, "Normal > Skill > Burst", 4.6),
+    (72, "Arlecchino", 5, "Pyro", "Polearm", "Snezhnaya", "Main DPS", 13103, 342, 765, "Normal > Skill > Burst", 4.6),
     (73, "Navia", 5, "Geo", "Claymore", "Fontaine", "Main DPS", 12650, 352, 793, "Skill > Burst > Normal", 4.3),
     (74, "Clorinde", 5, "Electro", "Sword", "Fontaine", "Main DPS", 12956, 337, 784, "Skill > Burst > Normal", 4.7),
     (75, "Wriothesley", 5, "Cryo", "Catalyst", "Fontaine", "Main DPS", 13593, 318, 765, "Normal > Skill > Burst", 4.1),
@@ -121,7 +121,7 @@ CHARACTERS = [
     (88, "Citlali", 5, "Cryo", "Catalyst", "Natlan", "Support", 11201, 232, 655, "Skill > Burst > Normal", 5.3),
     (89, "Kachina", 4, "Geo", "Polearm", "Natlan", "Sub-DPS", 11636, 212, 792, "Skill > Burst > Normal", 5.0),
     (90, "Ororon", 4, "Electro", "Bow", "Natlan", "Sub-DPS", 10409, 225, 601, "Burst > Skill > Normal", 5.2),
-    (91, "Iansan", 4, "Electro", "Polearm", "Natlan", "Main DPS", 11419, 268, 674, "Skill > Burst > Normal", 5.4),
+    (91, "Iansan", 4, "Electro", "Polearm", "Natlan", "Main DPS", 11419, 268, 674, "Skill > Burst > Normal", 5.5),
     (108, "Varesa", 5, "Electro", "Catalyst", "Natlan", "Main DPS", 12858, 342, 784, "Normal > Skill > Burst", 5.5),
 
     # Nod-Krai (9)
@@ -132,23 +132,40 @@ CHARACTERS = [
     (96, "Nefer", 5, "Dendro", "Catalyst", "Nod-Krai", "Main DPS", 11021, 335, 607, "Skill > Normal > Burst", 6.1),
     (97, "Jahoda", 4, "Anemo", "Bow", "Nod-Krai", "Support", 9787, 196, 628, "Burst > Skill > Normal", 6.1),
     (98, "Illuga", 4, "Geo", "Polearm", "Nod-Krai", "Support", 11201, 212, 751, "Skill > Burst > Normal", 6.2),
-    (99, "Zibai", 5, "Geo", "Sword", "Nod-Krai", "Main DPS", 13103, 332, 850, "Skill > Burst > Normal", 6.2),
+    (99, "Zibai", 5, "Geo", "Sword", "Liyue", "Main DPS", 13103, 332, 850, "Skill > Burst > Normal", 6.2),
     (100, "Linnea", 5, "Geo", "Bow", "Nod-Krai", "Sub-DPS", 12397, 318, 715, "Burst > Skill > Normal", 6.3),
 
     # Snezhnaya (4)
     (101, "Tartaglia", 5, "Hydro", "Bow", "Snezhnaya", "Main DPS", 13103, 301, 815, "Skill > Burst > Normal", 1.1),
-    (102, "Columbina", 5, "Hydro", "Catalyst", "Snezhnaya", "Sub-DPS", 14695, 268, 696, "Burst > Skill > Normal", 6.0),
-    (103, "Sandrone", 5, "Geo", "Catalyst", "Snezhnaya", "Support", 12858, 244, 876, "Skill > Burst > Normal", 6.2),
-    (104, "Capitano", 5, "Cryo", "Claymore", "Snezhnaya", "Main DPS", 15552, 359, 876, "Normal > Skill > Burst", 6.1),
+    (102, "Columbina", 5, "Hydro", "Catalyst", "Nod-Krai", "Sub-DPS", 14695, 268, 696, "Burst > Skill > Normal", 6.0),
+    (103, "Sandrone", 5, "Cryo", "Claymore", "Snezhnaya", "Support", 12858, 244, 876, "Skill > Burst > Normal", 6.2),
 
     # Outlander / Special (7)
-    (105, "Aloy", 5, "Cryo", "Bow", "Outlander", "Sub-DPS", 10899, 234, 676, "Skill > Burst > Normal", 2.1),
+    (105, "Aloy", 5, "Cryo", "Bow", "None", "Sub-DPS", 10899, 234, 676, "Skill > Burst > Normal", 2.1),
     (109, "Traveler (Anemo)", 5, "Anemo", "Sword", "Outlander", "Sub-DPS", 10875, 204, 683, "Burst > Skill > Normal", 1.0),
     (110, "Traveler (Geo)", 5, "Geo", "Sword", "Outlander", "Sub-DPS", 10875, 204, 683, "Skill > Burst > Normal", 1.0),
     (111, "Traveler (Electro)", 5, "Electro", "Sword", "Outlander", "Support", 10875, 204, 683, "Burst > Skill > Normal", 2.0),
     (112, "Traveler (Dendro)", 5, "Dendro", "Sword", "Outlander", "Sub-DPS", 10875, 204, 683, "Burst > Skill > Normal", 3.0),
     (113, "Traveler (Hydro)", 5, "Hydro", "Sword", "Outlander", "Sub-DPS", 10875, 204, 683, "Skill > Burst > Normal", 4.0),
-    (114, "Traveler (Pyro)", 5, "Pyro", "Sword", "Outlander", "Main DPS", 10875, 204, 683, "Skill > Burst > Normal", 5.3)
+    (114, "Traveler (Pyro)", 5, "Pyro", "Sword", "Outlander", "Main DPS", 10875, 204, 683, "Skill > Burst > Normal", 5.3),
+
+    # 16 Missing Playable Characters (IDs 115 to 130)
+    (115, "Ifa", 4, "Anemo", "Catalyst", "Natlan", "Healer", 11201, 193, 655, "Skill > Burst > Normal", 5.6),
+    (116, "Escoffier", 5, "Cryo", "Polearm", "Fontaine", "Sub-DPS", 12907, 337, 789, "Skill > Burst > Normal", 5.6),
+    (117, "Dahlia", 4, "Hydro", "Sword", "Mondstadt", "Support", 11962, 196, 713, "Burst > Skill > Normal", 5.7),
+    (118, "Skirk", 5, "Cryo", "Sword", "Outlander", "Main DPS", 13103, 349, 799, "Normal > Skill > Burst", 5.7),
+    (119, "Wonderland Manekin", 5, "Anemo", "Sword", "Outlander", "Main DPS", 10875, 297, 683, "Skill = Burst > Normal", 6.1),
+    (120, "Durin", 5, "Pyro", "Sword", "Mondstadt", "Main DPS", 13348, 342, 784, "Skill > Burst > Normal", 6.2),
+    (121, "Varka", 5, "Anemo", "Claymore", "Mondstadt", "Main DPS", 13864, 359, 799, "Normal = Skill > Burst", 6.4),
+    (122, "Nicole", 5, "Pyro", "Catalyst", "Mondstadt", "Support", 12907, 268, 696, "Burst > Skill > Normal", 6.6),
+    (123, "Prune", 4, "Anemo", "Catalyst", "Nod-Krai", "Sub-DPS", 9787, 225, 628, "Skill > Burst > Normal", 6.6),
+    (124, "Lohen", 5, "Cryo", "Polearm", "Nod-Krai", "Main DPS", 13103, 342, 789, "Normal > Skill > Burst", 6.6),
+    (125, "Alyosha", 4, "Electro", "Polearm", "Snezhnaya", "Support", 11636, 212, 751, "Burst > Skill > Normal", 7.0),
+    (126, "Odette", 5, "Cryo", "Sword", "Snezhnaya", "Sub-DPS", 12858, 337, 784, "Skill > Burst > Normal", 7.0),
+    (127, "Vesna", 5, "Anemo", "Sword", "Nod-Krai", "Main DPS", 13348, 342, 807, "Normal > Skill > Burst", 7.1),
+    (128, "Vodyanitsa", 5, "Hydro", "Catalyst", "Snezhnaya", "Healer", 14695, 234, 657, "Skill > Burst > Normal", 7.1),
+    (129, "Mitya", 5, "Electro", "Catalyst", "Snezhnaya", "Main DPS", 12858, 342, 765, "Normal > Skill > Burst", 7.2),
+    (130, "Valeriy", 4, "Electro", "Sword", "Snezhnaya", "Shielder", 12397, 202, 771, "Skill > Burst > Normal", 7.2)
 ]
 
 # -------------------------------------------------------------
@@ -183,10 +200,10 @@ WEAPONS = [
     (125, "Silvershower Heartstrings", "Bow", 5, 542, "HP%", 66.2, 0, 78),                  # Sigewinne
     (126, "Lumidouce Elegy", "Polearm", 5, 608, "CRIT Rate", 33.1, 0, 77),                  # Emilie
     (127, "Surf's Up", "Catalyst", 5, 542, "CRIT DMG", 88.2, 0, 83),                       # Mualani
-    (128, "Fang of the Mountain King", "Claymore", 5, 608, "CRIT Rate", 33.1, 0, 84),      # Kinich
+    (128, "Fang of the Mountain King", "Claymore", 5, 741, "CRIT Rate", 11.0, 0, 84),      # Kinich
     (129, "Peak Patrol Song", "Sword", 5, 542, "DEF%", 82.7, 0, 85),                       # Xilonen
     (130, "Astral Vulture's Crimson Plumage", "Bow", 5, 608, "CRIT DMG", 66.2, 0, 86),     # Chasca
-    (131, "A Thousand Blazing Suns", "Claymore", 5, 608, "CRIT Rate", 33.1, 0, 87),        # Mavuika
+    (131, "A Thousand Blazing Suns", "Claymore", 5, 741, "CRIT Rate", 11.0, 0, 87),        # Mavuika
     (132, "Starcaller's Watch", "Catalyst", 5, 542, "Elemental Mastery", 265.0, 0, 88),    # Citlali
     (133, "Song of Broken Pines", "Claymore", 5, 741, "Physical DMG", 20.7, 0, 7),          # Eula
     (134, "Amos' Bow", "Bow", 5, 608, "ATK%", 49.6, 0, 22),                                 # Ganyu
@@ -268,7 +285,74 @@ WEAPONS = [
     (200, "Thrilling Tales of Dragon Slayers", "Catalyst", 3, 401, "HP%", 35.2, 0, None),
     (201, "White Tassel", "Polearm", 3, 401, "CRIT Rate", 23.4, 0, None),
     (202, "Black Tassel", "Polearm", 3, 354, "HP%", 46.9, 0, None),
-    (203, "Slingshot", "Bow", 3, 354, "CRIT Rate", 31.2, 0, None)
+    (203, "Slingshot", "Bow", 3, 354, "CRIT Rate", 31.2, 0, None),
+
+    # 24 Missing 5-star Signature Weapons (IDs 204 to 227)
+    (204, "Calamity Queller", "Polearm", 5, 741, "ATK%", 16.5, 0, 27),
+    (205, "Everlasting Moonglow", "Catalyst", 5, 608, "HP%", 49.6, 0, 44),
+    (206, "Fractured Halo", "Polearm", 5, 608, "CRIT DMG", 66.2, 0, 92),
+    (207, "Nightweaver's Looking Glass", "Catalyst", 5, 542, "Elemental Mastery", 265.0, 0, 93),
+    (208, "Pocztowy Demonspear", "Polearm", 5, 674, "CRIT Rate", 22.1, 0, 94),
+    (209, "Reliquary of Truth", "Catalyst", 5, 542, "CRIT DMG", 88.2, 0, 96),
+    (210, "Lightbearing Moonshard", "Sword", 5, 542, "CRIT DMG", 88.2, 0, 99),
+    (211, "Golden Frostbound Oath", "Bow", 5, 542, "CRIT DMG", 88.2, 0, 100),
+    (212, "Nocturne's Curtain Call", "Catalyst", 5, 542, "CRIT DMG", 88.2, 0, 102),
+    (213, "A Teaspoon of Transcendence", "Claymore", 5, 674, "CRIT Rate", 22.1, 0, 103),
+    (214, "Sunny Morning Sleep-In", "Catalyst", 5, 542, "Elemental Mastery", 265.0, 0, 107),
+    (215, "Vivid Notions", "Catalyst", 5, 674, "CRIT DMG", 44.1, 0, 108),
+    (216, "Symphonist of Scents", "Polearm", 5, 608, "CRIT DMG", 66.2, 0, 116),
+    (217, "Azurelight", "Sword", 5, 674, "CRIT Rate", 22.1, 0, 118),
+    (218, "Athame Artis", "Sword", 5, 608, "CRIT Rate", 33.1, 0, 120),
+    (219, "Gest of the Mighty Wolf", "Claymore", 5, 608, "CRIT Rate", 33.1, 0, 121),
+    (220, "Angelos' Heptades", "Catalyst", 5, 741, "ATK%", 16.5, 0, 122),
+    (221, "Disaster and Remorse", "Polearm", 5, 674, "CRIT Rate", 22.1, 0, 124),
+    (222, "Whitelake Frostfeather", "Sword", 5, 608, "CRIT DMG", 66.2, 0, 126),
+    (223, "Beyond the Chrysalis", "Sword", 5, 674, "CRIT DMG", 44.1, 0, 127),
+    (224, "Hymn of the Maelstrom", "Catalyst", 5, 608, "HP%", 49.6, 0, 128),
+    (225, "Starsealed Edict", "Catalyst", 5, 674, "CRIT Rate", 22.1, 0, 129),
+    (226, "Exaiphanes Blade", "Sword", 5, 608, "CRIT Rate", 33.1, 0, 114),
+    (227, "Miliastra Sovereign", "Sword", 5, 608, "CRIT DMG", 66.2, 0, 119),
+
+    # 19 Missing Regional Craftable Weapons (IDs 228 to 246)
+    # Dragonspine (3)
+    (228, "Snow-Tombed Starsilver", "Claymore", 4, 565, "Physical DMG", 34.5, 1, None),
+    (229, "Dragonspine Spear", "Polearm", 4, 454, "Physical DMG", 69.0, 1, None),
+    (230, "Frostbearer", "Catalyst", 4, 510, "ATK%", 41.3, 1, None),
+
+    # Sumeru (4)
+    (231, "Forest Regalia", "Claymore", 4, 565, "Energy Recharge", 30.6, 1, None),
+    (232, "Moonpiercer", "Polearm", 4, 565, "Elemental Mastery", 110.0, 1, None),
+    (233, "King's Squire", "Bow", 4, 454, "ATK%", 55.1, 1, None),
+    (234, "Fruit of Fulfillment", "Catalyst", 4, 510, "Energy Recharge", 45.9, 1, None),
+
+    # Fontaine (2)
+    (235, "Song of Stillness", "Bow", 4, 510, "ATK%", 41.3, 1, None),
+    (236, "Flowing Purity", "Catalyst", 4, 565, "ATK%", 27.6, 1, None),
+
+    # Nod-Krai (5)
+    (237, "Serenity's Call", "Sword", 4, 454, "Energy Recharge", 61.3, 1, None),
+    (238, "Master Key", "Claymore", 4, 454, "Energy Recharge", 61.3, 1, None),
+    (239, "Prospector's Shovel", "Polearm", 4, 510, "ATK%", 41.3, 1, None),
+    (240, "Snare Hook", "Bow", 4, 454, "Energy Recharge", 61.3, 1, None),
+    (241, "Blackmarrow Lantern", "Catalyst", 4, 454, "Elemental Mastery", 221.0, 1, None),
+
+    # Snezhnaya (5)
+    (242, "Emberwell", "Sword", 4, 510, "Elemental Mastery", 165.0, 1, None),
+    (243, "Blade of Atonement", "Claymore", 4, 565, "ATK%", 27.6, 1, None),
+    (244, "Song of the Vigil", "Polearm", 4, 565, "Elemental Mastery", 110.0, 1, None),
+    (245, "Covenant of Frost and Snow", "Bow", 4, 510, "DEF%", 51.7, 1, None),
+    (246, "Echoes of the Heart", "Catalyst", 4, 565, "ATK%", 27.6, 1, None),
+
+    # 9 Key Meta Staples and Event Weapons (IDs 247 to 255)
+    (247, "Fleuve Cendre Ferryman", "Sword", 4, 510, "Energy Recharge", 45.9, 0, None),
+    (248, "The Stringless", "Bow", 4, 510, "Elemental Mastery", 165.0, 0, None),
+    (249, "Cinnabar Spindle", "Sword", 4, 454, "DEF%", 69.0, 0, 6),                     # Albedo
+    (250, "Mountain-Bracing Bolt", "Polearm", 4, 565, "Energy Recharge", 30.6, 0, None),
+    (251, "Sturdy Bone", "Sword", 4, 565, "ATK%", 27.6, 0, None),
+    (252, "Fruitful Hook", "Claymore", 4, 565, "ATK%", 27.6, 0, None),
+    (253, "Flower-Wreathed Feathers", "Bow", 4, 510, "ATK%", 41.3, 0, None),
+    (254, "Waveriding Whirl", "Catalyst", 4, 454, "Energy Recharge", 61.3, 0, None),
+    (255, "Calamity of Eshu", "Sword", 4, 510, "ATK%", 41.3, 0, None)
 ]
 
 # -------------------------------------------------------------
@@ -352,12 +436,12 @@ ARTIFACT_SETS = [
     # Nod-Krai, Snezhnaya & Regional Domains (8)
     (57, "Night of the Sky's Unveiling", "Frostladen Machinery", "Nod-Krai", "+80 Elemental Mastery", "Triggering Lunar Reactions grants Gleaming Moon: Intent, increasing CRIT Rate by up to 30%"),
     (58, "Silken Moon's Serenade", "Frostladen Machinery", "Nod-Krai", "+20% Energy Recharge", "Dealing Elemental DMG grants Gleaming Moon: Devotion, boosting party EM by up to 120"),
-    (59, "Aubade of Morningstar and Moon", "Moonchild's Treasures", "Nod-Krai", "+15% Lunar Reaction DMG", "Dealing Lunar Reaction DMG increases character ATK and direct Lunar DMG by 35%"),
-    (60, "A Day Carved from Rising Winds", "Moonchild's Treasures", "Nod-Krai", "+18% ATK", "Grants Blessing of Pastoral Winds boosting ATK by 25% and CRIT Rate by 20% with Witch's Homework"),
+    (59, "Aubade of Morningstar and Moon", "Moonchild's Treasures", "Nod-Krai", "+80 Elemental Mastery", "When off-field, Lunar Reaction DMG +20%. When party Moonsign Level is Ascendant Gleam, Lunar Reaction DMG +40%"),
+    (60, "A Day Carved from Rising Winds", "Moonchild's Treasures", "Nod-Krai", "+18% ATK", "Normal/Charged/Skill/Burst hits grant Blessing of Pastoral Winds (ATK +25% for 6s); upgrades with Witch's Homework to Resolve of Pastoral Winds (CRIT Rate +20%)"),
     (61, "Celestial Gift", "Thorny Crown of the Mountain Wind", "Mondstadt", "+20% Energy Recharge", "Using Skill grants team 20% Elemental DMG bonus (up to 40% with Hexerei Secret Rite)"),
-    (62, "Disenchantment in Deep Shadow", "Thorny Crown of the Mountain Wind", "Snezhnaya", "+18% ATK", "Superconduct Reaction DMG +80% (Stellar +40%); CRIT Rate +16% against affected foes"),
-    (63, "Scarlet Proof", "Palace of Frost", "Snezhnaya", "+15% Cryo DMG", "Triggering Melt or Stellar Reaction increases CRIT DMG by 45% for 8s"),
-    (64, "Heart of the Furnace", "Palace of Frost", "Snezhnaya", "+80 Elemental Mastery", "Swirl and Stellar Swirl reactions grant party +25% ATK and +15% All Elemental DMG")
+    (62, "Disenchantment in Deep Shadow", "Thorny Crown of the Mountain Wind", "Mondstadt", "+18% ATK", "Superconduct Reaction DMG +80% (Stellar-Conduct +40%); attacking affected foes increases CRIT Rate by 16%"),
+    (63, "Scarlet Proof", "Inverted Glacier", "Snezhnaya", "+18% ATK", "After triggering a Stellar Swirl reaction, CRIT Rate +16% and Stellar Swirl DMG +40% for 10s"),
+    (64, "Heart of the Furnace", "Inverted Glacier", "Snezhnaya", "+18% ATK", "Triggering Stellar Glimmer or dealing its DMG grants ATK +12% for 12s, and increases party Stellar Glimmer DMG by 50%")
 ]
 
 # -------------------------------------------------------------
@@ -371,7 +455,7 @@ BUILDS = [
 
     # Furina (71)
     (304, 71, "Salon Solitaire Sub-DPS", "Sub-DPS", 102, 48, "HP%", "HP%", "CRIT Rate", "SS", "Drains team HP via salon members to generate massive universal Fanfare damage buff"),
-    (305, 71, "F2P Ferryman Buffer", "Sub-DPS", 188, 48, "Energy Recharge", "Hydro DMG", "CRIT Rate", "S+", "Solves high ER requirement to ensure continuous 100% Burst uptime"),
+    (305, 71, "F2P Ferryman Buffer", "Sub-DPS", 247, 48, "Energy Recharge", "Hydro DMG", "CRIT Rate", "S+", "Solves high ER requirement to ensure continuous 100% Burst uptime"),
     (306, 71, "Key of Khaj-Nisut Team EM Buffer", "Support", 116, 33, "HP%", "HP%", "HP%", "SS", "Converts huge HP pool into teamwide Elemental Mastery buffs"),
 
     # Arlecchino (72)
@@ -530,10 +614,8 @@ BUILDS = [
     (379, 102, "Moon Maiden Hydro Symphony", "Sub-DPS", 101, 59, "HP%", "Hydro DMG", "CRIT Rate", "SS", "Harbinger song resonance dealing echoing off-field hydro damage and lunar buffs"),
 
     # Sandrone (103)
-    (380, 103, "Marionette Construct Commander", "Support", 145, 50, "ATK%", "Geo DMG", "CRIT Rate", "SS", "Commands mechanical guard marionettes to protect and buff active characters"),
+    (380, 103, "Marionette Construct Commander", "Support", 213, 50, "ATK%", "Cryo DMG", "CRIT Rate", "SS", "Commands mechanical guard marionettes to protect and buff active characters"),
 
-    # Capitano (104)
-    (381, 104, "Apex Cryo Juggernaut", "Main DPS", 141, 55, "ATK%", "Cryo DMG", "CRIT Rate", "SS", "Snezhnaya's First Harbinger delivering overwhelming physical and cryo devastation"),
 
     # Venti (1)
     (382, 1, "Wind's Grand Ode Crowd Control", "Support", 140, 24, "Energy Recharge", "Anemo DMG", "CRIT Rate", "S+", "Unmatched black hole vortex grouping all lightweight enemies indefinitely"),
@@ -551,7 +633,7 @@ BUILDS = [
     (386, 5, "Stellaris Phantasm Nuke Enabler", "Sub-DPS", 196, 21, "Energy Recharge", "Hydro DMG", "CRIT Rate", "S+", "Applies Omen debuff granting up to 60% damage amplification"),
 
     # Albedo (6)
-    (387, 6, "Solar Isotoma Transient Blossom", "Sub-DPS", 182, 37, "DEF%", "Geo DMG", "CRIT Rate", "S+", "Places elevator flower triggering consistent off-field Geo DEF-scaling blossoms"),
+    (387, 6, "Solar Isotoma Transient Blossom", "Sub-DPS", 249, 37, "DEF%", "Geo DMG", "CRIT Rate", "S+", "Places elevator flower triggering consistent off-field Geo DEF-scaling blossoms"),
 
     # Eula (7)
     (388, 7, "Lightfall Sword Physical Nuke", "Main DPS", 133, 34, "ATK%", "Physical DMG", "CRIT Rate", "S+", "Stacks energy during Glacial Illumination to detonate multi-million physical bomb"),
@@ -566,7 +648,7 @@ BUILDS = [
     (391, 25, "Aggravate Starward Sword", "Main DPS", 108, 36, "ATK%", "Electro DMG", "CRIT Rate", "S+", "Fast blink teleports and multi-slash burst triggering nonstop Aggravate reactions"),
 
     # Shenhe (27)
-    (392, 27, "Icy Quill Cryo Buffer", "Support", 135, 21, "ATK%", "ATK%", "ATK%", "S+", "Grants flat damage buffs to every Cryo hit based on her own total ATK"),
+    (392, 27, "Icy Quill Cryo Buffer", "Support", 204, 21, "ATK%", "ATK%", "ATK%", "S+", "Grants flat damage buffs to every Cryo hit based on her own total ATK"),
 
     # Kuki Shinobu (53)
     (393, 53, "Full EM Hyperbloom Ring", "Healer", 164, 44, "Elemental Mastery", "Elemental Mastery", "Elemental Mastery", "SS", "Sanctifying Ring detonates Dendro cores every 1.5s while healing active character"),
@@ -611,7 +693,193 @@ BUILDS = [
     (406, 109, "Palm Vortex Resistance Shredder", "Support", 164, 24, "Elemental Mastery", "Anemo DMG", "Elemental Mastery", "S", "Early-game Anemo shredder pulling enemies into tornado burst"),
 
     # Traveler (Pyro) (114)
-    (407, 114, "Nightsoul Blazing Sword", "Main DPS", 179, 54, "ATK%", "Pyro DMG", "CRIT Rate", "S+", "Channels Natlan sacred flames utilizing Obsidian Codex Nightsoul bonuses")
+    (407, 114, "Nightsoul Blazing Sword", "Main DPS", 179, 54, "ATK%", "Pyro DMG", "CRIT Rate", "S+", "Channels Natlan sacred flames utilizing Obsidian Codex Nightsoul bonuses"),
+
+    # Barbara (11)
+    (408, 11, "Ocean-Hued Hydro Caregiver", "Healer", 200, 38, "HP%", "HP%", "Healing Bonus", "A", "HP% > ER > Flat HP > EM. Continuous team healing via Melody Loop and instant party burst while boosting active DPS with Thrilling Tales."),
+
+    # Razor (12)
+    (409, 12, "Pale Flame Physical Wolf", "Main DPS", 141, 34, "ATK%", "Physical DMG", "CRIT Rate", "A", "CRIT Rate > CRIT DMG > ATK% > ER. Summons the Wolf Spirit to attack alongside normal strikes, shredding enemy physical resistance with Superconduct."),
+
+    # Noelle (13)
+    (410, 13, "Sweeping Time Battle Maid", "Main DPS", 114, 37, "DEF%", "Geo DMG", "CRIT Rate", "S", "DEF% > CRIT Rate > CRIT DMG > ER. Converts massive DEF into ATK during Sweeping Time, cleaving entire arenas while healing the entire party."),
+
+    # Kaeya (14)
+    (411, 14, "Glacial Waltz Blizzard Shredder", "Sub-DPS", 108, 36, "Energy Recharge", "Cryo DMG", "CRIT Rate", "A", "ER > CRIT Rate > CRIT DMG > ATK%. Encircles active character with orbiting icicles dealing sustained off-field Cryo damage in Melt and Freeze teams."),
+
+    # Lisa (15)
+    (412, 15, "Lightning Rose DEF Shredder", "Sub-DPS", 196, 36, "Energy Recharge", "Electro DMG", "CRIT Rate", "A", "ER > CRIT Rate > CRIT DMG > EM. Deploys Lightning Rose to discharge continuous Electro bursts and shred enemy DEF by 15%."),
+
+    # Amber (16)
+    (413, 16, "Noblesse Fiery Rain Support", "Support", 140, 21, "Energy Recharge", "Pyro DMG", "CRIT Rate", "A", "ER > CRIT Rate > EM > ATK%. Unleashes rapid-hitting 40-energy Fiery Rain to shred Cryo/Hydro shields and trigger teamwide Noblesse and Elegy buffs."),
+
+    # Diona (17)
+    (414, 17, "Icy Paws Cryo Battery Shielder", "Shielder", 195, 21, "HP%", "HP%", "HP%", "S", "HP% > ER > Flat HP > EM. Fires Icy Paws to grant thick shields, cleanses party debuffs, and generates copious Cryo particles with Sacrificial Bow."),
+
+    # Rosaria (18)
+    (415, 18, "Shadow Samaritan CRIT Sharer", "Sub-DPS", 155, 21, "Energy Recharge", "Cryo DMG", "CRIT Rate", "S", "CRIT Rate > ER > CRIT DMG > ATK%. Plants an Ice Lance for persistent off-field Cryo application while sharing up to 15% CRIT Rate to teammates."),
+
+    # Mika (19)
+    (416, 19, "Starfrost Physical & Atk Speed Buffer", "Support", 189, 21, "Energy Recharge", "HP%", "Healing Bonus", "A", "ER > HP% > CRIT Rate > Flat HP. Buffs physical damage and attack speed with Starfrost Flare while healing entire party upon casting Skyfeather Song."),
+
+    # Qiqi (26)
+    (417, 26, "Fortune-Preserving Clam Healer", "Healer", 193, 38, "Energy Recharge", "ATK%", "Healing Bonus", "A", "ER > ATK% > Flat ATK > CRIT Rate. Applies Talismans marking foes so attacking allies heal instantly, maxing out Ocean-Hued Clam damage bubbles."),
+
+    # Ningguang (32)
+    (418, 32, "Starshatter Jade Screen Burst", "Main DPS", 149, 50, "ATK%", "Geo DMG", "CRIT Rate", "S", "CRIT Rate > CRIT DMG > ATK% > ER. Passes through Jade Screen for Geo DMG bonus, unleashing Starshatter homing jade projectiles with huge single-target burst."),
+
+    # Beidou (33)
+    (419, 33, "Stormbreaker Chain-Lightning Sub-DPS", "Sub-DPS", 154, 36, "Energy Recharge", "Electro DMG", "CRIT Rate", "S+", "ER > CRIT Rate > CRIT DMG > ATK%. Parries incoming blows with Tidecaller and unleashes bouncing chain lightning through Stormbreaker across multi-target encounters."),
+
+    # Chongyun (34)
+    (420, 34, "Spirit Blade Chonghua Melt Nuke", "Sub-DPS", 141, 21, "ATK%", "Cryo DMG", "CRIT Rate", "A", "CRIT Rate > CRIT DMG > ATK% > EM. Provides melee Cryo infusion and drops three to four giant frost swords dealing instant triple-melt burst damage."),
+
+    # Xinyan (35)
+    (421, 35, "Riff Revolution Physical Burst", "Shielder", 141, 19, "DEF%", "Physical DMG", "CRIT DMG", "A", "DEF% > ER > CRIT DMG > ATK%. Sweeps instrument to form a Pyro shield and fires Riff Revolution with 100% guaranteed physical CRIT hit at C2."),
+
+    # Yanfei (36)
+    (422, 36, "Scarlet Seal Vaporize Prosecutor", "Main DPS", 149, 30, "ATK%", "Pyro DMG", "CRIT Rate", "S", "CRIT Rate > CRIT DMG > EM > ATK%. Consumes Scarlet Seals through long-range charged fireballs to vaporize targets shielded by Tankfei mechanics."),
+
+    # Yun Jin (37)
+    (423, 37, "Flying Cloud Normal Attack Buffer", "Support", 189, 37, "DEF%", "DEF%", "DEF%", "S", "DEF% > ER > Flat DEF > CRIT Rate. Sings Cliffbreaker's Banner to impart huge flat damage buffs to normal attacks scaling with her total DEF."),
+
+    # Yaoyao (38)
+    (424, 38, "Yuegui Radish Bloom Healer", "Healer", 189, 41, "HP%", "HP%", "Healing Bonus", "S+", "ER > HP% > Flat HP > EM. Deploys Yuegui to toss White Jade Radishes healing active teammates while reliably maintaining 30% Dendro RES shred."),
+
+    # Kujou Sara (49)
+    (425, 49, "Tengu Juumonji Electro Buffer", "Support", 144, 21, "Energy Recharge", "Electro DMG", "CRIT Rate", "S", "ER > CRIT Rate > CRIT DMG > ATK%. Teleports and leaves Crowfeathers granting massive flat ATK buffs and 60% Electro CRIT DMG at C6 to Raiden Shogun."),
+
+    # Sayu (50)
+    (426, 50, "Fuufuu Whirlwind Swirl Healer", "Healer", 192, 24, "Energy Recharge", "Elemental Mastery", "Elemental Mastery", "A", "EM > ER > ATK% > Flat ATK. Rolls continuously across the battlefield absorbing elements and summons Muji-Muji Daruma to heal and shred 40% RES."),
+
+    # Thoma (51)
+    (427, 51, "Crimson Ooyoroi Burgeon Trigger", "Support", 175, 21, "Elemental Mastery", "Elemental Mastery", "Elemental Mastery", "S+", "EM > ER > HP% > Flat HP. Triggers fiery Ooyoroi waves on normal attacks to cleanly detonate Dendro Cores in premier Burgeon teams."),
+
+    # Gorou (52)
+    (428, 52, "General's War-Banner DEF Anchor", "Support", 190, 21, "Energy Recharge", "DEF%", "CRIT Rate", "S", "ER > DEF% > CRIT Rate > Flat DEF. Plants General's War-Banner granting flat DEF, Geo DMG%, and resistance to interruption for mono-Geo teams with Itto and Noelle."),
+
+    # Shikanoin Heizou (54)
+    (429, 54, "Heartstopper Swirl Pugilist", "Main DPS", 149, 24, "ATK%", "Anemo DMG", "CRIT Rate", "S", "CRIT Rate > CRIT DMG > ATK% > EM. Rapidly stacks Declension stacks through melee swirls to unleash devastating one-inch Heartstopper punch nukes."),
+
+    # Kirara (55)
+    (430, 55, "Urgent Neko Delivery Shielder", "Shielder", 116, 33, "HP%", "HP%", "HP%", "S", "HP% > ER > Flat HP > EM. Curls into a delivery box ramming enemies and providing a reinforced Dendro shield with 100% uptime."),
+
+    # Collei (63)
+    (431, 63, "Floral Sidewinder Quicken Battery", "Sub-DPS", 140, 41, "Energy Recharge", "Dendro DMG", "CRIT Rate", "A", "ER > CRIT Rate > CRIT DMG > EM. Deploys Cuilein-Anbar bouncing doll for off-field Dendro application and shreds Dendro resistance."),
+
+    # Dori (64)
+    (432, 64, "Jinni Energy Battery Healer", "Healer", 192, 21, "Energy Recharge", "HP%", "Healing Bonus", "A", "ER > HP% > Flat HP > EM. Summons the Jinni to link with active character, restoring continuous HP and flat energy."),
+
+    # Candace (65)
+    (433, 65, "Sacred Rite Hydro Infusion Support", "Support", 189, 21, "HP%", "HP%", "HP%", "A", "ER > HP% > Flat HP > CRIT Rate. Raises Heron's Shield to grant normal attack elemental DMG bonus and melee Hydro infusion to active allies."),
+
+    # Layla (66)
+    (434, 66, "Curtain of Slumber Star-Stream Shielder", "Shielder", 116, 33, "HP%", "HP%", "HP%", "S", "HP% > ER > Flat HP > CRIT Rate. Forms a sleep-shield and fires homing Shooting Stars whenever party members cast skills, maintaining 100% shield uptime."),
+
+    # Kaveh (68)
+    (435, 68, "Mehrak Artistic Bloom Driver", "Main DPS", 183, 41, "Elemental Mastery", "Elemental Mastery", "Elemental Mastery", "A", "EM > ER > HP% > ATK%. Uses Mehrak to scan and instantly rupture all nearby Dendro Cores while converting core blast damage into self-healing."),
+
+    # Sethos (69)
+    (436, 69, "Shadowpiercing Electro Sniper", "Main DPS", 117, 20, "Elemental Mastery", "Electro DMG", "CRIT Rate", "S", "EM > CRIT Rate > CRIT DMG > ER. Consumes burst energy to charge penetrating Shadowpiercing Shot arrows dealing devastating Electro damage."),
+
+    # Lynette (79)
+    (437, 79, "Bogglecat Swirl Distraction", "Sub-DPS", 188, 24, "Energy Recharge", "Anemo DMG", "CRIT Rate", "A", "ER > CRIT Rate > CRIT DMG > ATK%. Summons Bogglecat Box to taunt opponents, swirl elements, and grant 20% team ATK buff based on party diversity."),
+
+    # Freminet (80)
+    (438, 80, "Pers Clockwork Shattering Diver", "Main DPS", 180, 34, "ATK%", "Physical DMG", "CRIT Rate", "A", "CRIT Rate > CRIT DMG > ATK% > ER. Coordinates with Pers clockwork penguin to build pressure levels and execute heavy Shatter physical cleaves."),
+
+    # Charlotte (81)
+    (439, 81, "Monsieur Verite Flash Healer", "Healer", 171, 21, "Energy Recharge", "ATK%", "Healing Bonus", "S", "ER > ATK% > Flat ATK > CRIT Rate. Snaps comprehensive photos with Monsieur Verite to instantly heal the entire party, making her premier Furina partner."),
+
+    # Ororon (90)
+    (440, 90, "Hypersense Nightsoul Electro Sub-DPS", "Sub-DPS", 185, 53, "ATK%", "Electro DMG", "CRIT Rate", "S+", "CRIT Rate > CRIT DMG > ATK% > ER. Enters Nightsoul state to unleash Hypersense strikes triggered by teammates dealing Electro-Charged or Nightsoul damage."),
+
+    # Iansan (91)
+    (441, 91, "Collective of Plenty Thunder Smasher", "Main DPS", 155, 54, "ATK%", "Electro DMG", "CRIT Rate", "S", "CRIT Rate > CRIT DMG > ATK% > ER. Channels Natlan stamina and Nightsoul fury into explosive high-speed leaping strikes and Electro shocks."),
+
+    # Aino (95)
+    (442, 95, "Aurora Borealis Tidal Greatsword", "Sub-DPS", 180, 36, "Energy Recharge", "Hydro DMG", "CRIT Rate", "S", "ER > CRIT Rate > CRIT DMG > ATK%. Sweeps massive Hydro tides to enable Vaporize and Freeze while generating elemental energy for high-cost carries."),
+
+    # Nefer (96)
+    (443, 96, "Verdant Oasis Astral Bloom", "Main DPS", 209, 57, "Elemental Mastery", "Dendro DMG", "CRIT DMG", "SS", "CRIT DMG > CRIT Rate > EM > ER. Weaves intricate Dendro constellations to blast opponents with piercing lunar vines and Bloom reactions."),
+
+    # Jahoda (97)
+    (444, 97, "Gale-Force Stellar Swirl Buffer", "Support", 140, 24, "Elemental Mastery", "Elemental Mastery", "Elemental Mastery", "S", "EM > ER > CRIT Rate. Unleashes swirling Anemo vortexes pulling lighter enemies while shredding 40% elemental resistances."),
+
+    # Illuga (98)
+    (445, 98, "Petrified Bastion Resonator", "Support", 189, 33, "DEF%", "Geo DMG", "DEF%", "A", "DEF% > ER > CRIT Rate > Flat DEF. Erects resonant crystalline pillars that amplify party Geo DMG and generate Crystallize shields."),
+
+    # Zibai (99)
+    (446, 99, "Jade Cleaver Mountain Splitter", "Main DPS", 210, 50, "ATK%", "Geo DMG", "CRIT Rate", "SS", "CRIT Rate > CRIT DMG > ATK% > DEF%. Expert Liyue swordsman executing high-speed Geo infused slashes scaling with elemental skill resonances."),
+
+    # Linnea (100)
+    (447, 100, "Golden Horizon Crystal Archer", "Sub-DPS", 211, 48, "ATK%", "Geo DMG", "CRIT Rate", "S+", "CRIT Rate > CRIT DMG > ATK% > ER. Deploys crystalline turrets firing off-field Geo arrows whenever active character strikes opponents."),
+
+    # Aloy (105)
+    (448, 105, "Coil Hunter Frozen Bombardment", "Sub-DPS", 111, 31, "ATK%", "Cryo DMG", "CRIT Rate", "A", "CRIT Rate > CRIT DMG > ATK% > ER. Throws Freeze Bombs scattering Chillwater Bomblets to gain Coil stacks and boost Cryo normal arrows."),
+
+    # Traveler (Electro) (111)
+    (449, 111, "Bellowing Thunder Energy Battery", "Support", 188, 36, "Energy Recharge", "Electro DMG", "CRIT Rate", "A", "ER > CRIT Rate > CRIT DMG > ATK%. Drops Abundance Amulets restoring flat energy and boosting ER up to 20% for active burst carries."),
+
+    # Traveler (Hydro) (113)
+    (450, 113, "Aquacrest Torrential Surge", "Sub-DPS", 179, 48, "HP%", "Hydro DMG", "CRIT Rate", "A", "ER > HP% > CRIT Rate > CRIT DMG. Fires Torrent Surge dewdrop bullets consuming and recovering HP via Sourcewater Droplets."),
+
+    # Ifa (115)
+    (451, 115, "Saurian Healer Wind Whisper", "Healer", 171, 53, "Energy Recharge", "Elemental Mastery", "Healing Bonus", "S", "ER > EM > HP% > CRIT Rate. Natlan saurian physician providing swirl group healing and Nightsoul party buffs."),
+
+    # Escoffier (116)
+    (452, 116, "Culinary Cryo Virtuoso", "Sub-DPS", 216, 47, "ATK%", "Cryo DMG", "CRIT Rate", "S+", "CRIT Rate > CRIT DMG > ATK% > ER. Fontaine chef executing razor-sharp Cryo culinary techniques with off-field skill damage."),
+
+    # Dahlia (117)
+    (453, 117, "Favonius Deacon Baptizer", "Support", 188, 21, "Energy Recharge", "HP%", "HP%", "A", "ER > HP% > Flat HP > CRIT Rate. Mondstadt church deacon casting protective holy water barriers and recharging team energy."),
+
+    # Skirk (118)
+    (454, 118, "Abyssal Void Swordmaster", "Main DPS", 217, 47, "ATK%", "Cryo DMG", "CRIT DMG", "SS", "CRIT DMG > CRIT Rate > ATK% > ER. Childe's enigmatic abyssal master tearing through dimensions with relentless rapid sword thrusts."),
+
+    # Wonderland Manekin (119)
+    (455, 119, "Miliastra Realm Stylist", "Main DPS", 227, 24, "ATK%", "Anemo DMG", "CRIT Rate", "S", "CRIT Rate > CRIT DMG > ATK% > EM. Customizable avatar seamlessly weaving weapon arts and whirlwind maneuvers across Teyvat."),
+
+    # Durin (120)
+    (456, 120, "Corrupted Dragon Pyre", "Main DPS", 218, 30, "ATK%", "Pyro DMG", "CRIT Rate", "SS", "CRIT Rate > CRIT DMG > EM > ATK%. Dragonspine's reincarnated dragon channeling subterranean abyssal flame into sweeping sword arcs."),
+
+    # Varka (121)
+    (457, 121, "Knight of Boreas Tempest Cleave", "Main DPS", 219, 24, "ATK%", "Anemo DMG", "CRIT Rate", "SS", "CRIT Rate > CRIT DMG > ATK% > ER. Grand Master of Favonius delivering thunderous heavy greatsword tempests knocking back entire enemy waves."),
+
+    # Nicole (122)
+    (458, 122, "Hexenzirkel Fate Guide", "Support", 220, 21, "Energy Recharge", "Pyro DMG", "CRIT Rate", "SS", "ER > EM > CRIT Rate > ATK%. Hexenzirkel seer manifesting fiery fate prophecies to augment party elemental reactions."),
+
+    # Prune (123)
+    (459, 123, "Zephyr Gale Support", "Sub-DPS", 194, 24, "Elemental Mastery", "Anemo DMG", "Elemental Mastery", "A", "EM > ER > CRIT Rate. Channels northern breezes to group foes and amplify elemental swirl reactions."),
+
+    # Lohen (124)
+    (460, 124, "Will to Win Frost Lance", "Main DPS", 221, 59, "ATK%", "Cryo DMG", "CRIT Rate", "SS", "CRIT Rate > CRIT DMG > ATK% > EM. Elite warrior converting unyielding combat determination into devastating forward Melt strikes."),
+
+    # Alyosha (125)
+    (461, 125, "Stellar-Conduct Battery Healer", "Support", 189, 21, "Energy Recharge", "Electro DMG", "CRIT Rate", "S", "ER > CRIT Rate > ATK% > EM. Off-field Electro enabler triggering Stellar-Conduct and feeding energy particles to party carries."),
+
+    # Odette (126)
+    (462, 126, "Swan Lake Stellar Frost", "Sub-DPS", 222, 59, "ATK%", "Cryo DMG", "CRIT Rate", "S+", "CRIT Rate > CRIT DMG > ATK% > ER. Glides across the battlefield unleashing crystalline swan strikes that boost party Stellar-Swirl and Conduct."),
+
+    # Vesna (127)
+    (463, 127, "Spring Breeze Whirlwind Driver", "Main DPS", 223, 60, "ATK%", "Anemo DMG", "CRIT Rate", "SS", "CRIT Rate > CRIT DMG > ATK% > EM. High-agility Anemo driver creating blooming spring gale vortices and driving Stellar-Swirl reactions."),
+
+    # Vodyanitsa (128)
+    (464, 128, "Korolevskiy Prima Donna Siren", "Healer", 224, 49, "HP%", "Hydro DMG", "Healing Bonus", "SS", "HP% > ER > Flat HP > EM. Prima donna water siren chanting melodic tides that continuously heal allies and buff team damage."),
+
+    # Mitya (129)
+    (465, 129, "Royal Energy Commission Catalyst", "Main DPS", 225, 62, "ATK%", "Electro DMG", "CRIT Rate", "SS", "CRIT Rate > CRIT DMG > ATK% > EM. Eccentric Snezhnayan researcher discharging volatile electric fields converting Superconduct into Stellar-Conduct."),
+
+    # Valeriy (130)
+    (466, 130, "Special Assignments Battalion Shield", "Shielder", 188, 33, "Energy Recharge", "HP%", "CRIT Rate", "S", "ER > HP% > CRIT Rate > Flat HP. Fatui Major deploying hardened Electro magnetic barriers to protect Mitya and absorb incoming impact."),
+
+    # Mavuika (87) - Alternative Meta Role
+    (467, 87, "Cinder City Nightsoul Support", "Support", 131, 53, "Energy Recharge", "Pyro DMG", "CRIT Rate", "SS", "ER > CRIT Rate > CRIT DMG > ATK%. Triggers Nightsoul Burst to grant 40% elemental damage bonus to all elements in the reaction party while providing off-field Pyro application."),
+
+    # Citlali (88) - Alternative Meta Role
+    (468, 88, "F2P Sacrificial Cryo Buffer", "Support", 194, 53, "Elemental Mastery", "Elemental Mastery", "Elemental Mastery", "S", "EM > ER > CRIT Rate. Budget F2P catalyst support utilizing Sacrificial Fragments for double skill deployment and teamwide Nightsoul elemental damage buffs."),
+
+    # Chasca (86) - Alternative Meta Role
+    (469, 86, "F2P Chain Breaker Soulsnatcher", "Main DPS", 185, 54, "ATK%", "Anemo DMG", "CRIT Rate", "S", "CRIT Rate > CRIT DMG > ATK% > EM. F2P craftable build utilizing Natlan's Chain Breaker to maximize ATK and loaded elemental shell damage from the air.")
 ]
 
 def write_csv(filename, header, rows):

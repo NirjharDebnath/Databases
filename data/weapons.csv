@@ -26,10 +26,10 @@ weapon_id,name,weapon_type,rarity,base_atk,sub_stat_type,sub_stat_value,is_craft
 125,Silvershower Heartstrings,Bow,5,542,HP%,66.2,0,78
 126,Lumidouce Elegy,Polearm,5,608,CRIT Rate,33.1,0,77
 127,Surf's Up,Catalyst,5,542,CRIT DMG,88.2,0,83
-128,Fang of the Mountain King,Claymore,5,608,CRIT Rate,33.1,0,84
+128,Fang of the Mountain King,Claymore,5,741,CRIT Rate,11.0,0,84
 129,Peak Patrol Song,Sword,5,542,DEF%,82.7,0,85
 130,Astral Vulture's Crimson Plumage,Bow,5,608,CRIT DMG,66.2,0,86
-131,A Thousand Blazing Suns,Claymore,5,608,CRIT Rate,33.1,0,87
+131,A Thousand Blazing Suns,Claymore,5,741,CRIT Rate,11.0,0,87
 132,Starcaller's Watch,Catalyst,5,542,Elemental Mastery,265.0,0,88
 133,Song of Broken Pines,Claymore,5,741,Physical DMG,20.7,0,7
 134,Amos' Bow,Bow,5,608,ATK%,49.6,0,22
@@ -102,3 +102,55 @@ weapon_id,name,weapon_type,rarity,base_atk,sub_stat_type,sub_stat_value,is_craft
 201,White Tassel,Polearm,3,401,CRIT Rate,23.4,0,
 202,Black Tassel,Polearm,3,354,HP%,46.9,0,
 203,Slingshot,Bow,3,354,CRIT Rate,31.2,0,
+204,Calamity Queller,Polearm,5,741,ATK%,16.5,0,27
+205,Everlasting Moonglow,Catalyst,5,608,HP%,49.6,0,44
+206,Fractured Halo,Polearm,5,608,CRIT DMG,66.2,0,92
+207,Nightweaver's Looking Glass,Catalyst,5,542,Elemental Mastery,265.0,0,93
+208,Pocztowy Demonspear,Polearm,5,674,CRIT Rate,22.1,0,94
+209,Reliquary of Truth,Catalyst,5,542,CRIT DMG,88.2,0,96
+210,Lightbearing Moonshard,Sword,5,542,CRIT DMG,88.2,0,99
+211,Golden Frostbound Oath,Bow,5,542,CRIT DMG,88.2,0,100
+212,Nocturne's Curtain Call,Catalyst,5,542,CRIT DMG,88.2,0,102
+213,A Teaspoon of Transcendence,Claymore,5,674,CRIT Rate,22.1,0,103
+214,Sunny Morning Sleep-In,Catalyst,5,542,Elemental Mastery,265.0,0,107
+215,Vivid Notions,Catalyst,5,674,CRIT DMG,44.1,0,108
+216,Symphonist of Scents,Polearm,5,608,CRIT DMG,66.2,0,116
+217,Azurelight,Sword,5,674,CRIT Rate,22.1,0,118
+218,Athame Artis,Sword,5,608,CRIT Rate,33.1,0,120
+219,Gest of the Mighty Wolf,Claymore,5,608,CRIT Rate,33.1,0,121
+220,Angelos' Heptades,Catalyst,5,741,ATK%,16.5,0,122
+221,Disaster and Remorse,Polearm,5,674,CRIT Rate,22.1,0,124
+222,Whitelake Frostfeather,Sword,5,608,CRIT DMG,66.2,0,126
+223,Beyond the Chrysalis,Sword,5,674,CRIT DMG,44.1,0,127
+224,Hymn of the Maelstrom,Catalyst,5,608,HP%,49.6,0,128
+225,Starsealed Edict,Catalyst,5,674,CRIT Rate,22.1,0,129
+226,Exaiphanes Blade,Sword,5,608,CRIT Rate,33.1,0,114
+227,Miliastra Sovereign,Sword,5,608,CRIT DMG,66.2,0,119
+228,Snow-Tombed Starsilver,Claymore,4,565,Physical DMG,34.5,1,
+229,Dragonspine Spear,Polearm,4,454,Physical DMG,69.0,1,
+230,Frostbearer,Catalyst,4,510,ATK%,41.3,1,
+231,Forest Regalia,Claymore,4,565,Energy Recharge,30.6,1,
+232,Moonpiercer,Polearm,4,565,Elemental Mastery,110.0,1,
+233,King's Squire,Bow,4,454,ATK%,55.1,1,
+234,Fruit of Fulfillment,Catalyst,4,510,Energy Recharge,45.9,1,
+235,Song of Stillness,Bow,4,510,ATK%,41.3,1,
+236,Flowing Purity,Catalyst,4,565,ATK%,27.6,1,
+237,Serenity's Call,Sword,4,454,Energy Recharge,61.3,1,
+238,Master Key,Claymore,4,454,Energy Recharge,61.3,1,
+239,Prospector's Shovel,Polearm,4,510,ATK%,41.3,1,
+240,Snare Hook,Bow,4,454,Energy Recharge,61.3,1,
+241,Blackmarrow Lantern,Catalyst,4,454,Elemental Mastery,221.0,1,
+242,Emberwell,Sword,4,510,Elemental Mastery,165.0,1,
+243,Blade of Atonement,Claymore,4,565,ATK%,27.6,1,
+244,Song of the Vigil,Polearm,4,565,Elemental Mastery,110.0,1,
+245,Covenant of Frost and Snow,Bow,4,510,DEF%,51.7,1,
+246,Echoes of the Heart,Catalyst,4,565,ATK%,27.6,1,
+247,Fleuve Cendre Ferryman,Sword,4,510,Energy Recharge,45.9,0,
+248,The Stringless,Bow,4,510,Elemental Mastery,165.0,0,
+249,Cinnabar Spindle,Sword,4,454,DEF%,69.0,0,6
+250,Mountain-Bracing Bolt,Polearm,4,565,Energy Recharge,30.6,0,
+251,Sturdy Bone,Sword,4,565,ATK%,27.6,0,
+252,Fruitful Hook,Claymore,4,565,ATK%,27.6,0,
+253,Flower-Wreathed Feathers,Bow,4,510,ATK%,41.3,0,
+254,Waveriding Whirl,Catalyst,4,454,Energy Recharge,61.3,0,
+255,Calamity of Eshu,Sword,4,510,ATK%,41.3,0,

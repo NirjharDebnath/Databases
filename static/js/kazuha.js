@@ -554,13 +554,18 @@ async function executeCurrentQuery() {
                 beginStreamingResults(event.columns);
                 resultActions.style.display = "none";
             } else if (event.type === "rows") {
+                for (let i = 0; i < event.rows.length; i++) {
+                    queryResultsCache.rows.push(event.rows[i]);
+                }
                 appendStreamingRows(event.rows);
                 statusBadge.textContent = `Receiving ${streamingRowCount.toLocaleString()} rows...`;
             } else if (event.type === "complete") {
                 completed = true;
-                finishStreamingResults(event.count);
-                statusBadge.textContent = `✓ ${event.count.toLocaleString()} rows (${event.execution_time_ms} ms)`;
-                statusBadge.className = "status-badge success";
+                finishStreamingResults(event);
+                const badgeExtra = event.truncated ? " (capped)" : "";
+                statusBadge.textContent = `✓ ${event.count.toLocaleString()} rows${badgeExtra} (${event.execution_time_ms} ms)`;
+                statusBadge.className = event.truncated ? "status-badge warning" : "status-badge success";
+                resultActions.style.display = "flex";
             } else if (event.type === "error") {
                 throw new Error(event.error);
             }
@@ -569,23 +574,26 @@ async function executeCurrentQuery() {
             throw new Error("The query stream ended before all results were received.");
         }
     } catch (err) {
-        statusBadge.textContent = err.name === "ApiError" ? "Query Error" : "Network Error";
+        statusBadge.textContent = err.name === "ApiError" ? "Query Error" : (err.message.includes("Timeout") ? "Timeout" : "Query Error");
         statusBadge.className = "status-badge error";
         resultActions.style.display = "none";
         resultsContainer.innerHTML = `
             <div class="error-banner">
-                <div class="error-title">Connection Error</div>
+                <div class="error-title">Query Execution Notice</div>
                 <div class="error-message">${escapeHtml(err.message || "Unable to contact the SQL API.")}</div>
             </div>
         `;
     }
 }
 
+const MAX_DOM_ROWS = 1000;
 let streamingTableBody = null;
 let streamingRowCount = 0;
+let renderedRowCount = 0;
 
 function beginStreamingResults(columns) {
     streamingRowCount = 0;
+    renderedRowCount = 0;
     const container = document.getElementById("results-container");
     let header = "";
     columns.forEach(col => {
@@ -606,31 +614,56 @@ function appendStreamingRows(rows) {
     if (!streamingTableBody) return;
     const fragment = document.createDocumentFragment();
     rows.forEach(row => {
-        const tr = document.createElement("tr");
-        row.forEach(value => {
-            const td = document.createElement("td");
-            if (value === null) {
-                td.innerHTML = '<span class="null-cell">NULL</span>';
-            } else {
-                td.textContent = String(value);
-            }
-            tr.appendChild(td);
-        });
-        fragment.appendChild(tr);
+        // Protect client DOM: only create real DOM nodes up to MAX_DOM_ROWS
+        if (renderedRowCount < MAX_DOM_ROWS) {
+            const tr = document.createElement("tr");
+            row.forEach(value => {
+                const td = document.createElement("td");
+                if (value === null) {
+                    td.innerHTML = '<span class="null-cell">NULL</span>';
+                } else {
+                    td.textContent = String(value);
+                }
+                tr.appendChild(td);
+            });
+            fragment.appendChild(tr);
+            renderedRowCount++;
+        }
+        streamingRowCount++;
     });
-    streamingTableBody.appendChild(fragment);
-    streamingRowCount += rows.length;
+    if (fragment.childNodes.length > 0) {
+        streamingTableBody.appendChild(fragment);
+    }
 }
 
-function finishStreamingResults(count) {
+function finishStreamingResults(event) {
+    const count = typeof event === "object" ? event.count : event;
+    const isTruncated = typeof event === "object" && event.truncated;
+    const warning = typeof event === "object" ? event.warning : null;
+
+    const container = document.getElementById("results-container");
     if (count === 0) {
-        document.getElementById("results-container").innerHTML = `
+        container.innerHTML = `
             <div class="empty-state">
                 <div class="empty-leaf">🍃</div>
                 <h3>Zero Rows Returned</h3>
                 <p>The query executed successfully, but no matching records were found.</p>
             </div>
         `;
+    } else {
+        if (isTruncated || renderedRowCount < count) {
+            const notice = document.createElement("div");
+            notice.className = "results-notice-banner";
+            let msg = "";
+            if (isTruncated) {
+                msg += `⚠️ <strong>Server Limit Reached:</strong> ${escapeHtml(warning || `Results capped at ${event.max_rows} rows.`)}<br>`;
+            }
+            if (renderedRowCount < count) {
+                msg += `Showing first <strong>${renderedRowCount.toLocaleString()}</strong> of <strong>${count.toLocaleString()}</strong> rows in browser memory. Complete data is exportable below via CSV/JSON.`;
+            }
+            notice.innerHTML = msg;
+            container.insertBefore(notice, container.firstChild);
+        }
     }
     streamingTableBody = null;
 }
