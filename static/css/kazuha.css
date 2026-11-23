@@ -456,34 +456,288 @@ kbd {
     gap: 8px;
 }
 
-.editor-wrapper {
+/* --------------------------------------------------------------------------
+   MONACO-STYLE SQL STUDIO
+   -------------------------------------------------------------------------- */
+.monaco-shell {
     position: relative;
     border-radius: var(--radius-md);
-    background: var(--bg-code);
-    border: 1px solid rgba(229, 169, 83, 0.25);
+    background: #131018;
+    border: 1px solid rgba(229, 169, 83, 0.3);
     overflow: hidden;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(229, 169, 83, 0.08);
+    display: flex;
+    flex-direction: column;
 }
 
-#sql-input {
-    width: 100%;
-    height: 180px;
+/* Query Tabs Bar */
+.editor-tabs-bar {
+    display: flex;
+    align-items: center;
+    background: #0f0c14;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 0 4px;
+    height: 38px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.editor-tabs-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.query-tabs-list {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.query-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    cursor: pointer;
+    border-top: 2px solid transparent;
+    border-bottom: 1px solid transparent;
+    user-select: none;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.query-tab:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+}
+
+.query-tab.active {
+    background: #131018;
+    color: #f8fafc;
+    border-top: 2px solid var(--autumn-gold);
+    font-weight: 600;
+    box-shadow: 0 -2px 10px rgba(229, 169, 83, 0.2);
+}
+
+.query-tab-leaf {
+    font-size: 11px;
+    color: var(--autumn-gold);
+}
+
+.query-tab.active .query-tab-leaf {
+    color: var(--maple-bright);
+}
+
+.query-tab-title {
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.query-tab-close {
+    font-size: 13px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: all 0.15s ease;
+}
+
+.query-tab-close:hover {
+    background: rgba(211, 62, 56, 0.4);
+    color: #fff;
+}
+
+.editor-tab-add {
     background: transparent;
     border: none;
-    color: #f8fafc;
-    font-family: var(--font-code);
-    font-size: 14px;
-    line-height: 1.5;
-    padding: 16px;
-    resize: vertical;
-    outline: none;
-    white-space: pre;
-    tab-size: 4;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s ease;
+    margin-left: 4px;
 }
 
-#sql-input::placeholder {
+.editor-tab-add:hover {
+    background: rgba(229, 169, 83, 0.15);
+    color: var(--autumn-gold);
+}
+
+/* Monaco Surface */
+.monaco-surface {
+    display: flex;
+    position: relative;
+    height: 240px;
+    background: #131018;
+}
+
+/* Gutter */
+.monaco-gutter {
+    width: 48px;
+    background: #0f0c14;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    user-select: none;
+    padding: 10px 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.gutter-lines {
+    display: flex;
+    flex-direction: column;
+}
+
+.gutter-line {
+    font-family: var(--font-code);
+    font-size: 12px;
+    line-height: 22px;
+    height: 22px;
+    text-align: right;
+    padding-right: 12px;
+    color: #4b4556;
+    transition: color 0.1s ease;
+}
+
+.gutter-line.active {
+    color: var(--autumn-gold);
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(229, 169, 83, 0.4);
+}
+
+/* Viewport */
+.monaco-code-viewport {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    background: #131018;
+}
+
+/* Active Line Highlight */
+.monaco-active-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 22px;
+    background: rgba(229, 169, 83, 0.04);
+    border-left: 2px solid var(--autumn-gold);
+    pointer-events: none;
+    z-index: 0;
+    transition: top 0.06s ease;
+}
+
+/* Highlight layer & Textarea common geometry */
+.monaco-highlight-layer,
+.monaco-textarea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 10px 14px;
+    border: none;
+    box-sizing: border-box;
+    font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace;
+    font-size: 13.5px;
+    line-height: 22px;
+    letter-spacing: 0px;
+    tab-size: 4;
+    white-space: pre;
+    overflow: auto;
+    word-break: normal;
+}
+
+.monaco-highlight-layer {
+    z-index: 1;
+    pointer-events: none;
+    background: transparent;
+    color: #e2e8f0;
+}
+
+.monaco-highlight-layer code {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.monaco-textarea {
+    z-index: 2;
+    background: transparent;
+    color: transparent;
+    caret-color: var(--autumn-gold);
+    resize: none;
+    outline: none;
+}
+
+.monaco-textarea::selection {
+    background: rgba(211, 62, 56, 0.35);
+}
+
+.monaco-textarea::placeholder {
     color: #555160;
     font-style: italic;
+}
+
+/* Monaco Syntax Token Palette (VS Code Dark+ & Kazuha Theme) */
+.tok-keyword   { color: #569cd6; font-weight: 600; } /* VS Code Blue */
+.tok-function  { color: #dcdcaa; }                   /* VS Code Yellow */
+.tok-table     { color: #4ec9b0; font-weight: 500; } /* Anemo Teal / Type */
+.tok-column    { color: #9cdcfe; }                   /* Variable / Column Light Blue */
+.tok-string    { color: #ce9178; }                   /* Warm String Orange */
+.tok-number    { color: #b5cea8; }                   /* Mint Number Green */
+.tok-comment   { color: #6a9955; font-style: italic; } /* Forest Green Comment */
+.tok-op        { color: #d4d4d4; }                   /* Operator */
+.tok-punct     { color: #ffd700; }                   /* Gold Bracket / Delimiter */
+.tok-ident     { color: #f1f5f9; }                   /* General Identifier */
+
+/* Monaco Status Bar */
+.monaco-status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0c0912;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 4px 14px;
+    font-size: 11px;
+    font-family: var(--font-code);
+    color: var(--text-muted);
+    user-select: none;
+}
+
+.status-bar-left,
+.status-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.engine-dot {
+    color: #2dd4bf;
+    font-size: 9px;
+}
+
+.kazuha-pill {
+    color: var(--autumn-gold);
+    font-weight: 600;
 }
 
 /* Quick Snippets Ribbon */

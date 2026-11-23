@@ -51,7 +51,7 @@
                 <span class="tab-icon">📖</span> Schema Explorer
             </button>
             <button class="tab-btn" data-tab="tab-showcase">
-                <span class="tab-icon">📜</span> Kazuha's Showcase
+                <span class="tab-icon">📜</span> Showcase
             </button>
         </nav>
 
@@ -64,11 +64,11 @@
                     <div class="card editor-card">
                         <div class="card-header">
                             <div class="card-title">
-                                <span class="leaf-dot">🍁</span> SQL Command Editor
+                                <span class="leaf-dot">🍁</span> SQL Studio
                             </div>
                             <div class="editor-actions">
-                                <span class="shortcut-tip">Run: <kbd>Ctrl+Enter</kbd> | Auto: <kbd>Ctrl+Space</kbd></span>
-                                <button id="format-btn" class="secondary-btn" title="Format query">Clean</button>
+                                <span class="shortcut-tip">Run: <kbd>Ctrl+Enter</kbd> | Tab: <kbd>4sp</kbd> | Suggest: <kbd>Ctrl+Space</kbd></span>
+                                <button id="format-btn" class="secondary-btn" title="Format query">Beautify</button>
                                 <button id="clear-btn" class="secondary-btn" title="Clear query">Clear</button>
                                 <button id="run-btn" class="run-btn">
                                     <span class="btn-icon">▶</span> Execute Query
@@ -76,9 +76,33 @@
                             </div>
                         </div>
 
-                        <!-- Editor Wrapper with VS Code-like Autocomplete -->
-                        <div class="editor-wrapper" id="editor-wrapper">
-                            <textarea id="sql-input" spellcheck="false" placeholder="-- Type your SELECT query here...
+                        <!-- Monaco-Style Editor Shell -->
+                        <div class="monaco-shell" id="monaco-shell">
+                            <!-- Query Tabs Bar -->
+                            <div class="editor-tabs-bar" id="editor-tabs-bar">
+                                <div class="query-tabs-list" id="query-tabs-list"></div>
+                                <button id="new-query-tab-btn" class="editor-tab-add" title="Create New Query Tab (Ctrl+Alt+N)">+ New Tab</button>
+                            </div>
+
+                            <!-- Editor Surface (Gutter + Code Area) -->
+                            <div class="monaco-surface" id="monaco-surface">
+                                <!-- Line Numbers Gutter -->
+                                <div class="monaco-gutter" id="monaco-gutter" aria-hidden="true">
+                                    <div class="gutter-lines" id="gutter-lines">
+                                        <div class="gutter-line active">1</div>
+                                    </div>
+                                </div>
+
+                                <!-- Code Viewport -->
+                                <div class="monaco-code-viewport" id="monaco-viewport">
+                                    <!-- Active Line Highlight Bar -->
+                                    <div class="monaco-active-line" id="monaco-active-line"></div>
+
+                                    <!-- Syntax Highlighted Display Layer -->
+                                    <pre class="monaco-highlight-layer" id="monaco-highlight-layer" aria-hidden="true"><code id="monaco-code"></code></pre>
+
+                                    <!-- Input Textarea (Transparent text, visible glowing caret) -->
+                                    <textarea id="sql-input" class="monaco-textarea" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="-- Type your SELECT query here...
 -- IntelliSense autocomplete triggers automatically as you type!
 SELECT name, vision, region, base_atk
 FROM characters
@@ -86,13 +110,30 @@ WHERE rarity = 5
 ORDER BY base_atk DESC
 LIMIT 8;"></textarea>
 
-                            <!-- Custom VS Code-style Autocomplete Dropdown (NO AI) -->
-                            <div id="autocomplete-box" class="autocomplete-box" style="display: none;">
-                                <div class="autocomplete-header">
-                                    <span id="ac-hint-text">SQL IntelliSense</span>
-                                    <span class="ac-key-tips">↑↓ Navigate · Tab Insert</span>
+                                    <!-- Custom VS Code-style Autocomplete Dropdown (NO AI) -->
+                                    <div id="autocomplete-box" class="autocomplete-box" style="display: none;">
+                                        <div class="autocomplete-header">
+                                            <span id="ac-hint-text">SQL IntelliSense</span>
+                                            <span class="ac-key-tips">↑↓ Navigate · Tab Insert</span>
+                                        </div>
+                                        <ul id="autocomplete-list" class="autocomplete-list"></ul>
+                                    </div>
                                 </div>
-                                <ul id="autocomplete-list" class="autocomplete-list"></ul>
+                            </div>
+
+                            <!-- Monaco Bottom Status Bar -->
+                            <div class="monaco-status-bar">
+                                <div class="status-bar-left">
+                                    <span class="status-pill" id="editor-pos-indicator">Ln 1, Col 1</span>
+                                    <span class="status-pill" id="editor-selection-indicator" style="display: none;">0 selected</span>
+                                    <span class="status-pill" id="editor-lines-indicator">8 lines</span>
+                                </div>
+                                <div class="status-bar-right">
+                                    <span class="status-pill">Tab: 4 spaces</span>
+                                    <span class="status-pill">UTF-8</span>
+                                    <span class="status-pill"><span class="engine-dot">●</span> SQLite 3 (ro)</span>
+                                    <span class="status-pill kazuha-pill">🍁 Kazuha Dark+</span>
+                                </div>
                             </div>
                         </div>
 

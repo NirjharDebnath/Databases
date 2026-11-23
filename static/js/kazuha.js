@@ -248,22 +248,342 @@ async function fetchShowcaseQueries() {
 }
 
 /* ==========================================================================
-   4. CLIENT-SIDE INTELLISENSE AUTOCOMPLETE (PURE JS, NO AI)
+   4. MONACO-STYLE SQL STUDIO (SYNTAX HIGHLIGHTING, TABS, GUTTER, AUTOCOMPLETE)
    ========================================================================== */
+
+// SQL Vocabulary Sets for Highlighting
+const SQL_KEYWORDS_SET = new Set([
+    "SELECT", "FROM", "WHERE", "INNER", "LEFT", "RIGHT", "FULL", "CROSS", "JOIN",
+    "ON", "GROUP", "BY", "ORDER", "HAVING", "LIMIT", "OFFSET", "WITH", "RECURSIVE",
+    "AS", "UNION", "ALL", "EXCEPT", "INTERSECT", "DISTINCT", "CASE", "WHEN", "THEN",
+    "ELSE", "END", "IS", "NULL", "NOT", "IN", "LIKE", "GLOB", "BETWEEN", "EXISTS",
+    "AND", "OR", "DESC", "ASC", "PRAGMA", "EXPLAIN", "QUERY", "PLAN", "VALUES",
+    "INSERT", "INTO", "UPDATE", "SET", "DELETE", "DROP", "ALTER", "CREATE", "TABLE",
+    "VIEW", "INDEX", "TRIGGER", "DEFAULT", "CHECK", "UNIQUE", "PRIMARY", "KEY",
+    "FOREIGN", "REFERENCES", "CASCADE", "COLLATE", "AUTOINCREMENT"
+]);
+
+const SQL_FUNCTIONS_SET = new Set([
+    "COUNT", "SUM", "AVG", "ROUND", "MIN", "MAX", "DENSE_RANK", "RANK", "ROW_NUMBER",
+    "OVER", "PARTITION", "COALESCE", "NULLIF", "SUBSTR", "LENGTH", "UPPER", "LOWER",
+    "TRIM", "LTRIM", "RTRIM", "INSTR", "CAST", "TYPEOF", "IFNULL", "TOTAL", "ABS",
+    "RANDOM", "HEX", "PRINTF", "CHAR", "UNICODE", "DATE", "TIME", "DATETIME",
+    "STRFTIME", "JULIANDAY"
+]);
+
+const SQL_TABLES_SET = new Set(["characters", "weapons", "artifact_sets", "character_builds"]);
+
+const SQL_COLUMNS_SET = new Set([
+    "character_id", "name", "rarity", "vision", "weapon_type", "region", "base_hp",
+    "base_atk", "base_def", "talent_priority", "release_patch", "weapon_id",
+    "sub_stat_type", "sub_stat_value", "is_craftable", "signature_character_id",
+    "artifact_set_id", "domain_name", "two_piece_bonus", "four_piece_bonus",
+    "build_id", "build_name", "role", "recommended_weapon_id", "recommended_artifact_id",
+    "sands_stat", "goblet_stat", "circlet_stat", "tier_rating"
+]);
+
+const SQL_TOKEN_REGEX = /(\/\*[\s\S]*?\*\/|--[^\n]*)|('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*")|(\b\d+(?:\.\d+)?\b)|(\b[a-zA-Z_][a-zA-Z0-9_]*\b)|([=!<>+\-*\/%|]+)|([(),;])/g;
+
+function highlightSQL(code) {
+    if (!code) return "";
+    let result = "";
+    let lastIndex = 0;
+    let match;
+    SQL_TOKEN_REGEX.lastIndex = 0;
+    while ((match = SQL_TOKEN_REGEX.exec(code)) !== null) {
+        if (match.index > lastIndex) {
+            result += escapeHtml(code.slice(lastIndex, match.index));
+        }
+        const [full, comment, str, num, word, op, punct] = match;
+        if (comment) {
+            result += `<span class="tok-comment">${escapeHtml(comment)}</span>`;
+        } else if (str) {
+            result += `<span class="tok-string">${escapeHtml(str)}</span>`;
+        } else if (num) {
+            result += `<span class="tok-number">${escapeHtml(num)}</span>`;
+        } else if (word) {
+            const upper = word.toUpperCase();
+            const lower = word.toLowerCase();
+            if (SQL_KEYWORDS_SET.has(upper)) {
+                result += `<span class="tok-keyword">${escapeHtml(word)}</span>`;
+            } else if (SQL_FUNCTIONS_SET.has(upper)) {
+                result += `<span class="tok-function">${escapeHtml(word)}</span>`;
+            } else if (SQL_TABLES_SET.has(lower)) {
+                result += `<span class="tok-table">${escapeHtml(word)}</span>`;
+            } else if (SQL_COLUMNS_SET.has(lower)) {
+                result += `<span class="tok-column">${escapeHtml(word)}</span>`;
+            } else {
+                result += `<span class="tok-ident">${escapeHtml(word)}</span>`;
+            }
+        } else if (op) {
+            result += `<span class="tok-op">${escapeHtml(op)}</span>`;
+        } else if (punct) {
+            result += `<span class="tok-punct">${escapeHtml(punct)}</span>`;
+        }
+        lastIndex = match.index + full.length;
+    }
+    if (lastIndex < code.length) {
+        result += escapeHtml(code.slice(lastIndex));
+    }
+    if (code.endsWith("\n")) {
+        result += " "; // Prevent pre height collapse on trailing empty line
+    }
+    return result;
+}
+
+// Query Tabs State
+let editorTabs = [
+    {
+        id: 1,
+        title: "Query 1",
+        content: `-- Type your SELECT query here...
+-- IntelliSense autocomplete triggers automatically as you type!
+SELECT name, vision, region, base_atk
+FROM characters
+WHERE rarity = 5
+ORDER BY base_atk DESC
+LIMIT 8;`
+    }
+];
+let activeEditorTabId = 1;
+let nextEditorTabId = 2;
+
+function renderEditorTabs() {
+    const list = document.getElementById("query-tabs-list");
+    if (!list) return;
+    list.innerHTML = "";
+
+    editorTabs.forEach(tab => {
+        const tabEl = document.createElement("div");
+        tabEl.className = `query-tab ${tab.id === activeEditorTabId ? "active" : ""}`;
+        tabEl.innerHTML = `
+            <span class="query-tab-leaf">🍁</span>
+            <span class="query-tab-title" title="Double-click to rename">${escapeHtml(tab.title)}</span>
+            ${editorTabs.length > 1 ? `<span class="query-tab-close" title="Close Tab">×</span>` : ""}
+        `;
+
+        // Switch Tab
+        tabEl.addEventListener("click", (e) => {
+            if (e.target.classList.contains("query-tab-close")) return;
+            switchEditorTab(tab.id);
+        });
+
+        // Close Tab
+        const closeBtn = tabEl.querySelector(".query-tab-close");
+        if (closeBtn) {
+            closeBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                closeEditorTab(tab.id);
+            });
+        }
+
+        // Rename Tab on Double Click
+        const titleEl = tabEl.querySelector(".query-tab-title");
+        titleEl.addEventListener("dblclick", (e) => {
+            e.stopPropagation();
+            const newTitle = prompt("Rename Query Tab:", tab.title);
+            if (newTitle && newTitle.trim()) {
+                tab.title = newTitle.trim();
+                renderEditorTabs();
+            }
+        });
+
+        list.appendChild(tabEl);
+    });
+}
+
+function switchEditorTab(tabId) {
+    if (tabId === activeEditorTabId) return;
+    const textarea = document.getElementById("sql-input");
+    const currentTab = editorTabs.find(t => t.id === activeEditorTabId);
+    if (currentTab) currentTab.content = textarea.value;
+
+    activeEditorTabId = tabId;
+    const targetTab = editorTabs.find(t => t.id === tabId);
+    if (targetTab) {
+        textarea.value = targetTab.content;
+    }
+    renderEditorTabs();
+    onEditorContentChanged();
+    textarea.focus();
+}
+
+function createNewEditorTab(initialContent = "", title = "") {
+    const textarea = document.getElementById("sql-input");
+    const currentTab = editorTabs.find(t => t.id === activeEditorTabId);
+    if (currentTab) currentTab.content = textarea.value;
+
+    const newId = nextEditorTabId++;
+    const newTab = {
+        id: newId,
+        title: title || `Query ${newId}`,
+        content: initialContent || `-- New Query Scratchpad\nSELECT * FROM characters LIMIT 10;\n`
+    };
+    editorTabs.push(newTab);
+    activeEditorTabId = newId;
+    textarea.value = newTab.content;
+    renderEditorTabs();
+    onEditorContentChanged();
+    textarea.focus();
+}
+
+function closeEditorTab(tabId) {
+    if (editorTabs.length <= 1) return;
+    const idx = editorTabs.findIndex(t => t.id === tabId);
+    if (idx === -1) return;
+
+    editorTabs.splice(idx, 1);
+    if (activeEditorTabId === tabId) {
+        const nextActive = editorTabs[Math.max(0, idx - 1)];
+        activeEditorTabId = nextActive.id;
+        document.getElementById("sql-input").value = nextActive.content;
+    }
+    renderEditorTabs();
+    onEditorContentChanged();
+}
+
+function onEditorContentChanged() {
+    const textarea = document.getElementById("sql-input");
+    const codeEl = document.getElementById("monaco-code");
+    if (!textarea || !codeEl) return;
+
+    const code = textarea.value;
+    
+    // 1. Update active tab memory
+    const curTab = editorTabs.find(t => t.id === activeEditorTabId);
+    if (curTab) curTab.content = code;
+
+    // 2. Syntax Highlight
+    codeEl.innerHTML = highlightSQL(code);
+
+    // 3. Update cursor, gutter, status bar
+    updateCursorStatus();
+}
+
+function updateGutter(lineCount, activeLineIndex) {
+    const gutterLines = document.getElementById("gutter-lines");
+    if (!gutterLines) return;
+
+    if (gutterLines.children.length !== lineCount) {
+        let html = "";
+        for (let i = 1; i <= lineCount; i++) {
+            html += `<div class="gutter-line ${i === activeLineIndex ? "active" : ""}" data-line="${i}">${i}</div>`;
+        }
+        gutterLines.innerHTML = html;
+    } else {
+        const children = gutterLines.children;
+        for (let i = 0; i < children.length; i++) {
+            children[i].classList.toggle("active", (i + 1) === activeLineIndex);
+        }
+    }
+}
+
+function updateActiveLineHighlight(lineNumber) {
+    const activeLineBar = document.getElementById("monaco-active-line");
+    if (!activeLineBar) return;
+    const lineHeight = 22; // Must match CSS line-height
+    const top = (lineNumber - 1) * lineHeight + 10; // 10px padding-top
+    activeLineBar.style.top = `${top}px`;
+}
+
+function updateCursorStatus() {
+    const textarea = document.getElementById("sql-input");
+    if (!textarea) return;
+
+    const val = textarea.value;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+
+    // Line and Column
+    const textUpToCursor = val.substring(0, start);
+    const lines = textUpToCursor.split("\n");
+    const lineNum = lines.length;
+    const colNum = lines[lines.length - 1].length + 1;
+
+    const posEl = document.getElementById("editor-pos-indicator");
+    if (posEl) posEl.textContent = `Ln ${lineNum}, Col ${colNum}`;
+
+    // Selection Indicator
+    const selEl = document.getElementById("editor-selection-indicator");
+    if (selEl) {
+        if (start !== end) {
+            selEl.textContent = `(${Math.abs(end - start)} selected)`;
+            selEl.style.display = "inline";
+        } else {
+            selEl.style.display = "none";
+        }
+    }
+
+    // Total Lines Indicator
+    const totalLines = val.split("\n").length;
+    const linesEl = document.getElementById("editor-lines-indicator");
+    if (linesEl) linesEl.textContent = `${totalLines} line${totalLines === 1 ? "" : "s"}`;
+
+    // Sync Gutter & Active Line
+    updateGutter(totalLines, lineNum);
+    updateActiveLineHighlight(lineNum);
+}
+
+function setEditorContent(sql) {
+    const textarea = document.getElementById("sql-input");
+    if (!textarea) return;
+    textarea.value = sql;
+    onEditorContentChanged();
+}
+
 function initSqlEditorAutocomplete() {
     const textarea = document.getElementById("sql-input");
     const acBox = document.getElementById("autocomplete-box");
     const acList = document.getElementById("autocomplete-list");
+    const highlightLayer = document.getElementById("monaco-highlight-layer");
+    const gutter = document.getElementById("monaco-gutter");
+    const addTabBtn = document.getElementById("new-query-tab-btn");
+
+    if (addTabBtn) {
+        addTabBtn.addEventListener("click", () => createNewEditorTab());
+    }
+
+    renderEditorTabs();
+    onEditorContentChanged();
+
+    // Synchronize scrolling between textarea, highlight layer, and gutter
+    textarea.addEventListener("scroll", () => {
+        if (highlightLayer) {
+            highlightLayer.scrollTop = textarea.scrollTop;
+            highlightLayer.scrollLeft = textarea.scrollLeft;
+        }
+        if (gutter) {
+            gutter.scrollTop = textarea.scrollTop;
+        }
+    });
 
     textarea.addEventListener("input", handleEditorInput);
-    textarea.addEventListener("keydown", handleEditorKeydown);
-    textarea.addEventListener("click", () => hideAutocomplete());
+    textarea.addEventListener("keyup", handleEditorKeyup);
+    textarea.addEventListener("click", () => {
+        hideAutocomplete();
+        updateCursorStatus();
+    });
+    textarea.addEventListener("select", updateCursorStatus);
+
+    function handleEditorInput() {
+        onEditorContentChanged();
+        const { token } = getCaretContext();
+        if (token.length >= 1) {
+            showAutocomplete(token);
+        } else {
+            hideAutocomplete();
+        }
+    }
+
+    function handleEditorKeyup(e) {
+        if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) {
+            updateCursorStatus();
+        }
+    }
 
     function getCaretContext() {
         const pos = textarea.selectionStart;
         const text = textarea.value.substring(0, pos);
-        
-        // Extract word/token directly before cursor (supports characters like alphanumeric and dot)
         const match = text.match(/([a-zA-Z0-9_\.]+)$/);
         return {
             token: match ? match[1] : "",
@@ -281,13 +601,11 @@ function initSqlEditorAutocomplete() {
             const qualifier = parts[0].toLowerCase();
             const colPrefix = parts.slice(1).join(".").toLowerCase();
 
-            // Find matching table in schema
             let matchedTable = null;
             if (schemaCache) {
                 if (schemaCache[qualifier]) {
                     matchedTable = qualifier;
                 } else {
-                    // Check table alias shorthand (c -> characters, w -> weapons, a -> artifact_sets, cb -> character_builds)
                     const aliasMap = {
                         "c": "characters",
                         "w": "weapons",
@@ -313,13 +631,9 @@ function initSqlEditorAutocomplete() {
         }
 
         // Standard candidates pool
-        // 1. Keywords
         SQL_KEYWORDS.forEach(kw => pool.push({ text: kw, insertText: kw + " ", kind: "keyword", detail: "Keyword" }));
-        
-        // 2. Functions
         SQL_FUNCTIONS.forEach(fn => pool.push({ text: fn, insertText: fn, kind: "function", detail: "Function" }));
 
-        // 3. Tables & Columns from Schema
         if (schemaCache) {
             Object.keys(schemaCache).forEach(tbl => {
                 pool.push({ text: tbl, insertText: tbl + " ", kind: "table", detail: `Table (${schemaCache[tbl].row_count} rows)` });
@@ -331,22 +645,12 @@ function initSqlEditorAutocomplete() {
 
         const tLower = token.toLowerCase();
         return pool.filter(item => item.text.toLowerCase().includes(tLower)).sort((a, b) => {
-            // Rank exact prefix matches higher
             const aPrefix = a.text.toLowerCase().startsWith(tLower);
             const bPrefix = b.text.toLowerCase().startsWith(tLower);
             if (aPrefix && !bPrefix) return -1;
             if (!aPrefix && bPrefix) return 1;
             return a.text.localeCompare(b.text);
         });
-    }
-
-    function handleEditorInput() {
-        const { token } = getCaretContext();
-        if (token.length >= 1) {
-            showAutocomplete(token);
-        } else {
-            hideAutocomplete();
-        }
     }
 
     function showAutocomplete(token) {
@@ -359,9 +663,8 @@ function initSqlEditorAutocomplete() {
         activeAutocompleteIndex = 0;
         renderAutocompleteList();
 
-        // Position autocomplete dropdown neatly under current line
         const caretCoords = getCaretCoordinates(textarea, textarea.selectionStart);
-        acBox.style.left = `${Math.min(caretCoords.left + 16, textarea.clientWidth - 300)}px`;
+        acBox.style.left = `${Math.min(caretCoords.left + 14, textarea.clientWidth - 320)}px`;
         acBox.style.top = `${caretCoords.top + 24}px`;
         acBox.style.display = "flex";
     }
@@ -394,15 +697,29 @@ function initSqlEditorAutocomplete() {
         });
     }
 
-    function handleEditorKeydown(e) {
-        // Ctrl+Enter to Run
+    textarea.addEventListener("keydown", (e) => {
+        // 1. Run Query: Ctrl+Enter or Cmd+Enter
         if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
             e.preventDefault();
             executeCurrentQuery();
             return;
         }
 
-        // Ctrl+Space to manually trigger autocomplete
+        // 2. New Tab: Ctrl+Alt+N
+        if ((e.ctrlKey || e.metaKey) && e.altKey && (e.key === "n" || e.key === "N")) {
+            e.preventDefault();
+            createNewEditorTab();
+            return;
+        }
+
+        // 3. Toggle Comment: Ctrl+/ or Cmd+/
+        if ((e.ctrlKey || e.metaKey) && e.key === "/") {
+            e.preventDefault();
+            toggleComment();
+            return;
+        }
+
+        // 4. Manual Autocomplete trigger: Ctrl+Space
         if ((e.ctrlKey || e.metaKey) && e.key === " ") {
             e.preventDefault();
             const { token } = getCaretContext();
@@ -410,6 +727,7 @@ function initSqlEditorAutocomplete() {
             return;
         }
 
+        // 5. Autocomplete Navigation when open
         if (acBox.style.display !== "none") {
             if (e.key === "ArrowDown") {
                 e.preventDefault();
@@ -435,6 +753,160 @@ function initSqlEditorAutocomplete() {
                 return;
             }
         }
+
+        // 6. TAB KEY INDENTATION & UNINDENTATION (4 Spaces)
+        if (e.key === "Tab") {
+            e.preventDefault();
+            handleTabIndentation(e.shiftKey);
+            return;
+        }
+
+        // 7. ENTER KEY AUTO-INDENT
+        if (e.key === "Enter" && !e.ctrlKey && !e.metaKey && acBox.style.display === "none") {
+            e.preventDefault();
+            handleEnterAutoIndent();
+            return;
+        }
+
+        // 8. AUTO-CLOSE BRACKETS & QUOTES
+        const PAIRS = { "(": ")", "[": "]", "{": "}", "'": "'", '"': '"' };
+        if (PAIRS[e.key] && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const val = textarea.value;
+            if (start !== end) {
+                e.preventDefault();
+                const selected = val.substring(start, end);
+                textarea.setRangeText(e.key + selected + PAIRS[e.key], start, end, "end");
+                textarea.selectionStart = start + 1;
+                textarea.selectionEnd = end + 1;
+                onEditorContentChanged();
+                return;
+            } else {
+                if (val[start] === e.key && (e.key === "'" || e.key === '"')) {
+                    e.preventDefault();
+                    textarea.selectionStart = textarea.selectionEnd = start + 1;
+                    updateCursorStatus();
+                    return;
+                }
+                e.preventDefault();
+                textarea.setRangeText(e.key + PAIRS[e.key], start, end, "end");
+                textarea.selectionStart = textarea.selectionEnd = start + 1;
+                onEditorContentChanged();
+                return;
+            }
+        }
+
+        // 9. BACKSPACE PAIR DELETION
+        if (e.key === "Backspace" && textarea.selectionStart === textarea.selectionEnd) {
+            const pos = textarea.selectionStart;
+            const val = textarea.value;
+            const prevChar = val[pos - 1];
+            const nextChar = val[pos];
+            if (
+                (prevChar === "(" && nextChar === ")") ||
+                (prevChar === "[" && nextChar === "]") ||
+                (prevChar === "{" && nextChar === "}") ||
+                (prevChar === "'" && nextChar === "'") ||
+                (prevChar === '"' && nextChar === '"')
+            ) {
+                e.preventDefault();
+                textarea.setRangeText("", pos - 1, pos + 1, "end");
+                onEditorContentChanged();
+                return;
+            }
+        }
+    });
+
+    function handleTabIndentation(isShift) {
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const val = textarea.value;
+
+        if (start === end) {
+            if (isShift) {
+                // Unindent current line
+                const lineStart = val.lastIndexOf("\n", start - 1) + 1;
+                const linePrefix = val.substring(lineStart, lineStart + 4);
+                let removeCount = 0;
+                while (removeCount < 4 && linePrefix[removeCount] === " ") {
+                    removeCount++;
+                }
+                if (removeCount > 0) {
+                    textarea.setRangeText("", lineStart, lineStart + removeCount, "end");
+                    textarea.selectionStart = textarea.selectionEnd = Math.max(lineStart, start - removeCount);
+                }
+            } else {
+                // Insert 4 spaces at cursor
+                textarea.setRangeText("    ", start, end, "end");
+            }
+        } else {
+            // Multi-line selection indent/unindent
+            const lineStart = val.lastIndexOf("\n", start - 1) + 1;
+            let lineEnd = val.indexOf("\n", end);
+            if (lineEnd === -1) lineEnd = val.length;
+
+            const selectedText = val.substring(lineStart, lineEnd);
+            const lines = selectedText.split("\n");
+
+            if (isShift) {
+                const unindented = lines.map(l => {
+                    let c = 0;
+                    while (c < 4 && l[c] === " ") c++;
+                    return l.substring(c);
+                });
+                const repl = unindented.join("\n");
+                textarea.setRangeText(repl, lineStart, lineEnd, "select");
+            } else {
+                const indented = lines.map(l => "    " + l);
+                const repl = indented.join("\n");
+                textarea.setRangeText(repl, lineStart, lineEnd, "select");
+            }
+        }
+        onEditorContentChanged();
+    }
+
+    function handleEnterAutoIndent() {
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const val = textarea.value;
+
+        const lineStart = val.lastIndexOf("\n", start - 1) + 1;
+        const currentLine = val.substring(lineStart, start);
+        const match = currentLine.match(/^[ \t]+/);
+        let indent = match ? match[0] : "";
+
+        if (currentLine.trim().endsWith("(") || currentLine.trim().endsWith("[")) {
+            indent += "    ";
+        }
+
+        textarea.setRangeText("\n" + indent, start, end, "end");
+        onEditorContentChanged();
+    }
+
+    function toggleComment() {
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const val = textarea.value;
+
+        const lineStart = val.lastIndexOf("\n", start - 1) + 1;
+        let lineEnd = val.indexOf("\n", end);
+        if (lineEnd === -1) lineEnd = val.length;
+
+        const lines = val.substring(lineStart, lineEnd).split("\n");
+        const allCommented = lines.every(l => l.trimStart().startsWith("--"));
+
+        const toggled = lines.map(l => {
+            if (allCommented) {
+                return l.replace(/^(\s*)--\s?/, "$1");
+            } else {
+                return l.replace(/^(\s*)/, "$1-- ");
+            }
+        });
+
+        const repl = toggled.join("\n");
+        textarea.setRangeText(repl, lineStart, lineEnd, "select");
+        onEditorContentChanged();
     }
 
     function updateActiveAutocompleteItem() {
@@ -450,10 +922,8 @@ function initSqlEditorAutocomplete() {
     function insertSelectedCandidate(candidate) {
         if (!candidate) return;
         const { token, startPos, endPos } = getCaretContext();
-
         let textToInsert = candidate.insertText || candidate.text;
         
-        // If token had qualifier dot, insert only after dot
         if (token.includes(".")) {
             const dotIdx = token.lastIndexOf(".");
             const realStart = startPos + dotIdx + 1;
@@ -465,6 +935,7 @@ function initSqlEditorAutocomplete() {
         }
 
         hideAutocomplete();
+        onEditorContentChanged();
         textarea.focus();
     }
 
@@ -472,16 +943,14 @@ function initSqlEditorAutocomplete() {
         acBox.style.display = "none";
     }
 
-    // Helper to estimate cursor coordinates inside textarea
     function getCaretCoordinates(element, position) {
         const text = element.value.substring(0, position);
         const lines = text.split("\n");
         const lineNumber = lines.length;
         const currentLine = lines[lines.length - 1];
         
-        // Character width ~8.4px at 14px Fira Code, line height 21px
-        const left = Math.min(currentLine.length * 8.4 + 16, element.clientWidth - 200);
-        const top = Math.min((lineNumber - 1) * 21 + 16, element.clientHeight - 40);
+        const left = Math.min(currentLine.length * 8.1 + 14, element.clientWidth - 320);
+        const top = Math.min((lineNumber - 1) * 22 + 10, element.clientHeight - 40);
         return { left, top };
     }
 }
@@ -498,18 +967,43 @@ function initQueryExecution() {
 
     runBtn.addEventListener("click", executeCurrentQuery);
     clearBtn.addEventListener("click", () => {
-        sqlInput.value = "";
+        setEditorContent("");
         sqlInput.focus();
     });
+
     formatBtn.addEventListener("click", () => {
-        // Simple beautifier for SQL
-        let val = sqlInput.value.trim();
-        const keywords = ["SELECT", "FROM", "WHERE", "INNER JOIN", "LEFT JOIN", "JOIN", "GROUP BY", "ORDER BY", "HAVING", "LIMIT", "WITH"];
-        keywords.forEach(kw => {
-            const re = new RegExp(`\\b${kw}\\b`, "gi");
-            val = val.replace(re, `\n${kw}`);
+        let code = sqlInput.value.trim();
+        if (!code) return;
+
+        // Structured SQL Beautifier with 4-space indentation
+        const clauses = ["SELECT", "FROM", "WHERE", "INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "CROSS JOIN", "JOIN", "GROUP BY", "ORDER BY", "HAVING", "LIMIT", "OFFSET", "WITH"];
+        clauses.forEach(cl => {
+            const regex = new RegExp(`\\b${cl}\\b`, "gi");
+            code = code.replace(regex, `\n${cl.toUpperCase()}`);
         });
-        sqlInput.value = val.trim();
+
+        const lines = code.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+        let formatted = "";
+        let inClause = false;
+
+        lines.forEach(line => {
+            const upper = line.toUpperCase();
+            if (
+                upper.startsWith("SELECT") || upper.startsWith("FROM") ||
+                upper.startsWith("WHERE") || upper.startsWith("GROUP BY") ||
+                upper.startsWith("ORDER BY") || upper.startsWith("HAVING") ||
+                upper.startsWith("LIMIT") || upper.startsWith("WITH") ||
+                upper.startsWith("JOIN") || upper.startsWith("INNER JOIN") ||
+                upper.startsWith("LEFT JOIN")
+            ) {
+                inClause = false;
+                formatted += line + "\n";
+            } else {
+                formatted += "    " + line + "\n";
+            }
+        });
+
+        setEditorContent(formatted.trim());
     });
 
     filterInput.addEventListener("input", () => {
@@ -808,7 +1302,7 @@ function renderSchemaExplorer() {
         card.querySelector(".preview-btn").addEventListener("click", (e) => {
             e.stopPropagation();
             const sql = `SELECT * FROM ${tableName} LIMIT 10;`;
-            document.getElementById("sql-input").value = sql;
+            setEditorContent(sql);
             // Switch to console tab
             document.querySelector('[data-tab="tab-query"]').click();
             executeCurrentQuery();
@@ -860,7 +1354,7 @@ function renderShowcaseCards(samples) {
         `;
 
         card.querySelector(".showcase-load-btn").addEventListener("click", () => {
-            document.getElementById("sql-input").value = item.query;
+            setEditorContent(item.query);
             document.querySelector('[data-tab="tab-query"]').click();
             executeCurrentQuery();
         });
@@ -876,9 +1370,8 @@ function initSnippetsRibbon() {
     document.querySelectorAll(".snippet-tag").forEach(tag => {
         tag.addEventListener("click", () => {
             const snippet = tag.getAttribute("data-insert");
-            const textarea = document.getElementById("sql-input");
             if (snippet.startsWith("SELECT")) {
-                textarea.value = snippet;
+                setEditorContent(snippet);
                 executeCurrentQuery();
             } else {
                 insertTextIntoEditor(" " + snippet + " ");
@@ -893,6 +1386,7 @@ function insertTextIntoEditor(text) {
     const end = textarea.selectionEnd;
     textarea.value = textarea.value.substring(0, start) + text + textarea.value.substring(end);
     textarea.selectionStart = textarea.selectionEnd = start + text.length;
+    onEditorContentChanged();
     textarea.focus();
 }
 
